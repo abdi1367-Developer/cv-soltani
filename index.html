@@ -1,27 +1,13 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl" data-theme="dark">
+<html lang="en" dir="ltr" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hadiyeh Soltani | حدیثه سلطانی</title>
+  <title>Haditheh Soltani | حدیثه سلطانی</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Vazirmatn:wght@300;400;600;800&display=swap" rel="stylesheet">
   
   <style>
     :root {
-      --bg: #09090b;
-      --surface: #18181b;
-      --surface-hover: #27272a;
-      --text-main: #f4f4f5;
-      --text-muted: #a1a1aa;
-      --accent: #94a3b8;
-      --border: #27272a;
-      
-      --font-fa: 'Vazirmatn', sans-serif;
-      --font-en: 'Inter', sans-serif;
-      --radius: 12px;
-    }
-
-    [data-theme="light"] {
       --bg: #fafafa;
       --surface: #ffffff;
       --surface-hover: #f4f4f5;
@@ -29,6 +15,20 @@
       --text-muted: #52525b;
       --accent: #475569;
       --border: #e4e4e7;
+      
+      --font-fa: 'Vazirmatn', sans-serif;
+      --font-en: 'Inter', sans-serif;
+      --radius: 12px;
+    }
+
+    [data-theme="dark"] {
+      --bg: #09090b;
+      --surface: #18181b;
+      --surface-hover: #27272a;
+      --text-main: #f4f4f5;
+      --text-muted: #a1a1aa;
+      --accent: #94a3b8;
+      --border: #27272a;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -37,13 +37,13 @@
     body {
       background-color: var(--bg);
       color: var(--text-main);
-      font-family: var(--font-fa);
+      font-family: var(--font-en);
       transition: background-color 0.4s ease, color 0.4s ease;
       overflow-x: hidden;
       min-height: 100vh;
     }
 
-    [lang="en"] body { font-family: var(--font-en); }
+    [lang="fa"] body { font-family: var(--font-fa); }
 
     /* === Controls === */
     .controls {
@@ -56,42 +56,42 @@
     }
 
     .btn-icon {
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #fff;
-      width: 42px;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      color: #000;
       height: 42px;
-      border-radius: 50%;
+      padding: 0 16px;
+      border-radius: 50px;
       display: grid;
       place-items: center;
       cursor: pointer;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 600;
       transition: all 0.3s ease;
       backdrop-filter: blur(10px);
     }
-    
-    [data-theme="light"] .btn-icon {
-      background: rgba(255, 255, 255, 0.8);
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      color: #000;
+
+    [data-theme="dark"] .btn-icon {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
     }
 
-    .btn-icon:hover { transform: scale(1.1); }
+    .btn-icon:hover { transform: scale(1.05); }
 
     /* === Views === */
     .view-section { display: none; width: 100%; min-height: 100vh; }
     .view-section.active { display: block; animation: fadeIn 0.5s ease; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-    /* === 1. LANDING PAGE (16:9 Fullscreen) === */
+    /* === 1. LANDING PAGE === */
     .landing-screen {
       position: relative;
       width: 100vw;
       height: 100vh;
       background-image: url('landing.jpg');
       background-size: cover;
-      background-position: center top; /* Focus on face/desk */
+      background-position: center top;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
@@ -178,18 +178,30 @@
     .landing-footer a:hover { color: #fff; }
 
     /* === 2. RESUME PAGE === */
-    .resume-wrapper {
+    /* Sticky Header Wrapper */
+    .sticky-header-wrapper {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+
+    .resume-container {
       width: 100%;
-      max-width: 100%; /* Uses full width edge-to-edge */
+      max-width: 100%; /* Full width 16:9 */
       margin: 0 auto;
-      padding: 80px 5vw 60px; /* 5vw padding to breathe but stretch */
+      padding: 20px 4vw; /* Full width edge-to-edge padding */
     }
 
     .resume-top-nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
 
     .back-btn, .print-btn {
@@ -197,9 +209,10 @@
       border: 1px solid var(--border);
       color: var(--text-main);
       cursor: pointer;
-      padding: 10px 20px;
+      padding: 8px 16px;
       border-radius: 8px;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
+      font-weight: 500;
       transition: all 0.3s;
       font-family: inherit;
       display: flex;
@@ -211,67 +224,76 @@
     .resume-header {
       display: flex;
       align-items: center;
-      gap: 30px;
-      margin-bottom: 40px;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 30px;
+      gap: 24px;
+      padding-bottom: 20px;
     }
 
     .resume-avatar {
-      width: 140px;
-      height: 140px;
-      border-radius: 24px;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
       object-fit: cover;
       border: 2px solid var(--border);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
-    .resume-title h1 { font-size: 2.6rem; margin-bottom: 8px; letter-spacing: -0.02em; }
-    .resume-title p { color: var(--text-muted); font-size: 1.1rem; line-height: 1.6; }
+    .resume-title h1 { font-size: 2rem; margin-bottom: 4px; letter-spacing: -0.02em; }
+    .resume-title p { color: var(--text-muted); font-size: 0.95rem; }
 
-    /* Layout Switcher CSS */
+    /* Resume Content Grid */
+    .resume-content-area {
+      padding: 30px 4vw 60px;
+    }
+
     .resume-grid {
       transition: all 0.4s ease;
+      width: 100%;
     }
     
-    /* Default: 1 Column */
+    /* 1 Column - Full Width */
     .resume-grid.layout-1 {
       display: flex;
       flex-direction: column;
       gap: 24px;
-      max-width: 1000px;
-      margin: 0 auto;
     }
 
-    /* Option: 2 Columns */
+    /* 2 Columns - Masonry (No gaps) */
     .resume-grid.layout-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
+      column-count: 2;
+      column-gap: 24px;
     }
 
-    /* Option: 3 Columns */
+    /* 3 Columns - Masonry (No gaps) */
     .resume-grid.layout-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
+      column-count: 3;
+      column-gap: 24px;
     }
 
+    /* Section Block */
     .resume-section {
       background: var(--surface);
-      padding: 28px;
+      padding: 24px;
       border-radius: var(--radius);
       border: 1px solid var(--border);
-      box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-      height: fit-content;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+      break-inside: avoid; /* Prevents breaking inside columns */
+      margin-bottom: 24px;
+      display: inline-block; /* Required for column-count to prevent gaps */
+      width: 100%;
+    }
+    
+    /* Remove margin bottom for single column layout */
+    .resume-grid.layout-1 .resume-section {
+      margin-bottom: 0;
+      display: block;
     }
 
     .section-title {
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
       color: var(--text-main);
       border-bottom: 2px solid var(--accent);
       padding-bottom: 8px;
@@ -285,7 +307,7 @@
 
     .motivation-box p {
       text-align: justify;
-      line-height: 1.9;
+      line-height: 1.8;
       margin-bottom: 16px;
       color: var(--text-muted);
       font-size: 0.95rem;
@@ -305,45 +327,45 @@
       gap: 10px;
     }
 
-    .item-title { font-weight: 700; font-size: 1.05rem; color: var(--text-main); }
+    .item-title { font-weight: 700; font-size: 1rem; color: var(--text-main); }
     .item-date { font-size: 0.85rem; color: var(--text-muted); font-family: var(--font-en); }
-    .item-subtitle { font-size: 0.95rem; color: var(--accent); margin-bottom: 8px; font-weight: 500; }
+    .item-subtitle { font-size: 0.9rem; color: var(--accent); margin-bottom: 8px; font-weight: 500; }
     
-    .item-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.8; padding-inline-start: 20px; margin: 0; text-align: justify; }
+    .item-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; padding-inline-start: 18px; margin: 0; text-align: justify; }
     .item-desc li { margin-bottom: 6px; }
 
     .info-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 15px;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
     }
-    .info-grid span { color: var(--text-muted); font-size: 0.85rem; display: block; margin-bottom: 4px; }
+    .info-grid span { color: var(--text-muted); font-size: 0.8rem; display: block; margin-bottom: 4px; }
     .info-grid strong { color: var(--text-main); font-weight: 600; }
 
     /* Skills & Languages */
-    .skill-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .skill-item { display: flex; justify-content: space-between; font-size: 0.9rem; border-bottom: 1px dashed var(--border); padding-bottom: 4px;}
+    .skill-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .skill-item { display: flex; justify-content: space-between; font-size: 0.85rem; border-bottom: 1px dashed var(--border); padding-bottom: 4px;}
     .skill-name { color: var(--text-main); font-weight: 500; }
-    .skill-level { color: var(--text-muted); font-size: 0.85rem; }
+    .skill-level { color: var(--text-muted); font-size: 0.8rem; }
 
     /* Glass Stickers */
     .glass-stickers { display: flex; flex-wrap: wrap; gap: 10px; }
     .glass-sticker {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.03);
+      border: 1px solid rgba(0, 0, 0, 0.08);
       backdrop-filter: blur(8px);
-      padding: 10px 16px;
+      padding: 8px 14px;
       border-radius: 50px;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       display: flex;
       align-items: center;
       gap: 8px;
       transition: all 0.3s ease;
     }
-    [data-theme="light"] .glass-sticker {
-      background: rgba(0, 0, 0, 0.03);
-      border: 1px solid rgba(0, 0, 0, 0.08);
+    [data-theme="dark"] .glass-sticker {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     /* Recommendations */
@@ -365,8 +387,12 @@
       font-family: serif;
       line-height: 1;
     }
+    [dir="rtl"] .recommendation-card::before {
+      right: auto;
+      left: 15px;
+    }
     .rec-text {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       line-height: 1.8;
       color: var(--text-muted);
       font-style: italic;
@@ -379,17 +405,17 @@
       border-top: 1px solid var(--border);
       padding-top: 10px;
     }
-    .rec-name { font-weight: 700; color: var(--text-main); font-size: 0.95rem; }
-    .rec-title { font-size: 0.85rem; color: var(--accent); }
+    .rec-name { font-weight: 700; color: var(--text-main); font-size: 0.9rem; }
+    .rec-title { font-size: 0.8rem; color: var(--accent); }
 
     .ref-btn {
       display: inline-block;
       background: var(--accent);
-      color: var(--bg);
+      color: var(--surface);
       padding: 10px 20px;
       border-radius: 8px;
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 600;
       margin-top: 10px;
       transition: opacity 0.3s;
@@ -397,13 +423,13 @@
     .ref-btn:hover { opacity: 0.8; }
 
     /* === 3. MOBILE RESPONSIVE === */
-    @media (max-width: 900px) {
-      .resume-grid.layout-2, .resume-grid.layout-3 { grid-template-columns: 1fr; }
+    @media (max-width: 1024px) {
+      .resume-grid.layout-3 { column-count: 2; }
     }
 
     @media (max-width: 768px) {
-      .resume-wrapper { padding: 80px 20px 40px; }
-      .resume-header { flex-direction: column; text-align: center; gap: 20px; }
+      .resume-grid.layout-2, .resume-grid.layout-3 { column-count: 1; }
+      .resume-header { flex-direction: column; text-align: center; gap: 15px; }
       .landing-actions { flex-direction: column; margin-bottom: 30px; }
       .btn-hero { width: 100%; }
       .landing-footer p { flex-direction: column; gap: 10px; }
@@ -411,7 +437,7 @@
       .info-grid { grid-template-columns: 1fr; }
     }
 
-    /* === 4. PRINT LAYOUT (Exactly 3 Pages, Fully Justified) === */
+    /* === 4. PRINT LAYOUT (Strictly 3 Pages, Justified) === */
     @media print {
       @page { size: A4; margin: 12mm; }
       
@@ -428,11 +454,20 @@
       body { background: white !important; color: black !important; font-size: 9pt; }
       .controls, .resume-top-nav, .landing-actions, .ref-btn { display: none !important; }
       
-      .resume-wrapper { padding: 0; max-width: 100%; width: 100%; }
-      .resume-header { margin-bottom: 15px; padding-bottom: 10px; flex-direction: row; text-align: left; align-items: center; }
-      .resume-avatar { width: 80px; height: 80px; border-radius: 50%; }
+      .sticky-header-wrapper {
+        position: static;
+        background: transparent;
+        border-bottom: none;
+        backdrop-filter: none;
+      }
+
+      .resume-container { padding: 0; }
+      .resume-content-area { padding: 0; }
+      
+      .resume-header { margin-bottom: 15px; padding-bottom: 10px; flex-direction: row; text-align: left; border-bottom: 1px solid #000; }
+      .resume-avatar { width: 70px; height: 70px; }
       .resume-title h1 { font-size: 18pt; }
-      .resume-title p { font-size: 11pt; }
+      .resume-title p { font-size: 10pt; }
 
       /* Force 2 Column Layout for Print to save space */
       .resume-grid {
@@ -449,6 +484,8 @@
         border: none;
         background: transparent;
         box-shadow: none;
+        display: inline-block;
+        width: 100%;
       }
 
       .section-title {
@@ -461,7 +498,7 @@
         text-align: justify !important;
         text-justify: inter-word;
         line-height: 1.4;
-        font-size: 9pt;
+        font-size: 8.5pt;
       }
 
       .item-desc { padding-inline-start: 12px; }
@@ -471,15 +508,15 @@
       .glass-sticker { 
         border: 1px solid #000 !important; 
         padding: 2px 6px; 
-        font-size: 8.5pt; 
+        font-size: 8pt; 
         background: none !important; 
         border-radius: 4px;
       }
 
-      /* Force Motivation section to break to new page if needed, or span all columns */
+      /* Force Motivation section to new page */
       .motivation-section {
         column-span: all;
-        break-before: page; /* Force exact page 3 start */
+        break-before: page;
         page-break-before: always;
         padding-top: 20px;
       }
@@ -490,7 +527,7 @@
         border: 1px solid #ccc;
         padding: 10px;
       }
-      .rec-text { font-size: 8.5pt; }
+      .rec-text { font-size: 8pt; }
     }
   </style>
 </head>
@@ -498,10 +535,9 @@
 
   <!-- Controls -->
   <div class="controls no-print">
-    <button class="btn-icon" onclick="toggleLang()" id="langBtn">EN</button>
-    <button class="btn-icon" onclick="toggleTheme()" id="themeBtn">☀️</button>
-    <button class="btn-icon" onclick="window.print()" title="پرینت">🖨️</button>
-    <button class="btn-icon" onclick="cycleLayout()" title="تغییر چیدمان">📑</button>
+    <button class="btn-icon" onclick="toggleLang()" id="langBtn">FA</button>
+    <button class="btn-icon" onclick="toggleTheme()" id="themeBtn">🌙</button>
+    <button class="btn-icon" onclick="cycleLayout()" id="layoutBtn">1 Col</button>
   </div>
 
   <!-- 1. LANDING PAGE -->
@@ -511,14 +547,14 @@
       <div class="landing-content">
         
         <div class="landing-actions">
-          <button class="btn-hero" onclick="openResume('academic')" id="btn-academic">رزومه آکادمیک</button>
-          <button class="btn-hero" onclick="openResume('industry')" id="btn-industry">رزومه صنعت</button>
+          <button class="btn-hero" onclick="openResume('academic')" id="btn-academic">Academic CV</button>
+          <button class="btn-hero" onclick="openResume('industry')" id="btn-industry">Industry CV</button>
         </div>
 
         <div class="landing-footer">
-          <h1 id="l-name">حدیثه سلطانی</h1>
+          <h1 id="l-name">Haditheh Soltani</h1>
           <p>
-            <a href="tel:+989391486852" id="l-phone">۰۹۳۹۱۴۸۶۸۵۲</a>
+            <a href="tel:+989391486852" id="l-phone">+98 939 148 6852</a>
             <span>|</span>
             <a href="mailto:haditheh97@gmail.com" id="l-email">haditheh97@gmail.com</a>
           </p>
@@ -530,70 +566,52 @@
 
   <!-- 2. RESUME VIEW -->
   <section id="resumeView" class="view-section">
-    <div class="resume-wrapper">
-      
-      <div class="resume-top-nav no-print">
-        <button class="back-btn" onclick="goHome()" id="btn-back">← بازگشت</button>
-        <button class="print-btn" onclick="window.print()" id="btn-print">🖨️ پرینت رزومه (۳ صفحه)</button>
-      </div>
-
-      <header class="resume-header">
-        <img src="" id="resumeAvatar" class="resume-avatar" alt="Avatar">
-        <div class="resume-title">
-          <h1 id="r-name">حدیثه سلطانی</h1>
-          <p id="r-title">کارشناس ارشد مهندسی صنایع | کارشناس مهندسی شهرسازی</p>
+    
+    <!-- Sticky Header -->
+    <div class="sticky-header-wrapper">
+      <div class="resume-container">
+        <div class="resume-top-nav no-print">
+          <button class="back-btn" onclick="goHome()" id="btn-back">← Back</button>
+          <button class="print-btn" onclick="window.print()" id="btn-print">🖨️ Print CV</button>
         </div>
-      </header>
 
-      <!-- Default class is layout-1 (Single Column) -->
+        <header class="resume-header">
+          <img src="" id="resumeAvatar" class="resume-avatar" alt="Avatar">
+          <div class="resume-title">
+            <h1 id="r-name">Haditheh Soltani</h1>
+            <p id="r-title">MSc Industrial Engineering | BSc Urban Planning</p>
+          </div>
+        </header>
+      </div>
+    </div>
+
+    <!-- Scrollable Content -->
+    <div class="resume-content-area">
       <div class="resume-grid layout-1" id="resumeGrid">
         <!-- JS Will Inject Sections Here -->
       </div>
     </div>
+
   </section>
 
   <script>
     // --- STATE ---
     let state = {
-      lang: 'fa',
-      theme: 'dark',
+      lang: 'en',      // Default English
+      theme: 'light',  // Default Light Theme
       mode: 'academic',
-      layout: 1 // 1 = Single, 2 = Two Col, 3 = Three Col
+      layout: 1 
     };
 
     // --- TRANSLATIONS & DATA ---
     const i18n = {
-      fa: {
-        name: "حدیثه سلطانی",
-        title: "کارشناس ارشد مهندسی صنایع | کارشناس مهندسی شهرسازی",
-        btnAcademic: "رزومه آکادمیک",
-        btnIndustry: "رزومه صنعت",
-        back: "← بازگشت به صفحه اصلی",
-        print: "🖨️ پرینت رزومه (۳ صفحه)",
-        sections: {
-          personal: "مشخصات فردی",
-          bio: "بیوگرافی کوتاه",
-          education: "تحصیلات",
-          work: "تجربیات کاری",
-          languages: "مهارت‌های زبانی",
-          computer: "مهارت‌های کامپیوتری",
-          hobbies: "علایق و سرگرمی‌ها",
-          references: "رفرنس و توصیه‌نامه‌ها",
-          volunteer: "فعالیت‌های داوطلبانه",
-          other: "سایر مهارت‌ها",
-          achievements: "دستاوردها و جوایز",
-          articles: "مقالات و کنفرانس‌ها",
-          courses: "دوره‌های آموزشی",
-          motivation: "انگیزه‌نامه"
-        }
-      },
       en: {
-        name: "Hadiyeh Soltani",
+        name: "Haditheh Soltani",
         title: "MSc Industrial Engineering | BSc Urban Planning",
         btnAcademic: "Academic CV",
         btnIndustry: "Industry CV",
         back: "← Back",
-        print: "🖨️ Print CV (3 Pages)",
+        print: "🖨️ Print CV",
         sections: {
           personal: "Personal Info",
           bio: "Short Bio",
@@ -610,194 +628,34 @@
           courses: "Training Courses",
           motivation: "Motivation Letter"
         }
+      },
+      fa: {
+        name: "حدیثه سلطانی",
+        title: "کارشناس ارشد مهندسی صنایع | کارشناس مهندسی شهرسازی",
+        btnAcademic: "رزومه آکادمیک",
+        btnIndustry: "رزومه صنعت",
+        back: "← بازگشت",
+        print: "🖨️ پرینت رزومه",
+        sections: {
+          personal: "مشخصات فردی",
+          bio: "بیوگرافی کوتاه",
+          education: "تحصیلات",
+          work: "تجربیات کاری",
+          languages: "مهارت‌های زبانی",
+          computer: "مهارت‌های کامپیوتری",
+          hobbies: "علایق و سرگرمی‌ها",
+          references: "رفرنس و توصیه‌نامه‌ها",
+          volunteer: "فعالیت‌های داوطلبانه",
+          other: "سایر مهارت‌ها",
+          achievements: "دستاوردها و جوایز",
+          articles: "مقالات و کنفرانس‌ها",
+          courses: "دوره‌های آموزشی",
+          motivation: "انگیزه‌نامه"
+        }
       }
     };
 
     const contentData = {
-      fa: {
-        personal: `
-          <div class="info-grid">
-            <div><span>سن</span><strong>۲۹ سال</strong></div>
-            <div><span>وضعیت تأهل</span><strong>مجرد</strong></div>
-            <div><span>محل سکونت</span><strong>تهران، خرمشهر</strong></div>
-            <div><span>تلفن</span><strong>۰۹۳۹۱۴۸۶۸۵۲</strong></div>
-            <div><span>ایمیل</span><strong>haditheh97@gmail.com</strong></div>
-            <div><span>وضعیت</span><strong>شاغل (تاکنون)</strong></div>
-          </div>
-        `,
-        bio: `
-          <p style="text-align: justify; line-height: 1.8; color: var(--text-muted); font-size: 0.95rem;">
-            کارشناس ارشد مهندسی صنایع از دانشگاه علم و صنعت ایران (IUST) با رویکرد ترکیب تحلیل داده‌محور و بهبود فرایندها. دارای شخصیتی منظم و توانمند در محیط‌های پویا. تمرکز اصلی من بر بهینه‌سازی سیستم‌ها، مدیریت پروژه و ایجاد شفافیت در تصمیم‌گیری‌های سازمانی است. پیش‌زمینه کارشناسی شهرسازی، دیدگاه من را نسبت به تحلیل‌های فضایی و ساختاری گسترش داده است.
-          </p>
-        `,
-        education: `
-          <div class="timeline-item">
-            <div class="item-header">
-              <span class="item-title">کارشناسی ارشد مهندسی صنایع</span>
-              <span class="item-date">در حال تحصیل</span>
-            </div>
-            <div class="item-subtitle">دانشگاه علم و صنعت ایران (IUST)</div>
-            <p class="item-desc" style="padding-left:0;">تمرکز بر بهینه‌سازی، تحلیل داده و سیستم‌های تصمیم‌گیری.</p>
-          </div>
-          <div class="timeline-item">
-            <div class="item-header">
-              <span class="item-title">کارشناسی مهندسی شهرسازی</span>
-              <span class="item-date">۱۳۹۴ - ۱۳۹۸</span>
-            </div>
-            <div class="item-subtitle">دانشگاه غیرانتفاعی سوره تهران</div>
-          </div>
-        `,
-        work: `
-          <div class="timeline-item">
-            <div class="item-header">
-              <span class="item-title">مدیر برنامه‌ریزی و سیستم‌ها</span>
-              <span class="item-date">آذر ۱۴۰۱ تاکنون</span>
-            </div>
-            <div class="item-subtitle">شرکت همیار تجارت فرتاک</div>
-            <ul class="item-desc">
-              <li>مستندسازی، کدینگ و بایگانی اسناد و مدارک سازمان.</li>
-              <li>تهیه اسناد فرایندی، روش‌های اجرایی و دستورالعمل‌ها.</li>
-              <li>تدوین اهداف راهبردی و ارائه گزارش‌های مدیریتی (اینفوگرافیک).</li>
-            </ul>
-          </div>
-          <div class="timeline-item">
-            <div class="item-header">
-              <span class="item-title">کارشناس منابع انسانی و بیمه</span>
-              <span class="item-date">مرداد ۱۴۰۰ تاکنون</span>
-            </div>
-            <div class="item-subtitle">همیار تجارت فرتاک</div>
-            <ul class="item-desc">
-              <li>مدیریت تنخواه، امور اداری و مکاتبات.</li>
-              <li>رابط بیمه تکمیلی و پیگیری پرونده‌های کارکنان.</li>
-              <li>کارشناس تعالی و برنامه‌ریزی سازمانی.</li>
-            </ul>
-          </div>
-          <div class="timeline-item">
-            <div class="item-header">
-              <span class="item-title">طراح گرافیک دورکار</span>
-              <span class="item-date">۱۴۰۰</span>
-            </div>
-            <div class="item-subtitle">شرکت هواپیمایی پدیده</div>
-            <ul class="item-desc">
-              <li>طراحی بنر، پوستر و تولید محتوای بصری.</li>
-            </ul>
-          </div>
-          <div class="timeline-item">
-            <div class="item-header">
-              <span class="item-title">کارشناس راهبردی و برنامه‌ریزی</span>
-              <span class="item-date">۱۳۹۹ - ۱۴۰۰</span>
-            </div>
-            <div class="item-subtitle">هلدینگ نیرو</div>
-            <ul class="item-desc">
-              <li>تولید اسناد راهبردی و گزارش‌های مدیریتی برای جایزه ملی تعالی.</li>
-            </ul>
-          </div>
-        `,
-        languages: `
-          <div class="skill-list">
-            <div class="skill-item"><span class="skill-name">فارسی</span><span class="skill-level">زبان مادری</span></div>
-            <div class="skill-item"><span class="skill-name">انگلیسی</span><span class="skill-level">بالاتر از متوسط (B2/C1)</span></div>
-            <div class="skill-item"><span class="skill-name">ترکی</span><span class="skill-level">متوسط</span></div>
-          </div>
-        `,
-        computer: `
-          <div class="skill-list">
-            <div class="skill-item"><span class="skill-name">MS Project</span><span class="skill-level">متوسط</span></div>
-            <div class="skill-item"><span class="skill-name">Power BI</span><span class="skill-level">مقدماتی</span></div>
-            <div class="skill-item"><span class="skill-name">Minitab</span><span class="skill-level">مقدماتی</span></div>
-            <div class="skill-item"><span class="skill-name">Python / R</span><span class="skill-level">مقدماتی</span></div>
-            <div class="skill-item"><span class="skill-name">Primavera P6</span><span class="skill-level">مقدماتی</span></div>
-            <div class="skill-item"><span class="skill-name">Arena</span><span class="skill-level">مقدماتی</span></div>
-            <div class="skill-item"><span class="skill-name">SPSS / Expert Choice</span><span class="skill-level">متوسط</span></div>
-            <div class="skill-item"><span class="skill-name">Word / Excel / PPT</span><span class="skill-level">پیشرفته</span></div>
-            <div class="skill-item"><span class="skill-name">AutoCAD / GIS</span><span class="skill-level">متوسط</span></div>
-            <div class="skill-item"><span class="skill-name">Photoshop / Illustrator</span><span class="skill-level">پیشرفته</span></div>
-          </div>
-        `,
-        hobbies: `
-          <div class="glass-stickers">
-            <span class="glass-sticker">📚 مطالعه</span>
-            <span class="glass-sticker">✍️ شعر و نویسندگی</span>
-            <span class="glass-sticker">🏸 بدمینتون</span>
-            <span class="glass-sticker">📸 عکاسی</span>
-            <span class="glass-sticker">🎧 پادکست</span>
-          </div>
-        `,
-        referencesAcademic: `
-          <div class="recommendation-card">
-            <p class="rec-text">"خانم سلطانی در طول دوره تحصیل، همواره از خود تعهد و پشتکار بالایی در مباحث تحلیل داده و بهینه‌سازی نشان دادند. تسلط ایشان بر نرم‌افزارهای تخصصی و توانایی ترکیب دانش مهندسی صنایع با تفکر سیستم‌محور، ایشان را به یکی از مستعدترین دانشجویان تبدیل کرده است."</p>
-            <div class="rec-author">
-              <span class="rec-name">دکتر علی بزرگی امیری</span>
-              <span class="rec-title">استاد دانشکده مهندسی صنایع، دانشگاه تهران</span>
-            </div>
-          </div>
-          <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">جهت دریافت توصیه‌نامه رسمی، می‌توانید با من تماس بگیرید.</p>
-          <a href="mailto:haditheh97@gmail.com?subject=Recommendation%20Letter" class="ref-btn">درخواست توصیه‌نامه</a>
-        `,
-        referencesIndustry: `
-          <div class="recommendation-card">
-            <p class="rec-text">"خانم سلطانی با نظم و دقت مثال‌زدنی، فرایندهای سازمانی ما را به سطح بالایی از شفافیت رساندند. توانایی ایشان در تهیه گزارش‌های مدیریتی، مستندسازی دقیق و هماهنگی بین‌بخشی، نقش کلیدی در پیشبرد اهداف راهبردی ما ایفا کرد."</p>
-            <div class="rec-author">
-              <span class="rec-name">دکتر عبداله عبدی</span>
-              <span class="rec-title">معاون برنامه‌ریزی، سازمان ارزی و بانکی کشور</span>
-            </div>
-          </div>
-          <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">جهت دریافت توصیه‌نامه رسمی، می‌توانید با من تماس بگیرید.</p>
-          <a href="mailto:haditheh97@gmail.com?subject=Recommendation%20Letter" class="ref-btn">درخواست توصیه‌نامه</a>
-        `,
-        volunteer: `
-          <ul class="item-desc" style="padding-inline-start: 0; list-style-type: none;">
-            <li>🌱 همکاری و فعالیت داوطلبانه با یونیسف (UNICEF)</li>
-            <li>🌱 عضویت و فعالیت در جمعیت هلال احمر</li>
-            <li>🌱 گزارشگر و مقاله‌نویس دوماهنامه دانشگاه سوره</li>
-            <li>🌱 پاک‌سازی محیط زیست</li>
-          </ul>
-        `,
-        other: `
-          <ul class="item-desc">
-            <li>مستندسازی و تحلیل فرایندهای سازمانی</li>
-            <li>گزارشگری مدیریتی و تسهیل جلسات</li>
-            <li>تولید محتوا، ترجمه و کپی‌رایتینگ</li>
-            <li>گویندگی و فن بیان</li>
-          </ul>
-        `,
-        achievements: `
-          <ul class="item-desc">
-            <li>دریافت تندیس برنز ارزیابی EFQM (بنیاد شهید).</li>
-            <li>نویسنده برتر مسابقات کتاب‌خوانی سال ۱۳۹۳.</li>
-            <li>تدوین اهداف راهبردی هلدینگ نیرو (خاتم‌الانبیا و زاگرس).</li>
-            <li>طراحی اظهارنامه سازمانی جایزه ملی تعالی و پیشرفت.</li>
-          </ul>
-        `,
-        articles: `
-          <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.8; text-align: justify;">
-            در حال آماده‌سازی و علاقه‌مند به انتشار پژوهش‌ها در حوزه‌های بهینه‌سازی، تحلیل داده و تصمیم‌گیری چندمعیاره (MCDM).
-          </p>
-        `,
-        courses: `
-          <div class="glass-stickers">
-            <span class="glass-sticker">📘 منابع انسانی (۶۴ ساعت)</span>
-            <span class="glass-sticker">📘 مدیریت فرایند (۳۲ ساعت)</span>
-            <span class="glass-sticker">📘 فنون مذاکره (۳۲ ساعت)</span>
-            <span class="glass-sticker">📘 ممیزی داخلی ISO (۳۲ ساعت)</span>
-            <span class="glass-sticker">📘 ICDL (۶۰ ساعت)</span>
-          </div>
-        `,
-        motivationAcademic: `
-          <div class="motivation-box">
-            <p><strong>علاقه‌مندی به جایگاه آکادمیک:</strong> علاقه‌مندم پژوهش و آموزش را در مرز میان مهندسی صنایع و تحلیل سیستم‌ها پیش ببرم؛ جایی که بهینه‌سازی و تصمیم‌گیری داده‌محور می‌توانند به حل مسائل پیچیده کمک کنند.</p>
-            <p><strong>معرفی توانمندی‌ها و پیشینه پژوهشی:</strong> دارای پایه مهندسی و تحصیلات تخصصی در مهندسی صنایع (IUST) هستم. تجربه من در برنامه‌ریزی، مستندسازی و گزارش‌گیری، توانایی من در تبدیل داده به روایت روشن برای محیط‌های آکادمیک را تقویت کرده است.</p>
-            <p><strong>خلق ارزش مشترک و هم‌افزایی:</strong> با ترکیب تحلیل داده‌های کمی، مستندسازی دقیق و انتقال دانش، می‌توانم پلی میان پژوهش‌های نظری و کاربردهای عملی در پروژه‌های تحقیقاتی باشم.</p>
-          </div>
-        `,
-        motivationIndustry: `
-          <div class="motivation-box">
-            <p><strong>علاقه‌مندی به جایگاه شغلی و سازمان:</strong> به نقش‌هایی علاقه‌مندم که در آن برنامه‌ریزی، تحلیل فرایند و گزارش‌گری مدیریتی به تصمیم‌گیری بهتر کمک می‌کند. محیط‌های پویا و داده‌محور را می‌پسندم.</p>
-            <p><strong>معرفی توانمندی‌ها و پیشینه حرفه‌ای:</strong> از سال ۱۴۰۰ در همیار تجارت فرتاک در حوزه منابع انسانی و برنامه‌ریزی فعالیت کرده‌ام. مستندسازی، تهیه گزارش‌های اینفوگرافیک و هماهنگی با مشاوران استانداردسازی از تجربه‌های کلیدی من است.</p>
-            <p><strong>خلق ارزش مشترک و هم‌افزایی با تیم:</strong> با ترکیب تحلیل داده، نظم در مستندسازی و مهارت بصری، فرایندها را شفاف‌تر، گزارش‌ها را قابل‌فهم‌تر و تصمیم‌ها را سریع‌تر می‌کنم تا ارزش پایدار برای سازمان ایجاد شود.</p>
-          </div>
-        `
-      },
       en: {
         personal: `
           <div class="info-grid">
@@ -847,7 +705,7 @@
           <div class="timeline-item">
             <div class="item-header">
               <span class="item-title">HR & Insurance Officer</span>
-              <span class="item-date">Aug 2021 - Present</span>
+              <span class="item-date">Aug 2021 - Nov 2022</span>
             </div>
             <div class="item-subtitle">Hemiyar Tejarat Fertak</div>
             <ul class="item-desc">
@@ -859,7 +717,7 @@
           <div class="timeline-item">
             <div class="item-header">
               <span class="item-title">Remote Graphic Designer</span>
-              <span class="item-date">2021</span>
+              <span class="item-date">Jan 2021 - Jul 2021</span>
             </div>
             <div class="item-subtitle">Padeh Airline</div>
             <ul class="item-desc">
@@ -869,11 +727,51 @@
           <div class="timeline-item">
             <div class="item-header">
               <span class="item-title">Remote Strategy & Planning Officer</span>
-              <span class="item-date">2020 - 2021</span>
+              <span class="item-date">Mar 2020 - Dec 2020</span>
             </div>
             <div class="item-subtitle">Niroo Holding</div>
             <ul class="item-desc">
               <li>Produced strategic documents and management reports for the National Excellence Award.</li>
+            </ul>
+          </div>
+          <div class="timeline-item">
+            <div class="item-header">
+              <span class="item-title">Interior Designer</span>
+              <span class="item-date">Jan 2020 - Feb 2020</span>
+            </div>
+            <div class="item-subtitle">Tivan One</div>
+            <ul class="item-desc">
+              <li>Interior design and social media content creation.</li>
+            </ul>
+          </div>
+          <div class="timeline-item">
+            <div class="item-header">
+              <span class="item-title">Graphic Designer</span>
+              <span class="item-date">2018 - 2019</span>
+            </div>
+            <div class="item-subtitle">Soore University</div>
+            <ul class="item-desc">
+              <li>Designed posters for competitions and scientific association events.</li>
+            </ul>
+          </div>
+          <div class="timeline-item">
+            <div class="item-header">
+              <span class="item-title">Visitor</span>
+              <span class="item-date">2017 - 2018</span>
+            </div>
+            <div class="item-subtitle">Excellenz</div>
+            <ul class="item-desc">
+              <li>Visitor and reception officer at Excellenz.</li>
+            </ul>
+          </div>
+          <div class="timeline-item">
+            <div class="item-header">
+              <span class="item-title">Design Officer</span>
+              <span class="item-date">2015 - 2017</span>
+            </div>
+            <div class="item-subtitle">Asad Engineering Company</div>
+            <ul class="item-desc">
+              <li>Designed educational robot body parts and machinery components in AutoCAD.</li>
             </ul>
           </div>
         `,
@@ -981,6 +879,230 @@
             <p><strong>Creating Shared Value:</strong> By combining data analysis, documentation discipline, and visual communication, I make processes clearer, reports more understandable, and decisions faster to create sustainable value for the organization.</p>
           </div>
         `
+      },
+      fa: {
+        personal: `
+          <div class="info-grid">
+            <div><span>سن</span><strong>۲۹ سال</strong></div>
+            <div><span>وضعیت تأهل</span><strong>مجرد</strong></div>
+            <div><span>محل سکونت</span><strong>تهران، خرمشهر</strong></div>
+            <div><span>تلفن</span><strong>۰۹۳۹۱۴۸۶۸۵۲</strong></div>
+            <div><span>ایمیل</span><strong>haditheh97@gmail.com</strong></div>
+            <div><span>وضعیت</span><strong>شاغل (تاکنون)</strong></div>
+          </div>
+        `,
+        bio: `
+          <p style="text-align: justify; line-height: 1.8; color: var(--text-muted); font-size: 0.95rem;">
+            کارشناس ارشد مهندسی صنایع از دانشگاه علم و صنعت ایران (IUST) با رویکرد ترکیب تحلیل داده‌محور و بهبود فرایندها. دارای شخصیتی منظم و توانمند در محیط‌های پویا. تمرکز اصلی من بر بهینه‌سازی سیستم‌ها، مدیریت پروژه و ایجاد شفافیت در تصمیم‌گیری‌های سازمانی است. پیش‌زمینه کارشناسی شهرسازی، دیدگاه من را نسبت به تحلیل‌های فضایی و ساختاری گسترش داده است.
+          </p>
+        `,
+        education: `
+          <div class="timeline-item">
+            <div class="item-header">
+              <span class="item-title">کارشناسی ارشد مهندسی صنایع</span>
+              <span class="item-date">در حال تحصیل</span>
+            </div>
+            <div class="item-subtitle">دانشگاه علم و صنعت ایران (IUST)</div>
+            <p class="item-desc" style="padding-left:0;">تمرکز بر بهینه‌سازی، تحلیل داده و سیستم‌های تصمیم‌گیری.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="item-header">
+              <span class="item-title">کارشناسی مهندسی شهرسازی</span>
+              <span class="item-date">۱۳۹۴ - ۱۳۹۸</span>
+            </div>
+            <div class="item-subtitle">دانشگاه غیرانتفاعی سوره تهران</div>
+          </div>
+        `,
+        work: `
+          <div class="timeline-item">
+            <div class="item-header">
+              <span class="item-title">مدیر برنامه‌ریزی و سیستم‌ها</span>
+              <span class="item-date">آذر ۱۴۰۱ تاکنون</span>
+            </div>
+            <div class="item-subtitle">شرکت همیار تجارت فرتاک</div>
+            <ul class="item-desc">
+              <li>مستندسازی، کدینگ و بایگانی اسناد و مدارک سازمان.</li>
+              <li>تهیه اسناد فرایندی، روش‌های اجرایی و دستورالعمل‌ها.</li>
+              <li>تدوین اهداف راهبردی و ارائه گزارش‌های مدیریتی (اینفوگرافیک).</li>
+            </ul>
+          </div>
+          <div class="timeline-item">
+            <div class="item-header">
+              <span class="item-title">کارشناس منابع انسانی و بیمه</span>
+              <span class="item-date">مرداد ۱۴۰۰ تا آذر ۱۴۰۱</span>
+            </div>
+            <div class="item-subtitle">همیار تجارت فرتاک</div>
+            <ul class="item-desc">
+              <li>مدیریت تنخواه، امور اداری و مکاتبات.</li>
+              <li>رابط بیمه تکمیلی و پیگیری پرونده‌های کارکنان.</li>
+              <li>کارشناس تعالی و برنامه‌ریزی سازمانی.</li>
+            </ul>
+          </div>
+          <div class="timeline-item">
+            <div class="item-header">
+              <span class="item-title">طراح گرافیک دورکار</span>
+              <span class="item-date">فروردین ۱۴۰۰ تا مرداد ۱۴۰۰</span>
+            </div>
+            <div class="item-subtitle">شرکت هواپیمایی پدیده</div>
+            <ul class="item-desc">
+              <li>طراحی بنر، پوستر و تولید محتوای بصری.</li>
+            </ul>
+          </div>
+          <div class="timeline-item">
+            <div class="item-header">
+              <span class="item-title">کارشناس راهبردی و برنامه‌ریزی</span>
+              <span class="item-date">فروردین ۱۳۹۹ تا اسفند ۱۳۹۹</span>
+            </div>
+            <div class="item-subtitle">هلدینگ نیرو</div>
+            <ul class="item-desc">
+              <li>تولید اسناد راهبردی و گزارش‌های مدیریتی برای جایزه ملی تعالی.</li>
+            </ul>
+          </div>
+          <div class="timeline-item">
+            <div class="item-header">
+              <span class="item-title">طراح دکوراسیون داخلی</span>
+              <span class="item-date">۱۳۹۹</span>
+            </div>
+            <div class="item-subtitle">شرکت تیوان</div>
+            <ul class="item-desc">
+              <li>طراحی دکوراسیون داخلی و تولید محتوای مجازی.</li>
+            </ul>
+          </div>
+          <div class="timeline-item">
+            <div class="item-header">
+              <span class="item-title">طراح گرافیک</span>
+              <span class="item-date">۱۳۹۷ - ۱۳۹۸</span>
+            </div>
+            <div class="item-subtitle">دانشگاه سوره تهران</div>
+            <ul class="item-desc">
+              <li>طراحی پوستر مسابقات و همایش‌های علمی.</li>
+            </ul>
+          </div>
+          <div class="timeline-item">
+            <div class="item-header">
+              <span class="item-title">ویزیتور</span>
+              <span class="item-date">۱۳۹۶ - ۱۳۹۷</span>
+            </div>
+            <div class="item-subtitle">اکسلنز</div>
+            <ul class="item-desc">
+              <li>ویزیتور و کارشناس پذیرش.</li>
+            </ul>
+          </div>
+          <div class="timeline-item">
+            <div class="item-header">
+              <span class="item-title">کارشناس طراحی</span>
+              <span class="item-date">۱۳۹۴ - ۱۳۹۶</span>
+            </div>
+            <div class="item-subtitle">شرکت فنی مهندسی آساد</div>
+            <ul class="item-desc">
+              <li>طراحی قطعات ربات با AutoCAD.</li>
+            </ul>
+          </div>
+        `,
+        languages: `
+          <div class="skill-list">
+            <div class="skill-item"><span class="skill-name">فارسی</span><span class="skill-level">زبان مادری</span></div>
+            <div class="skill-item"><span class="skill-name">انگلیسی</span><span class="skill-level">بالاتر از متوسط (B2/C1)</span></div>
+            <div class="skill-item"><span class="skill-name">ترکی</span><span class="skill-level">متوسط</span></div>
+          </div>
+        `,
+        computer: `
+          <div class="skill-list">
+            <div class="skill-item"><span class="skill-name">MS Project</span><span class="skill-level">متوسط</span></div>
+            <div class="skill-item"><span class="skill-name">Power BI</span><span class="skill-level">مقدماتی</span></div>
+            <div class="skill-item"><span class="skill-name">Minitab</span><span class="skill-level">مقدماتی</span></div>
+            <div class="skill-item"><span class="skill-name">Python / R</span><span class="skill-level">مقدماتی</span></div>
+            <div class="skill-item"><span class="skill-name">Primavera P6</span><span class="skill-level">مقدماتی</span></div>
+            <div class="skill-item"><span class="skill-name">Arena</span><span class="skill-level">مقدماتی</span></div>
+            <div class="skill-item"><span class="skill-name">SPSS / Expert Choice</span><span class="skill-level">متوسط</span></div>
+            <div class="skill-item"><span class="skill-name">Word / Excel / PPT</span><span class="skill-level">پیشرفته</span></div>
+            <div class="skill-item"><span class="skill-name">AutoCAD / GIS</span><span class="skill-level">متوسط</span></div>
+            <div class="skill-item"><span class="skill-name">Photoshop / Illustrator</span><span class="skill-level">پیشرفته</span></div>
+          </div>
+        `,
+        hobbies: `
+          <div class="glass-stickers">
+            <span class="glass-sticker">📚 مطالعه</span>
+            <span class="glass-sticker">✍️ شعر و نویسندگی</span>
+            <span class="glass-sticker">🏸 بدمینتون</span>
+            <span class="glass-sticker">📸 عکاسی</span>
+            <span class="glass-sticker">🎧 پادکست</span>
+          </div>
+        `,
+        referencesAcademic: `
+          <div class="recommendation-card">
+            <p class="rec-text">"خانم سلطانی در طول دوره تحصیل، همواره از خود تعهد و پشتکار بالایی در مباحث تحلیل داده و بهینه‌سازی نشان دادند. تسلط ایشان بر نرم‌افزارهای تخصصی و توانایی ترکیب دانش مهندسی صنایع با تفکر سیستم‌محور، ایشان را به یکی از مستعدترین دانشجویان تبدیل کرده است."</p>
+            <div class="rec-author">
+              <span class="rec-name">دکتر علی بزرگی امیری</span>
+              <span class="rec-title">استاد دانشکده مهندسی صنایع، دانشگاه تهران</span>
+            </div>
+          </div>
+          <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">جهت دریافت توصیه‌نامه رسمی، می‌توانید با من تماس بگیرید.</p>
+          <a href="mailto:haditheh97@gmail.com?subject=Recommendation%20Letter" class="ref-btn">درخواست توصیه‌نامه</a>
+        `,
+        referencesIndustry: `
+          <div class="recommendation-card">
+            <p class="rec-text">"خانم سلطانی با نظم و دقت مثال‌زدنی، فرایندهای سازمانی ما را به سطح بالایی از شفافیت رساندند. توانایی ایشان در تهیه گزارش‌های مدیریتی، مستندسازی دقیق و هماهنگی بین‌بخشی، نقش کلیدی در پیشبرد اهداف راهبردی ما ایفا کرد."</p>
+            <div class="rec-author">
+              <span class="rec-name">دکتر عبداله عبدی</span>
+              <span class="rec-title">معاون برنامه‌ریزی، سازمان ارزی و بانکی کشور</span>
+            </div>
+          </div>
+          <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">جهت دریافت توصیه‌نامه رسمی، می‌توانید با من تماس بگیرید.</p>
+          <a href="mailto:haditheh97@gmail.com?subject=Recommendation%20Letter" class="ref-btn">درخواست توصیه‌نامه</a>
+        `,
+        volunteer: `
+          <ul class="item-desc" style="padding-inline-start: 0; list-style-type: none;">
+            <li>🌱 همکاری و فعالیت داوطلبانه با یونیسف (UNICEF)</li>
+            <li>🌱 عضویت و فعالیت در جمعیت هلال احمر</li>
+            <li>🌱 گزارشگر و مقاله‌نویس دوماهنامه دانشگاه سوره</li>
+            <li>🌱 پاک‌سازی محیط زیست</li>
+          </ul>
+        `,
+        other: `
+          <ul class="item-desc">
+            <li>مستندسازی و تحلیل فرایندهای سازمانی</li>
+            <li>گزارشگری مدیریتی و تسهیل جلسات</li>
+            <li>تولید محتوا، ترجمه و کپی‌رایتینگ</li>
+            <li>گویندگی و فن بیان</li>
+          </ul>
+        `,
+        achievements: `
+          <ul class="item-desc">
+            <li>دریافت تندیس برنز ارزیابی EFQM (بنیاد شهید).</li>
+            <li>نویسنده برتر مسابقات کتاب‌خوانی سال ۱۳۹۳.</li>
+            <li>تدوین اهداف راهبردی هلدینگ نیرو (خاتم‌الانبیا و زاگرس).</li>
+            <li>طراحی اظهارنامه سازمانی جایزه ملی تعالی و پیشرفت.</li>
+          </ul>
+        `,
+        articles: `
+          <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.8; text-align: justify;">
+            در حال آماده‌سازی و علاقه‌مند به انتشار پژوهش‌ها در حوزه‌های بهینه‌سازی، تحلیل داده و تصمیم‌گیری چندمعیاره (MCDM).
+          </p>
+        `,
+        courses: `
+          <div class="glass-stickers">
+            <span class="glass-sticker">📘 منابع انسانی (۶۴ ساعت)</span>
+            <span class="glass-sticker">📘 مدیریت فرایند (۳۲ ساعت)</span>
+            <span class="glass-sticker">📘 فنون مذاکره (۳۲ ساعت)</span>
+            <span class="glass-sticker">📘 ممیزی داخلی ISO (۳۲ ساعت)</span>
+            <span class="glass-sticker">📘 ICDL (۶۰ ساعت)</span>
+          </div>
+        `,
+        motivationAcademic: `
+          <div class="motivation-box">
+            <p><strong>علاقه‌مندی به جایگاه آکادمیک:</strong> علاقه‌مندم پژوهش و آموزش را در مرز میان مهندسی صنایع و تحلیل سیستم‌ها پیش ببرم؛ جایی که بهینه‌سازی و تصمیم‌گیری داده‌محور می‌توانند به حل مسائل پیچیده کمک کنند.</p>
+            <p><strong>معرفی توانمندی‌ها و پیشینه پژوهشی:</strong> دارای پایه مهندسی و تحصیلات تخصصی در مهندسی صنایع (IUST) هستم. تجربه من در برنامه‌ریزی، مستندسازی و گزارش‌گیری، توانایی من در تبدیل داده به روایت روشن برای محیط‌های آکادمیک را تقویت کرده است.</p>
+            <p><strong>خلق ارزش مشترک و هم‌افزایی:</strong> با ترکیب تحلیل داده‌های کمی، مستندسازی دقیق و انتقال دانش، می‌توانم پلی میان پژوهش‌های نظری و کاربردهای عملی در پروژه‌های تحقیقاتی باشم.</p>
+          </div>
+        `,
+        motivationIndustry: `
+          <div class="motivation-box">
+            <p><strong>علاقه‌مندی به جایگاه شغلی و سازمان:</strong> به نقش‌هایی علاقه‌مندم که در آن برنامه‌ریزی، تحلیل فرایند و گزارش‌گری مدیریتی به تصمیم‌گیری بهتر کمک می‌کند. محیط‌های پویا و داده‌محور را می‌پسندم.</p>
+            <p><strong>معرفی توانمندی‌ها و پیشینه حرفه‌ای:</strong> از سال ۱۴۰۰ در همیار تجارت فرتاک در حوزه منابع انسانی و برنامه‌ریزی فعالیت کرده‌ام. مستندسازی، تهیه گزارش‌های اینفوگرافیک و هماهنگی با مشاوران استانداردسازی از تجربه‌های کلیدی من است.</p>
+            <p><strong>خلق ارزش مشترک و هم‌افزایی با تیم:</strong> با ترکیب تحلیل داده، نظم در مستندسازی و مهارت بصری، فرایندها را شفاف‌تر، گزارش‌ها را قابل‌فهم‌تر و تصمیم‌ها را سریع‌تر می‌کنم تا ارزش پایدار برای سازمان ایجاد شود.</p>
+          </div>
+        `
       }
     };
 
@@ -990,6 +1112,7 @@
       resumeView: document.getElementById('resumeView'),
       langBtn: document.getElementById('langBtn'),
       themeBtn: document.getElementById('themeBtn'),
+      layoutBtn: document.getElementById('layoutBtn'),
       resumeAvatar: document.getElementById('resumeAvatar'),
       resumeGrid: document.getElementById('resumeGrid')
     };
@@ -1001,7 +1124,10 @@
       document.documentElement.setAttribute('data-theme', state.theme);
       
       els.langBtn.innerText = state.lang === 'fa' ? 'EN' : 'FA';
-      els.themeBtn.innerText = state.theme === 'dark' ? '☀️' : '🌙';
+      els.themeBtn.innerText = state.theme === 'light' ? '🌙' : '☀️';
+      
+      // Update Layout Button Text
+      els.layoutBtn.innerText = state.layout === 1 ? '1 Col' : (state.layout === 2 ? '2 Cols' : '3 Cols');
 
       const t = i18n[state.lang];
       
@@ -1077,6 +1203,7 @@
     function cycleLayout() {
       state.layout = state.layout === 1 ? 2 : (state.layout === 2 ? 3 : 1);
       updateLayoutClass();
+      els.layoutBtn.innerText = state.layout === 1 ? '1 Col' : (state.layout === 2 ? '2 Cols' : '3 Cols');
     }
 
     // --- ACTIONS ---
@@ -1100,7 +1227,7 @@
     }
 
     function toggleTheme() {
-      state.theme = state.theme === 'dark' ? 'light' : 'dark';
+      state.theme = state.theme === 'light' ? 'dark' : 'light';
       updateUI();
     }
 
