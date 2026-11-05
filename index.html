@@ -54,31 +54,31 @@
       height: 100vh;
     }
 
-    /* === Top Controls (Opposite to Avatar) === */
+    /* === Top Controls (Centered) === */
     .top-controls-wrapper {
       position: fixed;
       top: 20px;
-      z-index: 100;
+      left: 0;
       width: 100%;
+      display: flex;
+      justify-content: center; /* Always center */
+      z-index: 100;
       pointer-events: none;
     }
 
-    /* LTR: Avatar is Left, Controls go Right */
-    [dir="ltr"] .top-controls-wrapper { display: flex; justify-content: flex-end; padding-right: 20px; }
-    /* RTL: Avatar is Right, Controls go Left */
-    [dir="rtl"] .top-controls-wrapper { display: flex; justify-content: flex-start; padding-left: 20px; }
-
     .top-controls {
       display: flex;
+      flex-wrap: wrap;
       gap: 8px;
       background: rgba(255, 255, 255, 0.85);
-      padding: 6px;
+      padding: 6px 12px;
       border-radius: 50px;
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border: 1px solid var(--border);
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
       pointer-events: auto;
+      justify-content: center;
     }
 
     [data-theme="dark"] .top-controls {
@@ -457,7 +457,7 @@
       .landing-footer p { flex-direction: column; gap: 8px; }
       .skill-list { grid-template-columns: 1fr; gap: 12px; }
       .info-grid { grid-template-columns: 1fr; }
-      .resume-container { padding-top: 70px; } 
+      .resume-container { padding-top: 80px; } 
       
       /* Fix Text Alignment & Wrap on Mobile */
       p, .item-desc, .about-text, .rec-text {
@@ -509,9 +509,10 @@
       .resume-title h1 { font-size: 16pt; margin-bottom: 0; }
       .resume-title p { font-size: 10pt; color: #000; font-weight: 600; }
 
+      /* Allow sections to break across pages in print */
       .resume-section {
-        break-inside: avoid;
-        page-break-inside: avoid;
+        break-inside: auto !important; 
+        page-break-inside: auto !important;
         border: 1px solid #ddd;
         padding: 8px; 
         margin-bottom: 8px;
@@ -571,13 +572,13 @@
       body.print-one-col .item-title { font-size: 8.5pt; }
       body.print-one-col .item-subtitle { font-size: 8pt; margin-bottom: 2px; }
       
-      /* Force Page 3 */
+      /* Force Motivation to start on Page 3 */
       body.print-one-col .motivation-section {
         break-before: page;
         page-break-before: always;
       }
 
-      /* ====== 2 & 3-Column Print Layout (Also 3 pages, already fitting) ====== */
+      /* ====== 2 & 3-Column Print Layout ====== */
       body.print-multi-col .resume-grid {
         column-count: 2 !important;
         column-gap: 15px !important;
@@ -592,6 +593,7 @@
       body.print-multi-col .resume-section {
         padding: 6px;
         margin-bottom: 6px;
+        break-inside: avoid; /* Keep multi-col tight */
       }
       body.print-multi-col .motivation-section {
         column-span: all;
@@ -603,7 +605,7 @@
 </head>
 <body class="lock-scroll">
 
-  <!-- Unified Top Controls (Opposite to Avatar) -->
+  <!-- Unified Top Controls (Centered) -->
   <div class="top-controls-wrapper no-print">
     <div class="top-controls">
       <button class="btn-control" id="btn-back" onclick="goHome()" style="display:none;">← Back</button>
