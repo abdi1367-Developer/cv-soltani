@@ -39,19 +39,24 @@
       color: var(--text-main);
       font-family: var(--font-en);
       transition: background-color 0.4s ease, color 0.4s ease;
-      overflow-x: hidden;
       min-height: 100vh;
     }
 
     [lang="fa"] body { font-family: var(--font-fa); }
 
+    /* Prevent scrolling when landing page is active */
+    body.lock-scroll {
+      overflow: hidden;
+      height: 100vh;
+    }
+
     /* === Controls === */
     .controls {
       position: fixed;
       top: 20px;
-      left: 20px;
+      inset-inline-start: 20px; /* Left in LTR, Right in RTL */
       display: flex;
-      gap: 12px;
+      gap: 10px;
       z-index: 100;
     }
 
@@ -59,13 +64,13 @@
       background: rgba(255, 255, 255, 0.8);
       border: 1px solid rgba(0, 0, 0, 0.1);
       color: #000;
-      height: 42px;
-      padding: 0 16px;
+      height: 40px;
+      padding: 0 14px;
       border-radius: 50px;
       display: grid;
       place-items: center;
       cursor: pointer;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 600;
       transition: all 0.3s ease;
       backdrop-filter: blur(10px);
@@ -88,7 +93,7 @@
     .landing-screen {
       position: relative;
       width: 100vw;
-      height: 100vh;
+      height: 100dvh; /* Exact dynamic viewport height */
       background-image: url('landing.jpg');
       background-size: cover;
       background-position: center top;
@@ -96,6 +101,7 @@
       flex-direction: column;
       justify-content: flex-end;
       align-items: center;
+      overflow: hidden;
     }
 
     .landing-overlay {
@@ -112,15 +118,15 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding-bottom: 60px;
+      padding-bottom: 50px;
     }
 
     .landing-actions {
       display: flex;
       gap: 20px;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
       width: 100%;
-      max-width: 700px;
+      max-width: 650px;
       padding: 0 20px;
     }
 
@@ -129,8 +135,8 @@
       background: rgba(255, 255, 255, 0.05);
       color: #fff;
       border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 18px 24px;
-      font-size: 1.05rem;
+      padding: 16px 20px;
+      font-size: 1rem;
       font-weight: 600;
       border-radius: 50px;
       cursor: pointer;
@@ -157,13 +163,13 @@
       font-size: clamp(2.5rem, 5vw, 3.5rem);
       font-weight: 800;
       letter-spacing: -0.02em;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
     }
 
     .landing-footer p {
-      font-size: 1.1rem;
+      font-size: 1rem;
       display: flex;
-      gap: 20px;
+      gap: 15px;
       justify-content: center;
       align-items: center;
       flex-wrap: wrap;
@@ -178,6 +184,10 @@
     .landing-footer a:hover { color: #fff; }
 
     /* === 2. RESUME PAGE === */
+    .resume-page-container {
+      padding-bottom: 60px;
+    }
+
     /* Sticky Header Wrapper */
     .sticky-header-wrapper {
       position: sticky;
@@ -192,16 +202,22 @@
 
     .resume-container {
       width: 100%;
-      max-width: 100%; /* Full width 16:9 */
+      max-width: 100%;
       margin: 0 auto;
-      padding: 20px 4vw; /* Full width edge-to-edge padding */
+      padding: 20px 4vw;
     }
 
     .resume-top-nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
+      padding-inline-start: 150px; /* Leave space for fixed controls */
+    }
+
+    [dir="rtl"] .resume-top-nav {
+      padding-inline-start: 0;
+      padding-inline-end: 150px;
     }
 
     .back-btn, .print-btn {
@@ -211,7 +227,7 @@
       cursor: pointer;
       padding: 8px 16px;
       border-radius: 8px;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 500;
       transition: all 0.3s;
       font-family: inherit;
@@ -229,20 +245,20 @@
     }
 
     .resume-avatar {
-      width: 100px;
-      height: 100px;
+      width: 90px;
+      height: 90px;
       border-radius: 50%;
       object-fit: cover;
       border: 2px solid var(--border);
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
-    .resume-title h1 { font-size: 2rem; margin-bottom: 4px; letter-spacing: -0.02em; }
-    .resume-title p { color: var(--text-muted); font-size: 0.95rem; }
+    .resume-title h1 { font-size: 1.8rem; margin-bottom: 4px; letter-spacing: -0.02em; }
+    .resume-title p { color: var(--text-muted); font-size: 0.9rem; }
 
     /* Resume Content Grid */
     .resume-content-area {
-      padding: 30px 4vw 60px;
+      padding: 30px 4vw;
     }
 
     .resume-grid {
@@ -254,49 +270,48 @@
     .resume-grid.layout-1 {
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 20px;
     }
 
     /* 2 Columns - Masonry (No gaps) */
     .resume-grid.layout-2 {
       column-count: 2;
-      column-gap: 24px;
+      column-gap: 20px;
     }
 
     /* 3 Columns - Masonry (No gaps) */
     .resume-grid.layout-3 {
       column-count: 3;
-      column-gap: 24px;
+      column-gap: 20px;
     }
 
     /* Section Block */
     .resume-section {
       background: var(--surface);
-      padding: 24px;
+      padding: 20px;
       border-radius: var(--radius);
       border: 1px solid var(--border);
       box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-      break-inside: avoid; /* Prevents breaking inside columns */
-      margin-bottom: 24px;
-      display: inline-block; /* Required for column-count to prevent gaps */
+      break-inside: avoid;
+      margin-bottom: 20px;
+      display: inline-block;
       width: 100%;
     }
     
-    /* Remove margin bottom for single column layout */
     .resume-grid.layout-1 .resume-section {
       margin-bottom: 0;
       display: block;
     }
 
     .section-title {
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       color: var(--text-main);
       border-bottom: 2px solid var(--accent);
-      padding-bottom: 8px;
+      padding-bottom: 6px;
       display: inline-block;
     }
 
@@ -308,59 +323,84 @@
     .motivation-box p {
       text-align: justify;
       line-height: 1.8;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       color: var(--text-muted);
-      font-size: 0.95rem;
+      font-size: 0.9rem;
     }
     .motivation-box p:last-child { margin-bottom: 0; }
     .motivation-box strong { color: var(--text-main); display: block; margin-bottom: 4px;}
 
-    .timeline-item { margin-bottom: 20px; }
+    .timeline-item { margin-bottom: 18px; }
     .timeline-item:last-child { margin-bottom: 0; }
     
     .item-header {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 8px;
     }
 
-    .item-title { font-weight: 700; font-size: 1rem; color: var(--text-main); }
-    .item-date { font-size: 0.85rem; color: var(--text-muted); font-family: var(--font-en); }
-    .item-subtitle { font-size: 0.9rem; color: var(--accent); margin-bottom: 8px; font-weight: 500; }
+    .item-title { font-weight: 700; font-size: 0.95rem; color: var(--text-main); }
+    .item-date { font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-en); }
+    .item-subtitle { font-size: 0.85rem; color: var(--accent); margin-bottom: 6px; font-weight: 500; }
     
-    .item-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; padding-inline-start: 18px; margin: 0; text-align: justify; }
-    .item-desc li { margin-bottom: 6px; }
+    .item-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; padding-inline-start: 16px; margin: 0; text-align: justify; }
+    .item-desc li { margin-bottom: 4px; }
 
     .info-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 15px;
-      font-size: 0.9rem;
+      gap: 12px;
+      font-size: 0.85rem;
     }
-    .info-grid span { color: var(--text-muted); font-size: 0.8rem; display: block; margin-bottom: 4px; }
+    .info-grid span { color: var(--text-muted); font-size: 0.75rem; display: block; margin-bottom: 2px; }
     .info-grid strong { color: var(--text-main); font-weight: 600; }
 
-    /* Skills & Languages */
-    .skill-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .skill-item { display: flex; justify-content: space-between; font-size: 0.85rem; border-bottom: 1px dashed var(--border); padding-bottom: 4px;}
-    .skill-name { color: var(--text-main); font-weight: 500; }
-    .skill-level { color: var(--text-muted); font-size: 0.8rem; }
+    /* Skills & Languages Minimalist Bar */
+    .skill-list { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px; }
+    
+    .skill-item { 
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between; 
+      font-size: 0.85rem; 
+      border-bottom: 1px dashed var(--border); 
+      padding-bottom: 6px;
+      gap: 10px;
+    }
+    
+    .skill-name { color: var(--text-main); font-weight: 500; white-space: nowrap; }
+    
+    .skill-bar {
+      flex-grow: 1;
+      max-width: 80px;
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+      direction: ltr; /* Ensure bar fills from left */
+    }
+    
+    .skill-fill {
+      height: 100%;
+      background: var(--text-main);
+      border-radius: 2px;
+    }
 
     /* Glass Stickers */
-    .glass-stickers { display: flex; flex-wrap: wrap; gap: 10px; }
+    .glass-stickers { display: flex; flex-wrap: wrap; gap: 8px; }
     .glass-sticker {
       background: rgba(0, 0, 0, 0.03);
       border: 1px solid rgba(0, 0, 0, 0.08);
       backdrop-filter: blur(8px);
-      padding: 8px 14px;
+      padding: 6px 12px;
       border-radius: 50px;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       transition: all 0.3s ease;
     }
     [data-theme="dark"] .glass-sticker {
@@ -373,54 +413,40 @@
       background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 20px;
+      padding: 16px;
       margin-bottom: 16px;
       position: relative;
     }
     .recommendation-card::before {
       content: "”";
       position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 3rem;
+      top: 8px;
+      right: 12px;
+      font-size: 2.5rem;
       color: var(--border);
       font-family: serif;
       line-height: 1;
     }
     [dir="rtl"] .recommendation-card::before {
       right: auto;
-      left: 15px;
+      left: 12px;
     }
     .rec-text {
-      font-size: 0.9rem;
-      line-height: 1.8;
+      font-size: 0.85rem;
+      line-height: 1.7;
       color: var(--text-muted);
       font-style: italic;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
       text-align: justify;
     }
     .rec-author {
       display: flex;
       flex-direction: column;
       border-top: 1px solid var(--border);
-      padding-top: 10px;
+      padding-top: 8px;
     }
-    .rec-name { font-weight: 700; color: var(--text-main); font-size: 0.9rem; }
-    .rec-title { font-size: 0.8rem; color: var(--accent); }
-
-    .ref-btn {
-      display: inline-block;
-      background: var(--accent);
-      color: var(--surface);
-      padding: 10px 20px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-top: 10px;
-      transition: opacity 0.3s;
-    }
-    .ref-btn:hover { opacity: 0.8; }
+    .rec-name { font-weight: 700; color: var(--text-main); font-size: 0.85rem; }
+    .rec-title { font-size: 0.75rem; color: var(--accent); }
 
     /* === 3. MOBILE RESPONSIVE === */
     @media (max-width: 1024px) {
@@ -429,12 +455,13 @@
 
     @media (max-width: 768px) {
       .resume-grid.layout-2, .resume-grid.layout-3 { column-count: 1; }
-      .resume-header { flex-direction: column; text-align: center; gap: 15px; }
-      .landing-actions { flex-direction: column; margin-bottom: 30px; }
+      .resume-header { flex-direction: column; text-align: center; gap: 12px; }
+      .landing-actions { flex-direction: column; margin-bottom: 20px; }
       .btn-hero { width: 100%; }
-      .landing-footer p { flex-direction: column; gap: 10px; }
-      .skill-list { grid-template-columns: 1fr; }
+      .landing-footer p { flex-direction: column; gap: 8px; }
+      .skill-list { grid-template-columns: 1fr; gap: 12px; }
       .info-grid { grid-template-columns: 1fr; }
+      .resume-top-nav { padding-inline-start: 0; padding-inline-end: 0; flex-direction: column; gap: 10px; }
     }
 
     /* === 4. PRINT LAYOUT (Strictly 3 Pages, Justified) === */
@@ -503,7 +530,7 @@
 
       .item-desc { padding-inline-start: 12px; }
       .info-grid { grid-template-columns: 1fr 1fr; gap: 5px; }
-      .skill-list { grid-template-columns: 1fr 1fr; gap: 4px; }
+      .skill-list { grid-template-columns: 1fr 1fr; gap: 6px; }
       
       .glass-sticker { 
         border: 1px solid #000 !important; 
@@ -512,6 +539,9 @@
         background: none !important; 
         border-radius: 4px;
       }
+
+      .skill-bar { border: 1px solid #000; background: transparent; height: 4px; }
+      .skill-fill { background: #000; }
 
       /* Force Motivation section to new page */
       .motivation-section {
@@ -531,7 +561,7 @@
     }
   </style>
 </head>
-<body>
+<body class="lock-scroll">
 
   <!-- Controls -->
   <div class="controls no-print">
@@ -597,8 +627,8 @@
   <script>
     // --- STATE ---
     let state = {
-      lang: 'en',      // Default English
-      theme: 'light',  // Default Light Theme
+      lang: 'en',      
+      theme: 'light',  
       mode: 'academic',
       layout: 1 
     };
@@ -668,8 +698,8 @@
           </div>
         `,
         bio: `
-          <p style="text-align: justify; line-height: 1.8; color: var(--text-muted); font-size: 0.95rem;">
-            MSc Industrial Engineering student at Iran University of Science and Technology (IUST) combining data-driven analysis with process improvement. Detail-oriented and effective in dynamic environments. My focus is on system optimization, project management, and creating transparency in organizational decision-making. A BSc in Urban Planning broadens my perspective on spatial and structural analysis.
+          <p style="text-align: justify; line-height: 1.8; color: var(--text-muted); font-size: 0.9rem;">
+            MSc Industrial Engineering student at Iran University of Science and Technology (IUST) combining data-driven analysis with process improvement. Detail-oriented and effective in dynamic environments. My focus is on system optimization, project management, and creating transparency in organizational decision-making.
           </p>
         `,
         education: `
@@ -679,7 +709,6 @@
               <span class="item-date">Present</span>
             </div>
             <div class="item-subtitle">Iran University of Science and Technology (IUST)</div>
-            <p class="item-desc" style="padding-left:0;">Focus on optimization, data analysis, and decision systems.</p>
           </div>
           <div class="timeline-item">
             <div class="item-header">
@@ -711,7 +740,6 @@
             <ul class="item-desc">
               <li>Petty cash, administrative affairs, and correspondence.</li>
               <li>Supplementary insurance liaison and employee case follow-up.</li>
-              <li>Excellence and organizational planning officer.</li>
             </ul>
           </div>
           <div class="timeline-item">
@@ -777,23 +805,23 @@
         `,
         languages: `
           <div class="skill-list">
-            <div class="skill-item"><span class="skill-name">Persian</span><span class="skill-level">Native</span></div>
-            <div class="skill-item"><span class="skill-name">English</span><span class="skill-level">Upper-Intermediate (B2/C1)</span></div>
-            <div class="skill-item"><span class="skill-name">Turkish</span><span class="skill-level">Intermediate</span></div>
+            <div class="skill-item"><span class="skill-name">Persian</span><div class="skill-bar"><div class="skill-fill" style="width: 100%"></div></div></div>
+            <div class="skill-item"><span class="skill-name">English</span><div class="skill-bar"><div class="skill-fill" style="width: 80%"></div></div></div>
+            <div class="skill-item"><span class="skill-name">Turkish</span><div class="skill-bar"><div class="skill-fill" style="width: 60%"></div></div></div>
           </div>
         `,
         computer: `
           <div class="skill-list">
-            <div class="skill-item"><span class="skill-name">MS Project</span><span class="skill-level">Intermediate</span></div>
-            <div class="skill-item"><span class="skill-name">Power BI</span><span class="skill-level">Beginner</span></div>
-            <div class="skill-item"><span class="skill-name">Minitab</span><span class="skill-level">Beginner</span></div>
-            <div class="skill-item"><span class="skill-name">Python / R</span><span class="skill-level">Beginner</span></div>
-            <div class="skill-item"><span class="skill-name">Primavera P6</span><span class="skill-level">Beginner</span></div>
-            <div class="skill-item"><span class="skill-name">Arena</span><span class="skill-level">Beginner</span></div>
-            <div class="skill-item"><span class="skill-name">SPSS / Expert Choice</span><span class="skill-level">Intermediate</span></div>
-            <div class="skill-item"><span class="skill-name">Word / Excel / PPT</span><span class="skill-level">Advanced</span></div>
-            <div class="skill-item"><span class="skill-name">AutoCAD / GIS</span><span class="skill-level">Intermediate</span></div>
-            <div class="skill-item"><span class="skill-name">Photoshop / Illustrator</span><span class="skill-level">Advanced</span></div>
+            <div class="skill-item"><span class="skill-name">MS Project</span><div class="skill-bar"><div class="skill-fill" style="width: 60%"></div></div></div>
+            <div class="skill-item"><span class="skill-name">Power BI</span><div class="skill-bar"><div class="skill-fill" style="width: 30%"></div></div></div>
+            <div class="skill-item"><span class="skill-name">Minitab</span><div class="skill-bar"><div class="skill-fill" style="width: 30%"></div></div></div>
+            <div class="skill-item"><span class="skill-name">Python / R</span><div class="skill-bar"><div class="skill-fill" style="width: 30%"></div></div></div>
+            <div class="skill-item"><span class="skill-name">Primavera P6</span><div class="skill-bar"><div class="skill-fill" style="width: 30%"></div></div></div>
+            <div class="skill-item"><span class="skill-name">Arena</span><div class="skill-bar"><div class="skill-fill" style="width: 30%"></div></div></div>
+            <div class="skill-item"><span class="skill-name">SPSS</span><div class="skill-bar"><div class="skill-fill" style="width: 60%"></div></div></div>
+            <div class="skill-item"><span class="skill-name">Word/Excel/PPT</span><div class="skill-bar"><div class="skill-fill" style="width: 100%"></div></div></div>
+            <div class="skill-item"><span class="skill-name">AutoCAD / GIS</span><div class="skill-bar"><div class="skill-fill" style="width: 60%"></div></div></div>
+            <div class="skill-item"><span class="skill-name">Photoshop</span><div class="skill-bar"><div class="skill-fill" style="width: 100%"></div></div></div>
           </div>
         `,
         hobbies: `
@@ -813,8 +841,7 @@
               <span class="rec-title">Professor of Industrial Engineering, University of Tehran</span>
             </div>
           </div>
-          <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">Contact me for official recommendation letters.</p>
-          <a href="mailto:haditheh97@gmail.com?subject=Recommendation%20Letter" class="ref-btn">Request Recommendation</a>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 10px;">If you wish to write a recommendation for me, please send it to haditheh97@gmail.com.</p>
         `,
         referencesIndustry: `
           <div class="recommendation-card">
@@ -824,8 +851,7 @@
               <span class="rec-title">Deputy of Planning, Currency and Banking Organization</span>
             </div>
           </div>
-          <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">Contact me for official recommendation letters.</p>
-          <a href="mailto:haditheh97@gmail.com?subject=Recommendation%20Letter" class="ref-btn">Request Recommendation</a>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 10px;">If you wish to write a recommendation for me, please send it to haditheh97@gmail.com.</p>
         `,
         volunteer: `
           <ul class="item-desc" style="padding-inline-start: 0; list-style-type: none;">
@@ -852,7 +878,7 @@
           </ul>
         `,
         articles: `
-          <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.8; text-align: justify;">
+          <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; text-align: justify;">
             Preparing and interested in publishing research in optimization, data analysis, and Multi-Criteria Decision Making (MCDM).
           </p>
         `,
@@ -885,14 +911,14 @@
           <div class="info-grid">
             <div><span>سن</span><strong>۲۹ سال</strong></div>
             <div><span>وضعیت تأهل</span><strong>مجرد</strong></div>
-            <div><span>محل سکونت</span><strong>تهران، خرمشهر</strong></div>
+            <div><span>محل سکونت</span><strong>ایران - تهران</strong></div>
             <div><span>تلفن</span><strong>۰۹۳۹۱۴۸۶۸۵۲</strong></div>
             <div><span>ایمیل</span><strong>haditheh97@gmail.com</strong></div>
             <div><span>وضعیت</span><strong>شاغل (تاکنون)</strong></div>
           </div>
         `,
         bio: `
-          <p style="text-align: justify; line-height: 1.8; color: var(--text-muted); font-size: 0.95rem;">
+          <p style="text-align: justify; line-height: 1.8; color: var(--text-muted); font-size: 0.9rem;">
             کارشناس ارشد مهندسی صنایع از دانشگاه علم و صنعت ایران (IUST) با رویکرد ترکیب تحلیل داده‌محور و بهبود فرایندها. دارای شخصیتی منظم و توانمند در محیط‌های پویا. تمرکز اصلی من بر بهینه‌سازی سیستم‌ها، مدیریت پروژه و ایجاد شفافیت در تصمیم‌گیری‌های سازمانی است. پیش‌زمینه کارشناسی شهرسازی، دیدگاه من را نسبت به تحلیل‌های فضایی و ساختاری گسترش داده است.
           </p>
         `,
@@ -903,7 +929,6 @@
               <span class="item-date">در حال تحصیل</span>
             </div>
             <div class="item-subtitle">دانشگاه علم و صنعت ایران (IUST)</div>
-            <p class="item-desc" style="padding-left:0;">تمرکز بر بهینه‌سازی، تحلیل داده و سیستم‌های تصمیم‌گیری.</p>
           </div>
           <div class="timeline-item">
             <div class="item-header">
@@ -935,7 +960,6 @@
             <ul class="item-desc">
               <li>مدیریت تنخواه، امور اداری و مکاتبات.</li>
               <li>رابط بیمه تکمیلی و پیگیری پرونده‌های کارکنان.</li>
-              <li>کارشناس تعالی و برنامه‌ریزی سازمانی.</li>
             </ul>
           </div>
           <div class="timeline-item">
@@ -1001,23 +1025,23 @@
         `,
         languages: `
           <div class="skill-list">
-            <div class="skill-item"><span class="skill-name">فارسی</span><span class="skill-level">زبان مادری</span></div>
-            <div class="skill-item"><span class="skill-name">انگلیسی</span><span class="skill-level">بالاتر از متوسط (B2/C1)</span></div>
-            <div class="skill-item"><span class="skill-name">ترکی</span><span class="skill-level">متوسط</span></div>
+            <div class="skill-item"><span class="skill-name">فارسی</span><div class="skill-bar"><div class="skill-fill" style="width: 100%"></div></div></div>
+            <div class="skill-item"><span class="skill-name">انگلیسی</span><div class="skill-bar"><div class="skill-fill" style="width: 80%"></div></div></div>
+            <div class="skill-item"><span class="skill-name">ترکی</span><div class="skill-bar"><div class="skill-fill" style="width: 60%"></div></div></div>
           </div>
         `,
         computer: `
           <div class="skill-list">
-            <div class="skill-item"><span class="skill-name">MS Project</span><span class="skill-level">متوسط</span></div>
-            <div class="skill-item"><span class="skill-name">Power BI</span><span class="skill-level">مقدماتی</span></div>
-            <div class="skill-item"><span class="skill-name">Minitab</span><span class="skill-level">مقدماتی</span></div>
-            <div class="skill-item"><span class="skill-name">Python / R</span><span class="skill-level">مقدماتی</span></div>
-            <div class="skill-item"><span class="skill-name">Primavera P6</span><span class="skill-level">مقدماتی</span></div>
-            <div class="skill-item"><span class="skill-name">Arena</span><span class="skill-level">مقدماتی</span></div>
-            <div class="skill-item"><span class="skill-name">SPSS / Expert Choice</span><span class="skill-level">متوسط</span></div>
-            <div class="skill-item"><span class="skill-name">Word / Excel / PPT</span><span class="skill-level">پیشرفته</span></div>
-            <div class="skill-item"><span class="skill-name">AutoCAD / GIS</span><span class="skill-level">متوسط</span></div>
-            <div class="skill-item"><span class="skill-name">Photoshop / Illustrator</span><span class="skill-level">پیشرفته</span></div>
+            <div class="skill-item"><span class="skill-name">MS Project</span><div class="skill-bar"><div class="skill-fill" style="width: 60%"></div></div></div>
+            <div class="skill-item"><span class="skill-name">Power BI</span><div class="skill-bar"><div class="skill-fill" style="width: 30%"></div></div></div>
+            <div class="skill-item"><span class="skill-name">Minitab</span><div class="skill-bar"><div class="skill-fill" style="width: 30%"></div></div></div>
+            <div class="skill-item"><span class="skill-name">Python / R</span><div class="skill-bar"><div class="skill-fill" style="width: 30%"></div></div></div>
+            <div class="skill-item"><span class="skill-name">Primavera P6</span><div class="skill-bar"><div class="skill-fill" style="width: 30%"></div></div></div>
+            <div class="skill-item"><span class="skill-name">Arena</span><div class="skill-bar"><div class="skill-fill" style="width: 30%"></div></div></div>
+            <div class="skill-item"><span class="skill-name">SPSS</span><div class="skill-bar"><div class="skill-fill" style="width: 60%"></div></div></div>
+            <div class="skill-item"><span class="skill-name">Word/Excel/PPT</span><div class="skill-bar"><div class="skill-fill" style="width: 100%"></div></div></div>
+            <div class="skill-item"><span class="skill-name">AutoCAD / GIS</span><div class="skill-bar"><div class="skill-fill" style="width: 60%"></div></div></div>
+            <div class="skill-item"><span class="skill-name">Photoshop</span><div class="skill-bar"><div class="skill-fill" style="width: 100%"></div></div></div>
           </div>
         `,
         hobbies: `
@@ -1037,8 +1061,7 @@
               <span class="rec-title">استاد دانشکده مهندسی صنایع، دانشگاه تهران</span>
             </div>
           </div>
-          <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">جهت دریافت توصیه‌نامه رسمی، می‌توانید با من تماس بگیرید.</p>
-          <a href="mailto:haditheh97@gmail.com?subject=Recommendation%20Letter" class="ref-btn">درخواست توصیه‌نامه</a>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 10px;">در صورتی که مایل به نوشتن توصیه‌نامه برای من هستید، لطفاً آن را به haditheh97@gmail.com ارسال کنید.</p>
         `,
         referencesIndustry: `
           <div class="recommendation-card">
@@ -1048,8 +1071,7 @@
               <span class="rec-title">معاون برنامه‌ریزی، سازمان ارزی و بانکی کشور</span>
             </div>
           </div>
-          <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">جهت دریافت توصیه‌نامه رسمی، می‌توانید با من تماس بگیرید.</p>
-          <a href="mailto:haditheh97@gmail.com?subject=Recommendation%20Letter" class="ref-btn">درخواست توصیه‌نامه</a>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 10px;">در صورتی که مایل به نوشتن توصیه‌نامه برای من هستید، لطفاً آن را به haditheh97@gmail.com ارسال کنید.</p>
         `,
         volunteer: `
           <ul class="item-desc" style="padding-inline-start: 0; list-style-type: none;">
@@ -1076,7 +1098,7 @@
           </ul>
         `,
         articles: `
-          <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.8; text-align: justify;">
+          <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; text-align: justify;">
             در حال آماده‌سازی و علاقه‌مند به انتشار پژوهش‌ها در حوزه‌های بهینه‌سازی، تحلیل داده و تصمیم‌گیری چندمعیاره (MCDM).
           </p>
         `,
@@ -1211,6 +1233,7 @@
       state.mode = mode;
       els.landingView.classList.remove('active');
       els.resumeView.classList.add('active');
+      document.body.classList.remove('lock-scroll'); // Unlock scroll
       window.scrollTo(0, 0);
       updateUI();
     }
@@ -1218,6 +1241,7 @@
     function goHome() {
       els.resumeView.classList.remove('active');
       els.landingView.classList.add('active');
+      document.body.classList.add('lock-scroll'); // Lock scroll
       window.scrollTo(0, 0);
     }
 
