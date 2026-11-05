@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl" data-theme="light">
+<html lang="fa" dir="rtl" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,30 +8,28 @@
   
   <style>
     :root {
-      /* Dark & Cold Theme (Default for Landing) */
-      --bg: #0a0a0a;
-      --surface: #121212;
-      --surface-hover: #1e1e1e;
-      --text-main: #f3f4f6;
-      --text-muted: #9ca3af;
-      --accent: #94a3b8; /* Cold silver/blue */
-      --accent-hover: #cbd5e1;
-      --border: #262626;
+      /* Dark & Cold Theme */
+      --bg: #09090b;
+      --surface: #18181b;
+      --surface-hover: #27272a;
+      --text-main: #f4f4f5;
+      --text-muted: #a1a1aa;
+      --accent: #94a3b8;
+      --border: #27272a;
       
       --font-fa: 'Vazirmatn', sans-serif;
       --font-en: 'Inter', sans-serif;
-      --radius: 8px;
+      --radius: 12px;
     }
 
     [data-theme="light"] {
-      --bg: #ffffff;
-      --surface: #f8fafc;
-      --surface-hover: #f1f5f9;
-      --text-main: #0f172a;
-      --text-muted: #64748b;
+      --bg: #fafafa;
+      --surface: #ffffff;
+      --surface-hover: #f4f4f5;
+      --text-main: #09090b;
+      --text-muted: #52525b;
       --accent: #475569;
-      --accent-hover: #1e293b;
-      --border: #e2e8f0;
+      --border: #e4e4e7;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -48,21 +46,20 @@
 
     [lang="en"] body { font-family: var(--font-en); }
 
-    /* === Controls (Top Right/Left) === */
+    /* === Controls === */
     .controls {
       position: fixed;
       top: 20px;
-      left: 20px; /* LTR for controls */
+      left: 20px;
       display: flex;
       gap: 12px;
       z-index: 100;
-      direction: ltr;
     }
 
     .btn-icon {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text-main);
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
       width: 40px;
       height: 40px;
       border-radius: 50%;
@@ -75,99 +72,134 @@
       backdrop-filter: blur(10px);
     }
     
-    .btn-icon:hover { background: var(--surface-hover); border-color: var(--accent); }
-
-    /* === View Container === */
-    .view-section { display: none; width: 100%; min-height: 100vh; }
-    .view-section.active { display: block; animation: fadeIn 0.6s ease; }
-
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-    /* === 1. LANDING PAGE (16:9 Utilization) === */
-    .landing-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      height: 100vh;
-      width: 100vw;
+    [data-theme="light"] .btn-icon {
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      color: #000;
     }
 
-    .landing-image {
+    .btn-icon:hover { transform: scale(1.1); }
+
+    /* === Views === */
+    .view-section { display: none; width: 100%; min-height: 100vh; }
+    .view-section.active { display: block; animation: fadeIn 0.5s ease; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    /* === 1. LANDING PAGE === */
+    .landing-screen {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
       background-image: url('landing.jpg');
       background-size: cover;
       background-position: center;
-      filter: grayscale(20%) contrast(110%);
-      transition: filter 0.5s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
     }
 
-    .landing-image:hover { filter: grayscale(0%) contrast(100%); }
+    .landing-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.2) 100%);
+      z-index: 1;
+    }
 
     .landing-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      padding: 8vw;
-      background: var(--bg);
+      align-items: center;
+      padding-bottom: 60px;
     }
 
-    .landing-name {
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      margin-bottom: 1rem;
-      line-height: 1.1;
+    .landing-actions {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 50px;
+      width: 100%;
+      max-width: 600px;
+      padding: 0 20px;
     }
 
-    .landing-contact {
+    .btn-hero {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 18px 24px;
       font-size: 1rem;
-      color: var(--text-muted);
-      margin-bottom: 3rem;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      text-align: center;
     }
 
-    .landing-contact a {
-      color: inherit;
+    .btn-hero:hover {
+      background: #fff;
+      color: #000;
+      border-color: #fff;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .landing-footer {
+      text-align: center;
+      color: #e4e4e7;
+    }
+
+    .landing-footer h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .landing-footer p {
+      font-size: 1rem;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .landing-footer a {
+      color: #e4e4e7;
       text-decoration: none;
       transition: color 0.3s;
     }
 
-    .landing-contact a:hover { color: var(--accent); }
+    .landing-footer a:hover { color: #fff; }
 
-    .landing-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      max-width: 300px;
-    }
-
-    .btn-minimal {
-      background: transparent;
-      color: var(--text-main);
-      border: 1px solid var(--border);
-      padding: 16px 24px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn-minimal:hover {
-      background: var(--text-main);
-      color: var(--bg);
-      border-color: var(--text-main);
-    }
-
-    /* === 2. RESUME PAGES === */
+    /* === 2. RESUME PAGE === */
     .resume-wrapper {
-      max-width: 1200px;
+      width: 100%;
+      max-width: 1600px; /* Uses full width */
       margin: 0 auto;
-      padding: 80px 24px 60px;
+      padding: 80px 4vw 60px;
     }
+
+    .back-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      margin-bottom: 30px;
+      transition: color 0.3s;
+      font-family: inherit;
+    }
+    .back-btn:hover { color: var(--text-main); }
 
     .resume-header {
       display: flex;
@@ -179,177 +211,210 @@
     }
 
     .resume-avatar {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
+      width: 130px;
+      height: 130px;
+      border-radius: 20px;
       object-fit: cover;
       border: 2px solid var(--border);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
     }
 
-    .resume-title h1 { font-size: 2.2rem; margin-bottom: 8px; letter-spacing: -0.02em; }
-    .resume-title p { color: var(--text-muted); font-size: 1rem; line-height: 1.6; }
+    .resume-title h1 { font-size: 2.4rem; margin-bottom: 8px; letter-spacing: -0.02em; }
+    .resume-title p { color: var(--text-muted); font-size: 1.05rem; line-height: 1.6; }
 
-    .back-btn {
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.9rem;
-      margin-bottom: 30px;
-      transition: color 0.3s;
-    }
-    .back-btn:hover { color: var(--text-main); }
-
-    .resume-layout {
+    /* Grid Layout for Full Screen Usage */
+    .resume-grid {
       display: grid;
-      grid-template-columns: 1fr 340px;
-      gap: 60px;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 40px;
       align-items: start;
     }
 
-    .resume-main { display: flex; flex-direction: column; gap: 40px; }
-    .resume-sidebar { display: flex; flex-direction: column; gap: 30px; }
+    .resume-section {
+      background: var(--surface);
+      padding: 24px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    }
 
-    .section-block { page-break-inside: avoid; }
-    
     .section-title {
       font-size: 1.1rem;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
       color: var(--text-main);
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 10px;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 8px;
+      display: inline-block;
     }
 
-    .timeline-item { margin-bottom: 24px; }
+    /* Specific Sections */
+    .motivation-section {
+      grid-column: 1 / -1; /* Spans all columns */
+      background: var(--surface-hover);
+    }
+
+    .motivation-box p {
+      text-align: justify;
+      line-height: 1.9;
+      margin-bottom: 16px;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    .motivation-box p:last-child { margin-bottom: 0; }
+    .motivation-box strong { color: var(--text-main); }
+
+    .timeline-item { margin-bottom: 20px; }
     .timeline-item:last-child { margin-bottom: 0; }
     
     .item-header {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       flex-wrap: wrap;
       gap: 10px;
     }
 
-    .item-title { font-weight: 600; font-size: 1rem; }
+    .item-title { font-weight: 700; font-size: 1rem; color: var(--text-main); }
     .item-date { font-size: 0.85rem; color: var(--text-muted); font-family: var(--font-en); }
-    .item-subtitle { font-size: 0.9rem; color: var(--accent); margin-bottom: 8px; }
+    .item-subtitle { font-size: 0.9rem; color: var(--accent); margin-bottom: 8px; font-weight: 500; }
     
-    .item-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.8; padding-left: 16px; margin: 0; }
-    .item-desc li { margin-bottom: 4px; }
+    .item-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.8; padding-left: 16px; margin: 0; text-align: justify; }
+    .item-desc li { margin-bottom: 6px; }
 
-    /* MBTI & Glass Stickers */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      font-size: 0.95rem;
+    }
+    .info-grid span { color: var(--text-muted); font-size: 0.85rem; display: block; margin-bottom: 4px; }
+    .info-grid strong { color: var(--text-main); font-weight: 600; }
+
+    /* MBTI */
     .mbti-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
       text-align: center;
+      background: linear-gradient(145deg, var(--surface), var(--surface-hover));
+      border: 1px solid var(--border);
     }
-    .mbti-title { font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
-    .mbti-type { font-size: 1.5rem; font-weight: 800; font-family: var(--font-en); color: var(--text-main); letter-spacing: 0.05em; }
-    .mbti-desc { font-size: 0.85rem; color: var(--text-muted); margin-top: 8px; line-height: 1.5; }
+    .mbti-type { font-size: 2rem; font-weight: 800; color: var(--text-main); font-family: var(--font-en); margin: 10px 0; }
 
-    .glass-stickers { display: flex; flex-wrap: wrap; gap: 10px; }
-    
-    .glass-sticker {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      padding: 8px 14px;
-      border-radius: 999px;
-      font-size: 0.85rem;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--text-main);
-      transition: all 0.3s ease;
-    }
-    
-    [data-theme="light"] .glass-sticker {
-      background: rgba(0, 0, 0, 0.03);
-      border: 1px solid rgba(0, 0, 0, 0.08);
-    }
-
-    .glass-sticker:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: var(--accent);
-    }
-
-    /* Skill List */
+    /* Skills & Languages */
     .skill-list { display: flex; flex-direction: column; gap: 12px; }
     .skill-item { display: flex; justify-content: space-between; font-size: 0.9rem; }
     .skill-name { color: var(--text-main); font-weight: 500; }
     .skill-level { color: var(--text-muted); font-size: 0.85rem; }
 
-    .about-text { font-size: 0.95rem; color: var(--text-muted); line-height: 1.8; text-align: justify; }
-
-    /* Motivation */
-    .motivation-box {
-      background: var(--surface);
-      padding: 24px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      font-size: 0.95rem;
-      line-height: 1.8;
+    /* Glass Stickers (Hobbies) */
+    .glass-stickers { display: flex; flex-wrap: wrap; gap: 10px; }
+    .glass-sticker {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      padding: 10px 16px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
     }
-    .motivation-box p { margin-bottom: 12px; color: var(--text-muted); }
-    .motivation-box strong { color: var(--text-main); }
-    .motivation-box p:last-child { margin-bottom: 0; }
+    [data-theme="light"] .glass-sticker {
+      background: rgba(0, 0, 0, 0.03);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+    .glass-sticker:hover { transform: translateY(-2px); border-color: var(--accent); }
 
-    /* Mobile Responsive */
-    @media (max-width: 900px) {
-      .landing-grid { grid-template-columns: 1fr; grid-template-rows: 40vh 60vh; }
-      .landing-content { padding: 40px 24px; }
-      .landing-actions { max-width: 100%; }
-      .resume-layout { grid-template-columns: 1fr; gap: 40px; }
+    /* References */
+    .ref-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--bg);
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-top: 15px;
+      transition: opacity 0.3s;
+    }
+    .ref-btn:hover { opacity: 0.8; }
+
+    /* === 3. MOBILE RESPONSIVE === */
+    @media (max-width: 768px) {
+      .resume-wrapper { padding: 80px 20px 40px; }
       .resume-header { flex-direction: column; text-align: center; gap: 20px; }
-      .controls { top: 15px; left: 15px; }
+      .resume-grid { grid-template-columns: 1fr; gap: 20px; }
+      .landing-actions { flex-direction: column; margin-bottom: 30px; }
+      .btn-hero { width: 100%; }
+      .landing-footer p { flex-direction: column; gap: 10px; }
     }
 
-    /* === 3. PRINT LAYOUT (Max 3 Pages) === */
+    /* === 4. PRINT LAYOUT (Max 3 Pages, Justified Text) === */
     @media print {
+      @page { size: A4; margin: 12mm; }
+      
       :root {
         --bg: #ffffff;
         --surface: #ffffff;
+        --surface-hover: #ffffff;
         --text-main: #000000;
         --text-muted: #333333;
-        --border: #dddddd;
+        --border: #cccccc;
         --accent: #000000;
       }
       
-      body { background: white; color: black; font-size: 10pt; }
+      body { background: white !important; color: black !important; font-size: 9.5pt; }
       .controls, .back-btn, .landing-actions { display: none !important; }
       
       .resume-wrapper { padding: 0; max-width: 100%; }
-      .resume-header { margin-bottom: 20px; padding-bottom: 15px; }
-      .resume-avatar { width: 80px; height: 80px; }
-      .resume-layout { grid-template-columns: 2fr 1fr; gap: 30px; }
+      .resume-header { margin-bottom: 20px; padding-bottom: 15px; flex-direction: row; text-align: left; }
       
-      .section-title { font-size: 12pt; margin-bottom: 10px; padding-bottom: 5px; }
-      .timeline-item { margin-bottom: 12px; page-break-inside: avoid; }
-      .item-title { font-size: 10pt; }
-      .item-desc { font-size: 9pt; line-height: 1.5; }
+      .resume-grid {
+        display: block;
+        column-count: 2;
+        column-gap: 25px;
+      }
       
-      .mbti-card { border: 1px solid #ddd; padding: 10px; }
-      .glass-sticker { border: 1px solid #ddd; background: none; padding: 4px 8px; font-size: 9pt; }
-      .motivation-box { padding: 15px; border: 1px solid #ddd; page-break-inside: avoid; }
+      .resume-section {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        padding: 0;
+        margin-bottom: 15px;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .section-title {
+        font-size: 11pt;
+        margin-bottom: 8px;
+        border-bottom: 1px solid #000;
+      }
+
+      p, li {
+        text-align: justify !important; /* Forces full alignment in print */
+        text-justify: inter-word;
+        line-height: 1.5;
+        font-size: 9pt;
+      }
+
+      .item-desc { padding-left: 12px; }
       
-      /* Force 2 columns for skills in print to save space */
-      .skill-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-      
-      @page { margin: 15mm; size: A4; }
+      .motivation-section {
+        column-span: all;
+        border-top: 1px solid #000;
+        padding-top: 10px;
+        margin-top: 10px;
+      }
+
+      .info-grid { grid-template-columns: 1fr 1fr; gap: 5px; }
+      .glass-sticker { border: 1px solid #000 !important; padding: 4px 8px; font-size: 9pt; background: none !important; }
+      .skill-list { gap: 6px; }
+      .ref-btn { border: 1px solid #000; color: #000; background: transparent; padding: 5px 10px; }
     }
   </style>
 </head>
@@ -363,18 +428,24 @@
 
   <!-- 1. LANDING PAGE -->
   <section id="landingView" class="view-section active">
-    <div class="landing-grid">
-      <div class="landing-image"></div>
+    <div class="landing-screen">
+      <div class="landing-overlay"></div>
       <div class="landing-content">
-        <h1 class="landing-name" id="l-name">حدیثه سلطانی</h1>
-        <div class="landing-contact">
-          <a href="tel:+989391486852" id="l-phone">۰۹۳۹۱۴۸۶۸۵۲</a>
-          <a href="mailto:haditheh97@gmail.com" id="l-email">haditheh97@gmail.com</a>
-        </div>
+        
         <div class="landing-actions">
-          <button class="btn-minimal" onclick="openResume('academic')" id="btn-academic">رزومه آکادمیک</button>
-          <button class="btn-minimal" onclick="openResume('industry')" id="btn-industry">رزومه صنعت</button>
+          <button class="btn-hero" onclick="openResume('academic')" id="btn-academic">رزومه آکادمیک</button>
+          <button class="btn-hero" onclick="openResume('industry')" id="btn-industry">رزومه صنعت</button>
         </div>
+
+        <div class="landing-footer">
+          <h1 id="l-name">حدیثه سلطانی</h1>
+          <p>
+            <a href="tel:+989391486852" id="l-phone">۰۹۳۹۱۴۸۶۸۵۲</a>
+            <span>|</span>
+            <a href="mailto:haditheh97@gmail.com" id="l-email">haditheh97@gmail.com</a>
+          </p>
+        </div>
+
       </div>
     </div>
   </section>
@@ -382,221 +453,416 @@
   <!-- 2. RESUME VIEW -->
   <section id="resumeView" class="view-section">
     <div class="resume-wrapper">
-      <button class="back-btn no-print" onclick="goHome()" id="btn-back">
-        ← بازگشت به صفحه اصلی
-      </button>
+      <button class="back-btn no-print" onclick="goHome()" id="btn-back">← بازگشت</button>
 
       <header class="resume-header">
         <img src="" id="resumeAvatar" class="resume-avatar" alt="Avatar">
         <div class="resume-title">
           <h1 id="r-name">حدیثه سلطانی</h1>
-          <p id="r-title">کارشناس مهندسی شهرسازی | کارشناس ارشد مهندسی صنایع</p>
+          <p id="r-title">کارشناس ارشد مهندسی صنایع | کارشناس مهندسی شهرسازی</p>
         </div>
       </header>
 
-      <div class="resume-layout">
-        <!-- MAIN COLUMN -->
-        <div class="resume-main">
-          <div id="main-sections"></div>
-        </div>
-
-        <!-- SIDEBAR -->
-        <aside class="resume-sidebar">
-          <div id="side-sections"></div>
-        </aside>
+      <div class="resume-grid" id="resumeGrid">
+        <!-- JS Will Inject Sections Here -->
       </div>
     </div>
   </section>
 
   <script>
-    // --- DATA & STATE ---
+    // --- STATE ---
     let state = {
       lang: 'fa',
       theme: 'dark',
-      mode: 'academic' // or 'industry'
+      mode: 'academic'
     };
 
-    const translations = {
+    // --- TRANSLATIONS & DATA ---
+    const i18n = {
       fa: {
         name: "حدیثه سلطانی",
-        title: "کارشناس مهندسی شهرسازی | کارشناس ارشد مهندسی صنایع",
-        phone: "۰۹۳۹۱۴۸۶۸۵۲",
-        email: "haditheh97@gmail.com",
+        title: "کارشناس ارشد مهندسی صنایع | کارشناس مهندسی شهرسازی",
         btnAcademic: "رزومه آکادمیک",
         btnIndustry: "رزومه صنعت",
         back: "← بازگشت به صفحه اصلی",
         sections: {
-          about: "درباره من",
+          personal: "مشخصات فردی",
+          bio: "بیوگرافی کوتاه",
           education: "تحصیلات",
           work: "تجربیات کاری",
-          achievements: "دستاوردها و جوایز",
-          motivation: "انگیزه‌نامه",
-          motivationAcademic: "انگیزه‌نامه آکادمیک",
-          motivationIndustry: "انگیزه‌نامه صنعت",
-          skills: "مهارت‌های کامپیوتری",
-          languages: "زبان‌ها",
+          languages: "مهارت‌های زبانی",
+          computer: "مهارت‌های کامپیوتری",
           hobbies: "علایق و سرگرمی‌ها",
+          references: "رفرنس",
           volunteer: "فعالیت‌های داوطلبانه",
-          courses: "دوره‌های آموزشی"
+          other: "سایر مهارت‌ها",
+          achievements: "دستاوردها و جوایز",
+          articles: "مقالات و کنفرانس‌ها",
+          courses: "دوره‌های آموزشی",
+          motivation: "انگیزه‌نامه"
         }
       },
       en: {
         name: "Hadiyeh Soltani",
-        title: "Urban Planning Engineer | MSc Industrial Engineering",
-        phone: "+98 939 148 6852",
-        email: "haditheh97@gmail.com",
+        title: "MSc Industrial Engineering | BSc Urban Planning",
         btnAcademic: "Academic CV",
         btnIndustry: "Industry CV",
-        back: "← Back to Home",
+        back: "← Back",
         sections: {
-          about: "About Me",
+          personal: "Personal Info",
+          bio: "Short Bio",
           education: "Education",
           work: "Work Experience",
-          achievements: "Achievements & Awards",
-          motivation: "Motivation",
-          motivationAcademic: "Academic Motivation",
-          motivationIndustry: "Industry Motivation",
-          skills: "Computer Skills",
           languages: "Languages",
-          hobbies: "Hobbies & Interests",
+          computer: "Computer Skills",
+          hobbies: "Hobbies",
+          references: "References",
           volunteer: "Volunteer Activities",
-          courses: "Training Courses"
+          other: "Other Skills",
+          achievements: "Achievements",
+          articles: "Articles & Conferences",
+          courses: "Training Courses",
+          motivation: "Motivation Letter"
         }
       }
     };
 
-    const data = {
+    const contentData = {
       fa: {
-        about: "مهندس شهرسازی و کارشناس ارشد مهندسی صنایع با رویکرد ترکیب تحلیل داده‌محور و روایت بصری. دارای شخصیتی منظم، برنامه‌ریز و توانمند در محیط‌های پویا و پرمراجع. هدف من ایجاد شفافیت در فرایندها و تصمیم‌گیری‌های سازمانی است.",
-        mbti: "فرمانده",
-        education: [
-          { title: "کارشناسی ارشد مهندسی صنایع", sub: "دانشگاه علم و صنعت ایران (IUST)", date: "در حال تحصیل" },
-          { title: "کارشناسی مهندسی شهرسازی", sub: "دانشگاه غیرانتفاعی سوره تهران", date: "۱۳۹۴ - ۱۳۹۸" }
-        ],
-        work: [
-          { title: "مدیر برنامه‌ریزی و سیستم‌ها", sub: "شرکت همیار تجارت فرتاک", date: "آذر ۱۴۰۱ تاکنون", desc: ["مستندسازی و کدینگ اسناد", "تهیه اسناد فرایندی و دستورالعمل‌ها", "تدوین اهداف راهبردی و گزارش‌های مدیریتی"] },
-          { title: "کارشناس منابع انسانی و بیمه", sub: "همیار تجارت فرتاک", date: "مرداد ۱۴۰۰ تاکنون", desc: ["تنخواه‌دار و امور اداری", "رابط بیمه تکمیلی", "کارشناس تعالی سازمانی"] },
-          { title: "طراح گرافیک دورکار", sub: "شرکت هواپیمایی پدیده", date: "۱۴۰۰", desc: ["طراحی بنر و استوری", "تولید محتوای بصری"] },
-          { title: "کارشناس راهبردی", sub: "هلدینگ نیرو", date: "۱۳۹۹ - ۱۴۰۰", desc: ["تولید اسناد راهبردی", "آماده‌سازی گزارش‌های مدیریتی"] },
-          { title: "طراح دکوراسیون داخلی", sub: "شرکت تیوان One", date: "۱۳۹۹", desc: ["طراحی با AutoCAD و Rhino", "تولید محتوای فضای مجازی"] },
-          { title: "طراح گرافیک", sub: "دانشگاه سوره تهران", date: "۱۳۹۷ - ۱۳۹۸", desc: ["طراحی پوستر مسابقات"] },
-          { title: "ویزیتور", sub: "اکسلنز", date: "۱۳۹۶ - ۱۳۹۷", desc: ["پذیرش و راهنمایی مراجعین نمایشگاه"] },
-          { title: "کارشناس طراحی", sub: "شرکت فنی مهندسی آساد", date: "۱۳۹۴ - ۱۳۹۶", desc: ["طراحی قطعات ربات با AutoCAD"] }
-        ],
-        achievements: [
-          "دریافت تندیس برنز ارزیابی EFQM",
-          "نویسنده برتر مسابقات کتاب‌خوانی سال ۱۳۹۳",
-          "طراحی پوستر مسابقات و همایش‌های دانشگاه سوره",
-          "تدوین گزارش‌های اینفوگرافیک برای هلدینگ نیرو خاتم‌الانبیا"
-        ],
-        courses: [
-          "منابع انسانی و قوانین کار (۶۴ ساعت)",
-          "Photoshop (۶۴ ساعت)",
-          "اصول و فنون مذاکره (۳۲ ساعت)",
-          "ممیزی داخلی ISO (۳۲ ساعت)",
-          "ICDL (۶۰ ساعت)",
-          "مدیریت فرایندهای سازمانی (۳۲ ساعت)"
-        ],
-        volunteer: [
-          "همکاری با یونیسف (UNICEF)",
-          "عضویت و فعالیت داوطلبانه در هلال احمر",
-          "گزارشگر و مقاله‌نویس دوماهنامه دانشگاه سوره",
-          "پاک‌سازی محیط زیست"
-        ],
-        skills: [
-          { name: "Microsoft Word", level: "پیشرفته" },
-          { name: "Microsoft Excel", level: "متوسط" },
-          { name: "Microsoft PowerPoint", level: "پیشرفته" },
-          { name: "SPSS", level: "متوسط" },
-          { name: "AutoCAD", level: "متوسط" },
-          { name: "GIS", level: "متوسط" },
-          { name: "Adobe Photoshop", level: "پیشرفته" },
-          { name: "Adobe Illustrator", level: "مقدماتی" },
-          { name: "MS Project", level: "متوسط" },
-          { name: "Power BI", level: "مقدماتی" },
-          { name: "Python / R", level: "مقدماتی" },
-          { name: "Primavera P6", level: "مقدماتی" }
-        ],
-        languages: [
-          { name: "فارسی", level: "زبان مادری" },
-          { name: "انگلیسی", level: "بالاتر از متوسط" },
-          { name: "ترکی", level: "متوسط" }
-        ],
-        hobbies: [
-          { icon: "🏸", name: "بدمینتون" },
-          { icon: "📸", name: "عکاسی" },
-          { icon: "📚", name: "مطالعه" },
-          { icon: "✍️", name: "شعر و نویسندگی" },
-          { icon: "🎧", name: "پادکست" }
-        ],
-        motivationAcademic: "علاقه‌مندم پژوهش و آموزش را در مرز میان مهندسی شهرسازی و مهندسی صنایع پیش ببرم؛ جایی که تحلیل فضایی، بهینه‌سازی و تصمیم‌گیری داده‌محور می‌توانند به حل مسائل پیچیده شهری کمک کنند. با تجربه در مستندسازی و انتقال دانش، می‌توانم پلی میان پژوهش آکادمیک و کاربرد عملی باشم.",
-        motivationIndustry: "به نقش‌هایی علاقه‌مندم که در آن برنامه‌ریزی، تحلیل فرایند و گزارش‌گری مدیریتی به تصمیم‌گیری بهتر کمک می‌کند. با ترکیب تحلیل داده، نظم مستندسازی و مهارت بصری، فرایندها را شفاف‌تر و تصمیم‌ها را سریع‌تر می‌کنم تا ارزش پایدار برای سازمان خلق شود."
+        personal: `
+          <div class="info-grid">
+            <div><span>سن</span><strong>۲۹ سال</strong></div>
+            <div><span>وضعیت تأهل</span><strong>مجرد</strong></div>
+            <div><span>محل سکونت</span><strong>تهران، خرمشهر</strong></div>
+            <div><span>تلفن</span><strong>۰۹۳۹۱۴۸۶۸۵۲</strong></div>
+            <div><span>ایمیل</span><strong>haditheh97@gmail.com</strong></div>
+            <div><span>وضعیت</span><strong>شاغل (تاکنون)</strong></div>
+          </div>
+        `,
+        bio: `
+          <p style="text-align: justify; line-height: 1.8; color: var(--text-muted); font-size: 0.95rem;">
+            کارشناس ارشد مهندسی صنایع از دانشگاه علم و صنعت ایران (IUST) با رویکرد ترکیب تحلیل داده‌محور و بهبود فرایندها. دارای شخصیتی منظم و توانمند در محیط‌های پویا. تمرکز اصلی من بر بهینه‌سازی سیستم‌ها، مدیریت پروژه و ایجاد شفافیت در تصمیم‌گیری‌های سازمانی است. پیش‌زمینه کارشناسی شهرسازی، دیدگاه من را نسبت به تحلیل‌های فضایی و ساختاری گسترش داده است.
+          </p>
+        `,
+        education: `
+          <div class="timeline-item">
+            <div class="item-header">
+              <span class="item-title">کارشناسی ارشد مهندسی صنایع</span>
+              <span class="item-date">در حال تحصیل</span>
+            </div>
+            <div class="item-subtitle">دانشگاه علم و صنعت ایران (IUST)</div>
+            <p class="item-desc" style="padding-left:0;">تمرکز بر بهینه‌سازی، تحلیل داده و سیستم‌های تصمیم‌گیری.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="item-header">
+              <span class="item-title">کارشناسی مهندسی شهرسازی</span>
+              <span class="item-date">۱۳۹۴ - ۱۳۹۸</span>
+            </div>
+            <div class="item-subtitle">دانشگاه غیرانتفاعی سوره تهران</div>
+          </div>
+        `,
+        work: `
+          <div class="timeline-item">
+            <div class="item-header">
+              <span class="item-title">مدیر برنامه‌ریزی و سیستم‌ها</span>
+              <span class="item-date">آذر ۱۴۰۱ تاکنون</span>
+            </div>
+            <div class="item-subtitle">شرکت همیار تجارت فرتاک</div>
+            <ul class="item-desc">
+              <li>مستندسازی، کدینگ و بایگانی اسناد و مدارک سازمان.</li>
+              <li>تهیه اسناد فرایندی، روش‌های اجرایی و دستورالعمل‌ها.</li>
+              <li>تدوین اهداف راهبردی و ارائه گزارش‌های مدیریتی (اینفوگرافیک).</li>
+            </ul>
+          </div>
+          <div class="timeline-item">
+            <div class="item-header">
+              <span class="item-title">کارشناس منابع انسانی و بیمه</span>
+              <span class="item-date">مرداد ۱۴۰۰ تاکنون</span>
+            </div>
+            <div class="item-subtitle">همیار تجارت فرتاک</div>
+            <ul class="item-desc">
+              <li>مدیریت تنخواه، امور اداری و مکاتبات.</li>
+              <li>رابط بیمه تکمیلی و پیگیری پرونده‌های کارکنان.</li>
+              <li>کارشناس تعالی و برنامه‌ریزی سازمانی.</li>
+            </ul>
+          </div>
+          <div class="timeline-item">
+            <div class="item-header">
+              <span class="item-title">طراح گرافیک دورکار</span>
+              <span class="item-date">۱۴۰۰</span>
+            </div>
+            <div class="item-subtitle">شرکت هواپیمایی پدیده</div>
+            <ul class="item-desc">
+              <li>طراحی بنر، پوستر و تولید محتوای بصری.</li>
+            </ul>
+          </div>
+          <div class="timeline-item">
+            <div class="item-header">
+              <span class="item-title">کارشناس راهبردی و برنامه‌ریزی</span>
+              <span class="item-date">۱۳۹۹ - ۱۴۰۰</span>
+            </div>
+            <div class="item-subtitle">هلدینگ نیرو</div>
+            <ul class="item-desc">
+              <li>تولید اسناد راهبردی و گزارش‌های مدیریتی برای جایزه ملی تعالی.</li>
+            </ul>
+          </div>
+        `,
+        languages: `
+          <div class="skill-list">
+            <div class="skill-item"><span class="skill-name">فارسی</span><span class="skill-level">زبان مادری</span></div>
+            <div class="skill-item"><span class="skill-name">انگلیسی</span><span class="skill-level">بالاتر از متوسط (B2/C1)</span></div>
+            <div class="skill-item"><span class="skill-name">ترکی</span><span class="skill-level">متوسط</span></div>
+          </div>
+        `,
+        computer: `
+          <div class="skill-list">
+            <div class="skill-item"><span class="skill-name">MS Project</span><span class="skill-level">متوسط</span></div>
+            <div class="skill-item"><span class="skill-name">Power BI</span><span class="skill-level">مقدماتی</span></div>
+            <div class="skill-item"><span class="skill-name">Minitab</span><span class="skill-level">مقدماتی</span></div>
+            <div class="skill-item"><span class="skill-name">Python / R</span><span class="skill-level">مقدماتی</span></div>
+            <div class="skill-item"><span class="skill-name">Primavera P6</span><span class="skill-level">مقدماتی</span></div>
+            <div class="skill-item"><span class="skill-name">Arena</span><span class="skill-level">مقدماتی</span></div>
+            <div class="skill-item"><span class="skill-name">SPSS / Expert Choice</span><span class="skill-level">متوسط</span></div>
+            <div class="skill-item"><span class="skill-name">Word / Excel / PPT</span><span class="skill-level">پیشرفته</span></div>
+            <div class="skill-item"><span class="skill-name">AutoCAD / GIS</span><span class="skill-level">متوسط</span></div>
+            <div class="skill-item"><span class="skill-name">Photoshop / Illustrator</span><span class="skill-level">پیشرفته</span></div>
+          </div>
+        `,
+        hobbies: `
+          <div class="glass-stickers">
+            <span class="glass-sticker">📚 مطالعه</span>
+            <span class="glass-sticker">✍️ شعر و نویسندگی</span>
+            <span class="glass-sticker">🏸 بدمینتون</span>
+            <span class="glass-sticker">📸 عکاسی</span>
+            <span class="glass-sticker">🎧 پادکست</span>
+          </div>
+        `,
+        references: `
+          <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 10px;">
+            آماده دریافت و ارائه توصیه‌نامه از مدیران و اساتید پیشین.
+          </p>
+          <a href="mailto:haditheh97@gmail.com?subject=Recommendation%20Letter" class="ref-btn">ارسال ایمیل برای توصیه‌نامه</a>
+        `,
+        volunteer: `
+          <ul class="item-desc" style="padding-left: 0; list-style-type: none;">
+            <li>🌱 همکاری و فعالیت داوطلبانه با یونیسف (UNICEF)</li>
+            <li>🌱 عضویت و فعالیت در جمعیت هلال احمر</li>
+            <li>🌱 گزارشگر و مقاله‌نویس دوماهنامه دانشگاه سوره</li>
+            <li>🌱 پاک‌سازی محیط زیست</li>
+          </ul>
+        `,
+        other: `
+          <ul class="item-desc" style="padding-left: 16px;">
+            <li>مستندسازی و تحلیل فرایندهای سازمانی</li>
+            <li>گزارشگری مدیریتی و تسهیل جلسات</li>
+            <li>تولید محتوا، ترجمه و کپی‌رایتینگ</li>
+            <li>گویندگی و فن بیان</li>
+          </ul>
+        `,
+        achievements: `
+          <ul class="item-desc">
+            <li>دریافت تندیس برنز ارزیابی EFQM (بنیاد شهید).</li>
+            <li>نویسنده برتر مسابقات کتاب‌خوانی سال ۱۳۹۳.</li>
+            <li>تدوین اهداف راهبردی هلدینگ نیرو (خاتم‌الانبیا و زاگرس).</li>
+            <li>طراحی اظهارنامه سازمانی جایزه ملی تعالی و پیشرفت.</li>
+          </ul>
+        `,
+        articles: `
+          <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.8; text-align: justify;">
+            در حال آماده‌سازی و علاقه‌مند به انتشار پژوهش‌ها در حوزه‌های بهینه‌سازی، تحلیل داده و تصمیم‌گیری چندمعیاره (MCDM).
+          </p>
+        `,
+        courses: `
+          <div class="glass-stickers">
+            <span class="glass-sticker">📘 منابع انسانی (۶۴ ساعت)</span>
+            <span class="glass-sticker">📘 مدیریت فرایند (۳۲ ساعت)</span>
+            <span class="glass-sticker">📘 فنون مذاکره (۳۲ ساعت)</span>
+            <span class="glass-sticker">📘 ممیزی داخلی ISO (۳۲ ساعت)</span>
+            <span class="glass-sticker">📘 ICDL (۶۰ ساعت)</span>
+          </div>
+        `,
+        motivationAcademic: `
+          <div class="motivation-box">
+            <p><strong>علاقه‌مندی به پست:</strong> علاقه‌مندم پژوهش و آموزش را در مرز میان مهندسی صنایع و تحلیل سیستم‌ها پیش ببرم؛ جایی که بهینه‌سازی و تصمیم‌گیری داده‌محور می‌توانند به حل مسائل پیچیده کمک کنند.</p>
+            <p><strong>من کیم و چطور کمک می‌کنم:</strong> دارای پایه مهندسی و تحصیلات تخصصی در مهندسی صنایع (IUST) هستم. تجربه من در برنامه‌ریزی، مستندسازی و گزارش‌گیری، توانایی من در تبدیل داده به روایت روشن برای محیط‌های آکادمیک را تقویت کرده است.</p>
+            <p><strong>چگونه با هم ارزش خلق می‌کنیم:</strong> با ترکیب تحلیل داده‌های کمی، مستندسازی دقیق و انتقال دانش، می‌توانم پلی میان پژوهش‌های نظری و کاربردهای عملی در پروژه‌های تحقیقاتی باشم.</p>
+          </div>
+        `,
+        motivationIndustry: `
+          <div class="motivation-box">
+            <p><strong>علاقه‌مندی به پست و شرکت:</strong> به نقش‌هایی علاقه‌مندم که در آن برنامه‌ریزی، تحلیل فرایند و گزارش‌گری مدیریتی به تصمیم‌گیری بهتر کمک می‌کند. محیط‌های پویا و داده‌محور را می‌پسندم.</p>
+            <p><strong>من کیم و چطور کمک می‌کنم:</strong> از سال ۱۴۰۰ در همیار تجارت فرتاک در حوزه منابع انسانی و برنامه‌ریزی فعالیت کرده‌ام. مستندسازی، تهیه گزارش‌های اینفوگرافیک و هماهنگی با مشاوران استانداردسازی از تجربه‌های کلیدی من است.</p>
+            <p><strong>چگونه با هم ارزش خلق می‌کنیم:</strong> با ترکیب تحلیل داده، نظم در مستندسازی و مهارت بصری، فرایندها را شفاف‌تر، گزارش‌ها را قابل‌فهم‌تر و تصمیم‌ها را سریع‌تر می‌کنم تا ارزش پایدار برای سازمان ایجاد شود.</p>
+          </div>
+        `
       },
       en: {
-        about: "Urban Planning Engineer and MSc Industrial Engineering student combining data-driven analysis with visual storytelling. Organized, detail-oriented, and effective in dynamic environments. My goal is to create transparency in processes and organizational decision-making.",
-        mbti: "The Commander",
-        education: [
-          { title: "MSc Industrial Engineering", sub: "Iran University of Science and Technology (IUST)", date: "Present" },
-          { title: "BSc Urban Planning Engineering", sub: "Soore University", date: "2015 - 2019" }
-        ],
-        work: [
-          { title: "Planning & Systems Manager", sub: "Hemiyar Tejarat Fertak", date: "Dec 2022 - Present", desc: ["Documentation and coding", "Process documents and procedures", "Strategic objectives and management reports"] },
-          { title: "HR & Insurance Officer", sub: "Hemiyar Tejarat Fertak", date: "Aug 2021 - Present", desc: ["Petty cash and administration", "Supplementary insurance liaison", "Excellence and organizational planning"] },
-          { title: "Remote Graphic Designer", sub: "Padeh Airline", date: "2021", desc: ["Banners and stories", "Visual content creation"] },
-          { title: "Remote Strategy Officer", sub: "Niroo Holding", date: "2020 - 2021", desc: ["Strategic documents", "Management reports"] },
-          { title: "Interior Designer", sub: "Tivan One", date: "2020", desc: ["AutoCAD and Rhino design", "Social media content"] },
-          { title: "Graphic Designer", sub: "Soore University", date: "2018 - 2019", desc: ["Poster design"] },
-          { title: "Visitor", sub: "Excellenz", date: "2017 - 2018", desc: ["Reception and guidance"] },
-          { title: "Design Officer", sub: "Asad Engineering", date: "2015 - 2017", desc: ["Robot part design in AutoCAD"] }
-        ],
-        achievements: [
-          "Bronze Trophy in EFQM assessment",
-          "Top writer in 2014 book-reading competition",
-          "Designed posters for Soore University",
-          "Developed infographic reports for Niroo Holding"
-        ],
-        courses: [
-          "HR & Labor Law (64 hours)",
-          "Photoshop (64 hours)",
-          "Negotiation Techniques (32 hours)",
-          "ISO Internal Audit (32 hours)",
-          "ICDL (60 hours)",
-          "Organizational Process Management (32 hours)"
-        ],
-        volunteer: [
-          "UNICEF Collaborator",
-          "Red Crescent Volunteer",
-          "Reporter for Soore University magazine",
-          "Environmental clean-up activities"
-        ],
-        skills: [
-          { name: "Microsoft Word", level: "Advanced" },
-          { name: "Microsoft Excel", level: "Intermediate" },
-          { name: "Microsoft PowerPoint", level: "Advanced" },
-          { name: "SPSS", level: "Intermediate" },
-          { name: "AutoCAD", level: "Intermediate" },
-          { name: "GIS", level: "Intermediate" },
-          { name: "Adobe Photoshop", level: "Advanced" },
-          { name: "Adobe Illustrator", level: "Beginner" },
-          { name: "MS Project", level: "Intermediate" },
-          { name: "Power BI", level: "Beginner" },
-          { name: "Python / R", level: "Beginner" },
-          { name: "Primavera P6", level: "Beginner" }
-        ],
-        languages: [
-          { name: "Persian", level: "Native" },
-          { name: "English", level: "Upper-Intermediate" },
-          { name: "Turkish", level: "Intermediate" }
-        ],
-        hobbies: [
-          { icon: "🏸", name: "Badminton" },
-          { icon: "📸", name: "Photography" },
-          { icon: "📚", name: "Reading" },
-          { icon: "✍️", name: "Writing" },
-          { icon: "🎧", name: "Podcasts" }
-        ],
-        motivationAcademic: "I am interested in advancing research at the intersection of urban planning and industrial engineering, where spatial analysis and optimization address complex urban challenges. With experience in documentation and knowledge transfer, I can bridge academic research and practical application.",
-        motivationIndustry: "I am interested in roles where planning, process analysis, and management reporting support better decisions. By combining data analysis, documentation discipline, and visual communication, I make processes clearer and decisions faster to create sustainable value."
+        personal: `
+          <div class="info-grid">
+            <div><span>Age</span><strong>29</strong></div>
+            <div><span>Marital Status</span><strong>Single</strong></div>
+            <div><span>Location</span><strong>Tehran, Iran</strong></div>
+            <div><span>Phone</span><strong>+98 939 148 6852</strong></div>
+            <div><span>Email</span><strong>haditheh97@gmail.com</strong></div>
+            <div><span>Status</span><strong>Employed (Present)</strong></div>
+          </div>
+        `,
+        bio: `
+          <p style="text-align: justify; line-height: 1.8; color: var(--text-muted); font-size: 0.95rem;">
+            MSc Industrial Engineering student at Iran University of Science and Technology (IUST) combining data-driven analysis with process improvement. Detail-oriented and effective in dynamic environments. My focus is on system optimization, project management, and creating transparency in organizational decision-making. A BSc in Urban Planning broadens my perspective on spatial and structural analysis.
+          </p>
+        `,
+        education: `
+          <div class="timeline-item">
+            <div class="item-header">
+              <span class="item-title">MSc Industrial Engineering</span>
+              <span class="item-date">Present</span>
+            </div>
+            <div class="item-subtitle">Iran University of Science and Technology (IUST)</div>
+            <p class="item-desc" style="padding-left:0;">Focus on optimization, data analysis, and decision systems.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="item-header">
+              <span class="item-title">BSc Urban Planning Engineering</span>
+              <span class="item-date">2015 - 2019</span>
+            </div>
+            <div class="item-subtitle">Soore University</div>
+          </div>
+        `,
+        work: `
+          <div class="timeline-item">
+            <div class="item-header">
+              <span class="item-title">Planning & Systems Manager</span>
+              <span class="item-date">Dec 2022 - Present</span>
+            </div>
+            <div class="item-subtitle">Hemiyar Tejarat Fertak</div>
+            <ul class="item-desc">
+              <li>Documentation, coding, and archiving of organizational records.</li>
+              <li>Preparing process documents, procedures, and instructions.</li>
+              <li>Developing strategic objectives and management infographic reports.</li>
+            </ul>
+          </div>
+          <div class="timeline-item">
+            <div class="item-header">
+              <span class="item-title">HR & Insurance Officer</span>
+              <span class="item-date">Aug 2021 - Present</span>
+            </div>
+            <div class="item-subtitle">Hemiyar Tejarat Fertak</div>
+            <ul class="item-desc">
+              <li>Petty cash, administrative affairs, and correspondence.</li>
+              <li>Supplementary insurance liaison and employee case follow-up.</li>
+              <li>Excellence and organizational planning officer.</li>
+            </ul>
+          </div>
+          <div class="timeline-item">
+            <div class="item-header">
+              <span class="item-title">Remote Graphic Designer</span>
+              <span class="item-date">2021</span>
+            </div>
+            <div class="item-subtitle">Padeh Airline</div>
+            <ul class="item-desc">
+              <li>Designed banners, posters, and visual content.</li>
+            </ul>
+          </div>
+          <div class="timeline-item">
+            <div class="item-header">
+              <span class="item-title">Remote Strategy & Planning Officer</span>
+              <span class="item-date">2020 - 2021</span>
+            </div>
+            <div class="item-subtitle">Niroo Holding</div>
+            <ul class="item-desc">
+              <li>Produced strategic documents and management reports for the National Excellence Award.</li>
+            </ul>
+          </div>
+        `,
+        languages: `
+          <div class="skill-list">
+            <div class="skill-item"><span class="skill-name">Persian</span><span class="skill-level">Native</span></div>
+            <div class="skill-item"><span class="skill-name">English</span><span class="skill-level">Upper-Intermediate (B2/C1)</span></div>
+            <div class="skill-item"><span class="skill-name">Turkish</span><span class="skill-level">Intermediate</span></div>
+          </div>
+        `,
+        computer: `
+          <div class="skill-list">
+            <div class="skill-item"><span class="skill-name">MS Project</span><span class="skill-level">Intermediate</span></div>
+            <div class="skill-item"><span class="skill-name">Power BI</span><span class="skill-level">Beginner</span></div>
+            <div class="skill-item"><span class="skill-name">Minitab</span><span class="skill-level">Beginner</span></div>
+            <div class="skill-item"><span class="skill-name">Python / R</span><span class="skill-level">Beginner</span></div>
+            <div class="skill-item"><span class="skill-name">Primavera P6</span><span class="skill-level">Beginner</span></div>
+            <div class="skill-item"><span class="skill-name">Arena</span><span class="skill-level">Beginner</span></div>
+            <div class="skill-item"><span class="skill-name">SPSS / Expert Choice</span><span class="skill-level">Intermediate</span></div>
+            <div class="skill-item"><span class="skill-name">Word / Excel / PPT</span><span class="skill-level">Advanced</span></div>
+            <div class="skill-item"><span class="skill-name">AutoCAD / GIS</span><span class="skill-level">Intermediate</span></div>
+            <div class="skill-item"><span class="skill-name">Photoshop / Illustrator</span><span class="skill-level">Advanced</span></div>
+          </div>
+        `,
+        hobbies: `
+          <div class="glass-stickers">
+            <span class="glass-sticker">📚 Reading</span>
+            <span class="glass-sticker">✍️ Writing</span>
+            <span class="glass-sticker">🏸 Badminton</span>
+            <span class="glass-sticker">📸 Photography</span>
+            <span class="glass-sticker">🎧 Podcasts</span>
+          </div>
+        `,
+        references: `
+          <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 10px;">
+            Available upon request from former managers and professors.
+          </p>
+          <a href="mailto:haditheh97@gmail.com?subject=Recommendation%20Letter" class="ref-btn">Email for Recommendation</a>
+        `,
+        volunteer: `
+          <ul class="item-desc" style="padding-left: 0; list-style-type: none;">
+            <li>🌱 UNICEF Collaborator</li>
+            <li>🌱 Red Crescent Society Volunteer</li>
+            <li>🌱 Reporter for Soore University magazine</li>
+            <li>🌱 Environmental clean-up activities</li>
+          </ul>
+        `,
+        other: `
+          <ul class="item-desc" style="padding-left: 16px;">
+            <li>Process documentation and analysis</li>
+            <li>Management reporting and meeting facilitation</li>
+            <li>Content creation, translation, and copywriting</li>
+            <li>Voiceover and public speaking</li>
+          </ul>
+        `,
+        achievements: `
+          <ul class="item-desc">
+            <li>Bronze Trophy in EFQM assessment (Shahid Foundation).</li>
+            <li>Top writer in 2014 book-reading competition.</li>
+            <li>Developed strategic objectives for Niroo Holding.</li>
+            <li>Designed organizational declaration for the National Excellence Award.</li>
+          </ul>
+        `,
+        articles: `
+          <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.8; text-align: justify;">
+            Preparing and interested in publishing research in optimization, data analysis, and Multi-Criteria Decision Making (MCDM).
+          </p>
+        `,
+        courses: `
+          <div class="glass-stickers">
+            <span class="glass-sticker">📘 HR & Labor Law (64h)</span>
+            <span class="glass-sticker">📘 Process Mgmt (32h)</span>
+            <span class="glass-sticker">📘 Negotiation (32h)</span>
+            <span class="glass-sticker">📘 ISO Internal Audit (32h)</span>
+            <span class="glass-sticker">📘 ICDL (60h)</span>
+          </div>
+        `,
+        motivationAcademic: `
+          <div class="motivation-box">
+            <p><strong>Interest in the position:</strong> I am interested in advancing research at the intersection of industrial engineering and system analysis, where optimization and data-driven decision-making address complex problems.</p>
+            <p><strong>Who I am and how I help:</strong> With a foundation in engineering and specialized education in Industrial Engineering (IUST), my experience in planning, documentation, and reporting strengthens my ability to translate data into clear narratives for academic environments.</p>
+            <p><strong>How we create value together:</strong> By combining quantitative data analysis, precise documentation, and knowledge transfer, I can bridge theoretical research and practical applications in research projects.</p>
+          </div>
+        `,
+        motivationIndustry: `
+          <div class="motivation-box">
+            <p><strong>Interest in the role and company:</strong> I am interested in roles where planning, process analysis, and management reporting support better decisions. I enjoy dynamic, data-driven environments.</p>
+            <p><strong>Who I am and how I help:</strong> Since 2021, I have worked at Hemiyar Tejarat Fertak in HR and planning. Documentation, infographic reporting, and coordination with standardization consultants are key parts of my experience.</p>
+            <p><strong>How we create value together:</strong> By combining data analysis, documentation discipline, and visual communication, I make processes clearer, reports more understandable, and decisions faster to create sustainable value for the organization.</p>
+          </div>
+        `
       }
     };
 
@@ -607,8 +873,7 @@
       langBtn: document.getElementById('langBtn'),
       themeBtn: document.getElementById('themeBtn'),
       resumeAvatar: document.getElementById('resumeAvatar'),
-      mainSections: document.getElementById('main-sections'),
-      sideSections: document.getElementById('side-sections')
+      resumeGrid: document.getElementById('resumeGrid')
     };
 
     // --- FUNCTIONS ---
@@ -620,186 +885,71 @@
       els.langBtn.innerText = state.lang === 'fa' ? 'EN' : 'FA';
       els.themeBtn.innerText = state.theme === 'dark' ? '☀️' : '🌙';
 
-      const t = translations[state.lang];
+      const t = i18n[state.lang];
       
-      // Landing
+      // Update Landing
       document.getElementById('l-name').innerText = t.name;
-      document.getElementById('l-phone').innerText = t.phone;
-      document.getElementById('l-email').innerText = t.email;
       document.getElementById('btn-academic').innerText = t.btnAcademic;
       document.getElementById('btn-industry').innerText = t.btnIndustry;
       
-      // Resume Header
+      // Update Resume Header
       document.getElementById('r-name').innerText = t.name;
       document.getElementById('r-title').innerText = t.title;
       document.getElementById('btn-back').innerText = t.back;
 
-      // Set Image based on mode
-      if (state.mode === 'academic') {
-        els.resumeAvatar.src = 'academic.jpg';
-      } else {
-        els.resumeAvatar.src = 'industry.jpg';
-      }
+      // Set Image
+      els.resumeAvatar.src = state.mode === 'academic' ? 'academic.jpg' : 'industry.jpg';
 
       renderResume();
     }
 
     function renderResume() {
-      const d = data[state.lang];
-      const t = translations[state.lang];
+      const d = contentData[state.lang];
+      const t = i18n[state.lang].sections;
+      let html = '';
 
-      // --- MAIN COLUMN CONTENT ---
-      let mainHTML = '';
-
-      // Motivation Letter
-      const motivationText = state.mode === 'academic' ? d.motivationAcademic : d.motivationIndustry;
-      const motivationTitle = state.mode === 'academic' ? t.sections.motivationAcademic : t.sections.motivationIndustry;
-      
-      mainHTML += `
-        <div class="section-block">
-          <h2 class="section-title">${motivationTitle}</h2>
-          <div class="motivation-box">
-            <p>${motivationText}</p>
-          </div>
-        </div>
-      `;
-
-      // Education (First in Academic, Second in Industry)
-      let eduHTML = `
-        <div class="section-block">
-          <h2 class="section-title">${t.sections.education}</h2>
-          ${d.education.map(e => `
-            <div class="timeline-item">
-              <div class="item-header">
-                <span class="item-title">${e.title}</span>
-                <span class="item-date">${e.date}</span>
-              </div>
-              <div class="item-subtitle">${e.sub}</div>
-            </div>
-          `).join('')}
-        </div>
-      `;
-
-      // Work Experience
-      let workHTML = `
-        <div class="section-block">
-          <h2 class="section-title">${t.sections.work}</h2>
-          ${d.work.map(w => `
-            <div class="timeline-item">
-              <div class="item-header">
-                <span class="item-title">${w.title}</span>
-                <span class="item-date">${w.date}</span>
-              </div>
-              <div class="item-subtitle">${w.sub}</div>
-              <ul class="item-desc">
-                ${w.desc.map(li => `<li>${li}</li>`).join('')}
-              </ul>
-            </div>
-          `).join('')}
+      // Helper to create section block
+      const makeSection = (id, title, content, isMotivation = false) => `
+        <div class="resume-section ${isMotivation ? 'motivation-section' : ''}">
+          <h2 class="section-title">${title}</h2>
+          ${content}
         </div>
       `;
 
       if (state.mode === 'academic') {
-        mainHTML += eduHTML + workHTML;
+        // Academic Order
+        html += makeSection('personal', t.personal, d.personal);
+        html += makeSection('bio', t.bio, d.bio);
+        html += makeSection('education', t.education, d.education);
+        html += makeSection('work', t.work, d.work);
+        html += makeSection('languages', t.languages, d.languages);
+        html += makeSection('computer', t.computer, d.computer);
+        html += makeSection('hobbies', t.hobbies, d.hobbies);
+        html += makeSection('references', t.references, d.references);
+        html += makeSection('volunteer', t.volunteer, d.volunteer);
+        html += makeSection('other', t.other, d.other);
+        html += makeSection('achievements', t.achievements, d.achievements);
+        html += makeSection('articles', t.articles, d.articles);
+        html += makeSection('courses', t.courses, d.courses);
+        html += makeSection('motivation', t.motivation + ' (Academic)', d.motivationAcademic, true);
       } else {
-        mainHTML += workHTML + eduHTML;
+        // Industry Order (Swap Edu/Work, No Articles)
+        html += makeSection('personal', t.personal, d.personal);
+        html += makeSection('bio', t.bio, d.bio);
+        html += makeSection('work', t.work, d.work);
+        html += makeSection('education', t.education, d.education);
+        html += makeSection('languages', t.languages, d.languages);
+        html += makeSection('computer', t.computer, d.computer);
+        html += makeSection('hobbies', t.hobbies, d.hobbies);
+        html += makeSection('references', t.references, d.references);
+        html += makeSection('volunteer', t.volunteer, d.volunteer);
+        html += makeSection('other', t.other, d.other);
+        html += makeSection('achievements', t.achievements, d.achievements);
+        html += makeSection('courses', t.courses, d.courses);
+        html += makeSection('motivation', t.motivation + ' (Industry)', d.motivationIndustry, true);
       }
 
-      // Achievements
-      mainHTML += `
-        <div class="section-block">
-          <h2 class="section-title">${t.sections.achievements}</h2>
-          <ul class="item-desc">
-            ${d.achievements.map(a => `<li>${a}</li>`).join('')}
-          </ul>
-        </div>
-      `;
-
-      // Courses
-      mainHTML += `
-        <div class="section-block">
-          <h2 class="section-title">${t.sections.courses}</h2>
-          <div class="glass-stickers">
-            ${d.courses.map(c => `<span class="glass-sticker">📚 ${c}</span>`).join('')}
-          </div>
-        </div>
-      `;
-
-      // --- SIDEBAR CONTENT ---
-      let sideHTML = '';
-
-      // About Me
-      sideHTML += `
-        <div class="section-block">
-          <h2 class="section-title">${t.sections.about}</h2>
-          <p class="about-text">${d.about}</p>
-        </div>
-      `;
-
-      // MBTI
-      sideHTML += `
-        <div class="section-block mbti-card">
-          <div class="mbti-title">Personality Type</div>
-          <div class="mbti-type">ENTJ</div>
-          <div class="mbti-desc">${d.mbti}</div>
-        </div>
-      `;
-
-      // Skills
-      sideHTML += `
-        <div class="section-block">
-          <h2 class="section-title">${t.sections.skills}</h2>
-          <div class="skill-list">
-            ${d.skills.map(s => `
-              <div class="skill-item">
-                <span class="skill-name">${s.name}</span>
-                <span class="skill-level">${s.level}</span>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-      `;
-
-      // Languages
-      sideHTML += `
-        <div class="section-block">
-          <h2 class="section-title">${t.sections.languages}</h2>
-          <div class="skill-list">
-            ${d.languages.map(l => `
-              <div class="skill-item">
-                <span class="skill-name">${l.name}</span>
-                <span class="skill-level">${l.level}</span>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-      `;
-
-      // Hobbies (Glass Stickers)
-      sideHTML += `
-        <div class="section-block">
-          <h2 class="section-title">${t.sections.hobbies}</h2>
-          <div class="glass-stickers">
-            ${d.hobbies.map(h => `
-              <span class="glass-sticker">${h.icon} ${h.name}</span>
-            `).join('')}
-          </div>
-        </div>
-      `;
-
-      // Volunteer
-      sideHTML += `
-        <div class="section-block">
-          <h2 class="section-title">${t.sections.volunteer}</h2>
-          <ul class="item-desc" style="padding-left: 0; list-style-type: none;">
-            ${d.volunteer.map(v => `<li style="margin-bottom: 8px;">🌱 ${v}</li>`).join('')}
-          </ul>
-        </div>
-      `;
-
-      // Inject to DOM
-      els.mainSections.innerHTML = mainHTML;
-      els.sideSections.innerHTML = sideHTML;
+      els.resumeGrid.innerHTML = html;
     }
 
     // --- ACTIONS ---
