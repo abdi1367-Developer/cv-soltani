@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Haditheh Soltani | حدیثه سلطانی</title>
+  
+  <!-- Site Favicon -->
+  <link rel="icon" type="image/jpeg" href="industry.jpg">
+  
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Vazirmatn:wght@300;400;600;800&display=swap" rel="stylesheet">
   
   <style>
@@ -50,41 +54,59 @@
       height: 100vh;
     }
 
-    /* === Controls (Moved to Bottom to avoid overlap) === */
-    .controls {
+    /* === Unified Top Controls === */
+    .top-controls-wrapper {
       position: fixed;
-      bottom: 20px;
-      inset-inline-start: 20px; /* Left in LTR, Right in RTL */
+      top: 20px;
+      width: 100%;
       display: flex;
-      gap: 10px;
       z-index: 100;
+      pointer-events: none; /* Let clicks pass through the wrapper */
     }
 
-    .btn-icon {
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      color: #000;
-      height: 40px;
-      padding: 0 14px;
+    /* LTR: Align Right */
+    [dir="ltr"] .top-controls-wrapper { justify-content: flex-end; padding-right: 20px; }
+    /* RTL: Align Left */
+    [dir="rtl"] .top-controls-wrapper { justify-content: flex-start; padding-left: 20px; }
+
+    .top-controls {
+      display: flex;
+      gap: 8px;
+      pointer-events: auto; /* Enable clicks on buttons */
+      background: rgba(255, 255, 255, 0.8);
+      padding: 6px;
       border-radius: 50px;
-      display: grid;
-      place-items: center;
-      cursor: pointer;
-      font-size: 0.8rem;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
 
-    [data-theme="dark"] .btn-icon {
+    [data-theme="dark"] .top-controls {
       background: rgba(0, 0, 0, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #fff;
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
 
-    .btn-icon:hover { transform: scale(1.05); }
+    .btn-control {
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      height: 36px;
+      padding: 0 14px;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .btn-control:hover {
+      background: var(--surface-hover);
+    }
 
     /* === Views === */
     .view-section { display: none; width: 100%; min-height: 100vh; }
@@ -206,32 +228,8 @@
       width: 100%;
       max-width: 100%;
       margin: 0 auto;
-      padding: 20px 4vw;
+      padding: 30px 4vw 20px; /* Top padding increased to avoid fixed buttons */
     }
-
-    .resume-top-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-    }
-
-    .back-btn, .print-btn {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text-main);
-      cursor: pointer;
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      transition: all 0.3s;
-      font-family: inherit;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .back-btn:hover, .print-btn:hover { background: var(--surface-hover); }
 
     .resume-header {
       display: flex;
@@ -457,7 +455,7 @@
       .landing-footer p { flex-direction: column; gap: 8px; }
       .skill-list { grid-template-columns: 1fr; gap: 12px; }
       .info-grid { grid-template-columns: 1fr; }
-      .resume-top-nav { flex-direction: column; gap: 10px; }
+      .resume-container { padding-top: 70px; } /* More space for top controls on mobile */
     }
 
     /* === 4. PRINT LAYOUT (Premium Design) === */
@@ -479,7 +477,8 @@
         color: black !important; 
       }
       
-      .controls, .resume-top-nav, .landing-actions, .ref-btn, #title-sub { display: none !important; }
+      /* Hide UI elements */
+      .top-controls-wrapper, .landing-actions, .ref-btn, #title-sub { display: none !important; }
       
       .sticky-header-wrapper {
         position: static;
@@ -508,7 +507,7 @@
         page-break-inside: avoid;
         border: 1px solid #e5e5e5;
         padding: 15px;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
         background: #fff;
         border-radius: 8px;
         display: block !important;
@@ -554,29 +553,44 @@
       body.print-one-col .resume-grid {
         column-count: 1 !important;
       }
-      body.print-one-col p, body.print-one-col li, body.print-one-col .item-desc {
-        line-height: 1.9;
-        font-size: 10pt;
+      
+      body.print-one-col p, 
+      body.print-one-col li, 
+      body.print-one-col .item-desc {
+        line-height: 1.7;
+        font-size: 9.5pt;
       }
-      body.print-one-col .timeline-item { margin-bottom: 24px; }
+      
+      body.print-one-col .timeline-item { margin-bottom: 18px; }
+      
+      /* Force Page 3 */
       body.print-one-col .motivation-section {
         break-before: page;
         page-break-before: always;
-        padding-top: 20px;
       }
-      /* Force some spacing to ensure 3 pages if too short */
-      body.print-one-col .section-title { margin-bottom: 15px; }
+      
+      /* Ensure spacing fills the pages nicely */
+      body.print-one-col .resume-section {
+        padding: 20px;
+        margin-bottom: 20px;
+      }
 
       /* 2 or 3-Column Layout: Exactly 2 Pages */
       body.print-multi-col .resume-grid {
         column-count: 2 !important;
         column-gap: 20px !important;
       }
-      body.print-multi-col p, body.print-multi-col li, body.print-multi-col .item-desc {
-        line-height: 1.5;
+      body.print-multi-col p, 
+      body.print-multi-col li, 
+      body.print-multi-col .item-desc {
+        line-height: 1.4;
         font-size: 8.5pt;
       }
-      body.print-multi-col .skill-list { gap: 8px; }
+      body.print-multi-col .skill-list { gap: 6px; }
+      body.print-multi-col .resume-section {
+        padding: 12px;
+        margin-bottom: 12px;
+      }
       body.print-multi-col .motivation-section {
         column-span: all;
         padding-top: 10px;
@@ -587,11 +601,15 @@
 </head>
 <body class="lock-scroll">
 
-  <!-- Controls -->
-  <div class="controls no-print">
-    <button class="btn-icon" onclick="toggleLang()" id="langBtn">FA</button>
-    <button class="btn-icon" onclick="toggleTheme()" id="themeBtn">🌙</button>
-    <button class="btn-icon" onclick="cycleLayout()" id="layoutBtn" style="display: none;">1 Col</button>
+  <!-- Unified Top Controls -->
+  <div class="top-controls-wrapper no-print">
+    <div class="top-controls">
+      <button class="btn-control" id="btn-back" onclick="goHome()" style="display:none;">← Back</button>
+      <button class="btn-control" id="btn-print" onclick="window.print()" style="display:none;">🖨️ Print</button>
+      <button class="btn-control" id="layoutBtn" onclick="cycleLayout()" style="display:none;">1 Col</button>
+      <button class="btn-control" id="langBtn" onclick="toggleLang()">FA</button>
+      <button class="btn-control" id="themeBtn" onclick="toggleTheme()">🌙</button>
+    </div>
   </div>
 
   <!-- 1. LANDING PAGE -->
@@ -624,11 +642,6 @@
     <!-- Sticky Header -->
     <div class="sticky-header-wrapper">
       <div class="resume-container">
-        <div class="resume-top-nav no-print">
-          <button class="back-btn" onclick="goHome()" id="btn-back">← Back</button>
-          <button class="print-btn" onclick="window.print()" id="btn-print">🖨️ Print CV</button>
-        </div>
-
         <header class="resume-header">
           <img src="" id="resumeAvatar" class="resume-avatar" alt="Avatar">
           <div class="resume-title">
@@ -668,7 +681,7 @@
         btnAcademic: "Academic CV",
         btnIndustry: "Industry CV",
         back: "← Back",
-        print: "🖨️ Print CV",
+        print: "🖨️ Print",
         sections: {
           personal: "Personal Info",
           bio: "About Me",
@@ -695,7 +708,7 @@
         btnAcademic: "رزومه آکادمیک",
         btnIndustry: "رزومه صنعت",
         back: "← بازگشت",
-        print: "🖨️ پرینت رزومه",
+        print: "🖨️ پرینت",
         sections: {
           personal: "مشخصات فردی",
           bio: "درباره من",
@@ -1165,6 +1178,8 @@
       langBtn: document.getElementById('langBtn'),
       themeBtn: document.getElementById('themeBtn'),
       layoutBtn: document.getElementById('layoutBtn'),
+      btnBack: document.getElementById('btn-back'),
+      btnPrint: document.getElementById('btn-print'),
       resumeAvatar: document.getElementById('resumeAvatar'),
       resumeGrid: document.getElementById('resumeGrid')
     };
@@ -1177,8 +1192,6 @@
       
       els.langBtn.innerText = state.lang === 'fa' ? 'EN' : 'FA';
       els.themeBtn.innerText = state.theme === 'light' ? '🌙' : '☀️';
-      
-      // Update Layout Button Text
       els.layoutBtn.innerText = state.layout === 1 ? '1 Col' : (state.layout === 2 ? '2 Cols' : '3 Cols');
 
       const t = i18n[state.lang];
@@ -1186,29 +1199,32 @@
       // Update Landing
       document.getElementById('l-name').innerText = t.name;
       document.getElementById('l-phone').innerText = t.phone;
-      document.getElementById('l-phone').href = state.lang === 'fa' ? "tel:+989391486852" : "tel:+989391486852";
+      document.getElementById('l-phone').href = "tel:+989391486852";
       document.getElementById('l-email').innerText = t.email;
       document.getElementById('btn-academic').innerText = t.btnAcademic;
       document.getElementById('btn-industry').innerText = t.btnIndustry;
       
+      // Update Top Controls
+      els.btnBack.innerText = t.back;
+      els.btnPrint.innerText = t.print;
+
       // Update Resume Header
       document.getElementById('r-name').innerText = t.name;
       document.getElementById('title-main').innerText = t.titleMain;
       document.getElementById('title-sub').innerText = t.titleSub;
-      document.getElementById('btn-back').innerText = t.back;
-      document.getElementById('btn-print').innerText = t.print;
 
       // Set Image
       els.resumeAvatar.src = state.mode === 'academic' ? 'academic.jpg' : 'industry.jpg';
 
       renderResume();
       
-      // Hide/Show Layout Button based on view
-      if (els.landingView.classList.contains('active')) {
-        els.layoutBtn.style.display = 'none';
-      } else {
-        els.layoutBtn.style.display = 'grid';
-      }
+      // Toggle Controls visibility based on view
+      const isLanding = els.landingView.classList.contains('active');
+      const displayStyle = isLanding ? 'none' : 'flex';
+      
+      els.btnBack.style.display = displayStyle;
+      els.btnPrint.style.display = displayStyle;
+      els.layoutBtn.style.display = displayStyle;
     }
 
     function renderResume() {
@@ -1216,7 +1232,6 @@
       const t = i18n[state.lang].sections;
       let html = '';
 
-      // Helper
       const makeSection = (id, title, content, isMotivation = false) => `
         <div class="resume-section ${isMotivation ? 'motivation-section' : ''}">
           <h2 class="section-title">${title}</h2>
