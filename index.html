@@ -93,7 +93,7 @@
     .landing-screen {
       position: relative;
       width: 100vw;
-      height: 100dvh; /* Exact dynamic viewport height */
+      height: 100dvh;
       background-image: url('landing.jpg');
       background-size: cover;
       background-position: center top;
@@ -212,12 +212,12 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 15px;
-      padding-inline-start: 150px; /* Leave space for fixed controls */
+      padding-inline-start: 150px; /* Space for fixed controls in LTR */
     }
 
     [dir="rtl"] .resume-top-nav {
       padding-inline-start: 0;
-      padding-inline-end: 150px;
+      padding-inline-end: 150px; /* Space for fixed controls in RTL */
     }
 
     .back-btn, .print-btn {
@@ -380,7 +380,7 @@
       background: var(--border);
       border-radius: 2px;
       overflow: hidden;
-      direction: ltr; /* Ensure bar fills from left */
+      direction: ltr;
     }
     
     .skill-fill {
@@ -464,7 +464,7 @@
       .resume-top-nav { padding-inline-start: 0; padding-inline-end: 0; flex-direction: column; gap: 10px; }
     }
 
-    /* === 4. PRINT LAYOUT (Strictly 3 Pages, Justified) === */
+    /* === 4. PRINT LAYOUT === */
     @media print {
       @page { size: A4; margin: 12mm; }
       
@@ -478,8 +478,13 @@
         --accent: #000000;
       }
       
-      body { background: white !important; color: black !important; font-size: 9pt; }
+      body { 
+        background: white !important; 
+        color: black !important; 
+      }
+      
       .controls, .resume-top-nav, .landing-actions, .ref-btn { display: none !important; }
+      #title-sub { display: none !important; } /* Hide Urban Planning in Print */
       
       .sticky-header-wrapper {
         position: static;
@@ -491,16 +496,19 @@
       .resume-container { padding: 0; }
       .resume-content-area { padding: 0; }
       
-      .resume-header { margin-bottom: 15px; padding-bottom: 10px; flex-direction: row; text-align: left; border-bottom: 1px solid #000; }
+      .resume-header { 
+        margin-bottom: 15px; 
+        padding-bottom: 10px; 
+        flex-direction: row; 
+        text-align: left; 
+        border-bottom: 1px solid #000; 
+      }
       .resume-avatar { width: 70px; height: 70px; }
       .resume-title h1 { font-size: 18pt; }
       .resume-title p { font-size: 10pt; }
 
-      /* Force 2 Column Layout for Print to save space */
       .resume-grid {
         display: block !important;
-        column-count: 2 !important;
-        column-gap: 20px !important;
       }
       
       .resume-section {
@@ -524,13 +532,10 @@
       p, li {
         text-align: justify !important;
         text-justify: inter-word;
-        line-height: 1.4;
-        font-size: 8.5pt;
       }
 
       .item-desc { padding-inline-start: 12px; }
       .info-grid { grid-template-columns: 1fr 1fr; gap: 5px; }
-      .skill-list { grid-template-columns: 1fr 1fr; gap: 6px; }
       
       .glass-sticker { 
         border: 1px solid #000 !important; 
@@ -540,17 +545,14 @@
         border-radius: 4px;
       }
 
+      /* Print Progress Bars Fix */
       .skill-bar { border: 1px solid #000; background: transparent; height: 4px; }
-      .skill-fill { background: #000; }
-
-      /* Force Motivation section to new page */
-      .motivation-section {
-        column-span: all;
-        break-before: page;
-        page-break-before: always;
-        padding-top: 20px;
+      .skill-fill { 
+        background-color: #000 !important; 
+        -webkit-print-color-adjust: exact; 
+        print-color-adjust: exact; 
       }
-      
+
       .recommendation-card {
         break-inside: avoid;
         page-break-inside: avoid;
@@ -558,6 +560,39 @@
         padding: 10px;
       }
       .rec-text { font-size: 8pt; }
+
+      /* ====== SPECIFIC PRINT LAYOUTS ====== */
+      
+      /* 1-Column Layout: Exactly 3 Pages */
+      body.print-one-col .resume-grid {
+        column-count: 1 !important;
+      }
+      body.print-one-col p, body.print-one-col li {
+        line-height: 1.6;
+        font-size: 9.5pt;
+      }
+      body.print-one-col .motivation-section {
+        break-before: page;
+        page-break-before: always;
+        padding-top: 20px;
+      }
+
+      /* 2 or 3-Column Layout: Exactly 2 Pages */
+      body.print-multi-col .resume-grid {
+        column-count: 2 !important;
+        column-gap: 20px !important;
+      }
+      body.print-multi-col p, body.print-multi-col li {
+        line-height: 1.4;
+        font-size: 8.5pt;
+      }
+      body.print-multi-col .skill-list { gap: 8px; }
+      body.print-multi-col .motivation-section {
+        column-span: all;
+        padding-top: 10px;
+        margin-top: 10px;
+        border-top: 1px solid #ccc;
+      }
     }
   </style>
 </head>
@@ -567,7 +602,7 @@
   <div class="controls no-print">
     <button class="btn-icon" onclick="toggleLang()" id="langBtn">FA</button>
     <button class="btn-icon" onclick="toggleTheme()" id="themeBtn">🌙</button>
-    <button class="btn-icon" onclick="cycleLayout()" id="layoutBtn">1 Col</button>
+    <button class="btn-icon" onclick="cycleLayout()" id="layoutBtn" style="display: none;">1 Col</button>
   </div>
 
   <!-- 1. LANDING PAGE -->
@@ -609,7 +644,7 @@
           <img src="" id="resumeAvatar" class="resume-avatar" alt="Avatar">
           <div class="resume-title">
             <h1 id="r-name">Haditheh Soltani</h1>
-            <p id="r-title">MSc Industrial Engineering | BSc Urban Planning</p>
+            <p><span id="title-main">MSc Industrial Engineering</span><span id="title-sub"> | BSc Urban Planning</span></p>
           </div>
         </header>
       </div>
@@ -637,7 +672,10 @@
     const i18n = {
       en: {
         name: "Haditheh Soltani",
-        title: "MSc Industrial Engineering | BSc Urban Planning",
+        titleMain: "MSc Industrial Engineering",
+        titleSub: " | BSc Urban Planning",
+        phone: "+98 939 148 6852",
+        email: "haditheh97@gmail.com",
         btnAcademic: "Academic CV",
         btnIndustry: "Industry CV",
         back: "← Back",
@@ -661,7 +699,10 @@
       },
       fa: {
         name: "حدیثه سلطانی",
-        title: "کارشناس ارشد مهندسی صنایع | کارشناس مهندسی شهرسازی",
+        titleMain: "کارشناس ارشد مهندسی صنایع",
+        titleSub: " | کارشناس مهندسی شهرسازی",
+        phone: "۰۹۳۹۱۴۸۶۸۵۲",
+        email: "haditheh97@gmail.com",
         btnAcademic: "رزومه آکادمیک",
         btnIndustry: "رزومه صنعت",
         back: "← بازگشت",
@@ -919,7 +960,7 @@
         `,
         bio: `
           <p style="text-align: justify; line-height: 1.8; color: var(--text-muted); font-size: 0.9rem;">
-            کارشناس ارشد مهندسی صنایع از دانشگاه علم و صنعت ایران (IUST) با رویکرد ترکیب تحلیل داده‌محور و بهبود فرایندها. دارای شخصیتی منظم و توانمند در محیط‌های پویا. تمرکز اصلی من بر بهینه‌سازی سیستم‌ها، مدیریت پروژه و ایجاد شفافیت در تصمیم‌گیری‌های سازمانی است. پیش‌زمینه کارشناسی شهرسازی، دیدگاه من را نسبت به تحلیل‌های فضایی و ساختاری گسترش داده است.
+            کارشناس ارشد مهندسی صنایع از دانشگاه علم و صنعت ایران (IUST) با رویکرد ترکیب تحلیل داده‌محور و بهبود فرایندها. دارای شخصیتی منظم و توانمند در محیط‌های پویا. تمرکز اصلی من بر بهینه‌سازی سیستم‌ها، مدیریت پروژه و ایجاد شفافیت در تصمیم‌گیری‌های سازمانی است.
           </p>
         `,
         education: `
@@ -1155,12 +1196,16 @@
       
       // Update Landing
       document.getElementById('l-name').innerText = t.name;
+      document.getElementById('l-phone').innerText = t.phone;
+      document.getElementById('l-phone').href = state.lang === 'fa' ? "tel:+989391486852" : "tel:+989391486852";
+      document.getElementById('l-email').innerText = t.email;
       document.getElementById('btn-academic').innerText = t.btnAcademic;
       document.getElementById('btn-industry').innerText = t.btnIndustry;
       
       // Update Resume Header
       document.getElementById('r-name').innerText = t.name;
-      document.getElementById('r-title').innerText = t.title;
+      document.getElementById('title-main').innerText = t.titleMain;
+      document.getElementById('title-sub').innerText = t.titleSub;
       document.getElementById('btn-back').innerText = t.back;
       document.getElementById('btn-print').innerText = t.print;
 
@@ -1168,6 +1213,13 @@
       els.resumeAvatar.src = state.mode === 'academic' ? 'academic.jpg' : 'industry.jpg';
 
       renderResume();
+      
+      // Hide/Show Layout Button based on view
+      if (els.landingView.classList.contains('active')) {
+        els.layoutBtn.style.display = 'none';
+      } else {
+        els.layoutBtn.style.display = 'grid';
+      }
     }
 
     function renderResume() {
@@ -1220,6 +1272,14 @@
 
     function updateLayoutClass() {
       els.resumeGrid.className = `resume-grid layout-${state.layout}`;
+      
+      // Set Print Body Classes
+      document.body.classList.remove('print-one-col', 'print-multi-col');
+      if (state.layout === 1) {
+        document.body.classList.add('print-one-col');
+      } else {
+        document.body.classList.add('print-multi-col');
+      }
     }
 
     function cycleLayout() {
@@ -1233,7 +1293,7 @@
       state.mode = mode;
       els.landingView.classList.remove('active');
       els.resumeView.classList.add('active');
-      document.body.classList.remove('lock-scroll'); // Unlock scroll
+      document.body.classList.remove('lock-scroll');
       window.scrollTo(0, 0);
       updateUI();
     }
@@ -1241,8 +1301,9 @@
     function goHome() {
       els.resumeView.classList.remove('active');
       els.landingView.classList.add('active');
-      document.body.classList.add('lock-scroll'); // Lock scroll
+      document.body.classList.add('lock-scroll');
       window.scrollTo(0, 0);
+      updateUI();
     }
 
     function toggleLang() {
