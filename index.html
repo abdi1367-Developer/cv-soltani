@@ -3,1731 +3,832 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>حدیثه سلطانی | Hadiyeh Soltani</title>
-  <meta name="description" content="رزومه حدیثه سلطانی — کارشناس مهندسی شهرسازی، کارشناس ارشد مهندسی صنایع، گرافیست و تولیدکننده محتوا" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
+  <title>Hadiyeh Soltani | حدیثه سلطانی</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Vazirmatn:wght@300;400;600;800&display=swap" rel="stylesheet">
+  
   <style>
     :root {
-      --bg: #f6f3ee;
-      --surface: rgba(255, 255, 255, 0.78);
-      --surface-strong: rgba(255, 255, 255, 0.94);
-      --ink: #101827;
-      --muted: #5d6675;
-      --brand: #0f766e;
-      --brand-2: #c2410c;
-      --gold: #d97706;
-      --line: rgba(15, 23, 42, 0.10);
-      --shadow: 0 24px 80px rgba(15, 23, 42, 0.13);
-      --shadow-soft: 0 12px 34px rgba(15, 23, 42, 0.08);
-      --radius: 28px;
-      --radius-sm: 18px;
-      --font-fa: "Vazirmatn", Tahoma, sans-serif;
-      --font-en: "Inter", Arial, sans-serif;
+      /* Dark & Cold Theme (Default for Landing) */
+      --bg: #0a0a0a;
+      --surface: #121212;
+      --surface-hover: #1e1e1e;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent: #94a3b8; /* Cold silver/blue */
+      --accent-hover: #cbd5e1;
+      --border: #262626;
+      
+      --font-fa: 'Vazirmatn', sans-serif;
+      --font-en: 'Inter', sans-serif;
+      --radius: 8px;
     }
 
-    html[data-theme="dark"] {
-      --bg: #0b1120;
-      --surface: rgba(15, 23, 42, 0.72);
-      --surface-strong: rgba(15, 23, 42, 0.92);
-      --ink: #f8fafc;
-      --muted: #b6c0cf;
-      --brand: #2dd4bf;
-      --brand-2: #fb923c;
-      --gold: #fbbf24;
-      --line: rgba(255, 255, 255, 0.12);
-      --shadow: 0 24px 80px rgba(0, 0, 0, 0.38);
-      --shadow-soft: 0 12px 34px rgba(0, 0, 0, 0.24);
+    [data-theme="light"] {
+      --bg: #ffffff;
+      --surface: #f8fafc;
+      --surface-hover: #f1f5f9;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --accent: #475569;
+      --accent-hover: #1e293b;
+      --border: #e2e8f0;
     }
 
-    * { box-sizing: border-box; }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
     body {
-      margin: 0;
-      min-height: 100vh;
-      color: var(--ink);
-      background: var(--bg);
+      background-color: var(--bg);
+      color: var(--text-main);
       font-family: var(--font-fa);
+      transition: background-color 0.4s ease, color 0.4s ease;
       overflow-x: hidden;
-      transition: background .35s ease, color .35s ease;
+      min-height: 100vh;
     }
 
-    html[lang="en"] body { font-family: var(--font-en); }
+    [lang="en"] body { font-family: var(--font-en); }
 
-    button, a { -webkit-tap-highlight-color: transparent; }
-
-    button { font: inherit; }
-
-    [hidden] { display: none !important; }
-
-    .animated-bg {
+    /* === Controls (Top Right/Left) === */
+    .controls {
       position: fixed;
-      inset: 0;
-      z-index: -2;
-      overflow: hidden;
-      background:
-        radial-gradient(circle at 18% 10%, rgba(15, 118, 110, .18), transparent 32%),
-        radial-gradient(circle at 86% 18%, rgba(194, 65, 12, .15), transparent 30%),
-        radial-gradient(circle at 50% 92%, rgba(217, 119, 6, .13), transparent 35%),
-        linear-gradient(135deg, var(--bg), var(--bg));
-    }
-
-    .grid-overlay {
-      position: absolute;
-      inset: 0;
-      opacity: .42;
-      background-image:
-        linear-gradient(to right, var(--line) 1px, transparent 1px),
-        linear-gradient(to bottom, var(--line) 1px, transparent 1px);
-      background-size: 56px 56px;
-      mask-image: linear-gradient(to bottom, black, transparent 82%);
-    }
-
-    .orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(18px);
-      opacity: .55;
-      animation: floatOrb 16s ease-in-out infinite alternate;
-    }
-
-    .orb-a {
-      width: 360px; height: 360px;
-      top: -90px; right: -60px;
-      background: radial-gradient(circle, rgba(15, 118, 110, .48), transparent 65%);
-    }
-
-    .orb-b {
-      width: 420px; height: 420px;
-      bottom: -160px; left: -100px;
-      background: radial-gradient(circle, rgba(194, 65, 12, .40), transparent 65%);
-      animation-delay: -4s;
-    }
-
-    .orb-c {
-      width: 280px; height: 280px;
-      top: 42%; left: 48%;
-      background: radial-gradient(circle, rgba(217, 119, 6, .34), transparent 65%);
-      animation-delay: -8s;
-    }
-
-    @keyframes floatOrb {
-      0% { transform: translate3d(0, 0, 0) scale(1); }
-      50% { transform: translate3d(26px, -32px, 0) scale(1.08); }
-      100% { transform: translate3d(-18px, 22px, 0) scale(.96); }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .orb { animation: none; }
-      * { scroll-behavior: auto !important; }
-    }
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 30;
+      top: 20px;
+      left: 20px; /* LTR for controls */
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 18px clamp(18px, 5vw, 54px);
-      background: linear-gradient(to bottom, color-mix(in srgb, var(--bg) 82%, transparent), transparent);
-      backdrop-filter: blur(16px);
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 46px;
-      height: 46px;
-      border-radius: 16px;
-      border: 1px solid var(--line);
-      background: var(--surface);
-      color: var(--ink);
-      font-family: var(--font-en);
-      font-weight: 800;
-      letter-spacing: -.05em;
-      cursor: pointer;
-      box-shadow: var(--shadow-soft);
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .icon-btn, .ghost-btn {
-      border: 1px solid var(--line);
-      background: var(--surface);
-      color: var(--ink);
-      border-radius: 999px;
-      padding: 10px 14px;
-      cursor: pointer;
-      box-shadow: var(--shadow-soft);
-      transition: transform .2s ease, background .2s ease, border-color .2s ease;
-    }
-
-    .icon-btn:hover, .ghost-btn:hover, .brand:hover {
-      transform: translateY(-2px);
-      border-color: color-mix(in srgb, var(--brand) 40%, var(--line));
-    }
-
-    .icon-btn {
-      min-width: 46px;
-      font-family: var(--font-en);
-      font-weight: 700;
-    }
-
-    main {
-      width: min(1180px, calc(100% - 28px));
-      margin: 0 auto;
-      padding: 16px 0 72px;
-    }
-
-    .landing {
-      min-height: calc(100vh - 110px);
-      display: grid;
-      place-items: center;
-      padding: 18px 0 42px;
-    }
-
-    .hero-card {
-      width: 100%;
-      display: grid;
-      grid-template-columns: 300px 1fr;
-      gap: clamp(22px, 4vw, 48px);
-      align-items: center;
-      padding: clamp(24px, 5vw, 54px);
-      border: 1px solid var(--line);
-      border-radius: calc(var(--radius) + 8px);
-      background: var(--surface);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(22px);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background:
-        linear-gradient(120deg, transparent 0 35%, rgba(255,255,255,.25) 50%, transparent 65%);
-      transform: translateX(-120%);
-      animation: sheen 7s ease-in-out infinite;
-    }
-
-    @keyframes sheen {
-      0%, 60% { transform: translateX(-120%); }
-      100% { transform: translateX(120%); }
-    }
-
-    .avatar-wrap {
-      position: relative;
-      width: min(260px, 70vw);
-      aspect-ratio: 1;
-      margin: 0 auto;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      background:
-        radial-gradient(circle at 30% 20%, rgba(255,255,255,.9), transparent 38%),
-        linear-gradient(145deg, color-mix(in srgb, var(--brand) 30%, white), color-mix(in srgb, var(--brand-2) 26%, white));
-      box-shadow: 0 20px 60px rgba(15, 118, 110, .22), inset 0 0 0 1px rgba(255,255,255,.42);
-      overflow: hidden;
-    }
-
-    .avatar-wrap img {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
-    }
-
-    .avatar-wrap .initials {
-      position: absolute;
-      z-index: 1;
-      font-family: var(--font-en);
-      font-size: 3rem;
-      font-weight: 800;
-      color: rgba(15, 23, 42, .42);
-      letter-spacing: -.08em;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin: 0 0 12px;
-      color: var(--brand);
-      font-size: .82rem;
-      font-weight: 800;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      font-family: var(--font-en);
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(2rem, 4.6vw, 4rem);
-      line-height: 1.08;
-      letter-spacing: -.04em;
-    }
-
-    .hero-title {
-      margin: 14px 0 0;
-      color: var(--muted);
-      font-size: clamp(.95rem, 1.7vw, 1.14rem);
-      line-height: 1.9;
-      max-width: 680px;
-    }
-
-    .hero-short {
-      margin: 18px 0 0;
-      font-size: clamp(1rem, 1.7vw, 1.16rem);
-      line-height: 2;
-      max-width: 720px;
-    }
-
-    .chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 22px;
-    }
-
-    .chip, .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      border: 1px solid var(--line);
-      background: color-mix(in srgb, var(--surface-strong) 80%, transparent);
-      color: var(--ink);
-      border-radius: 999px;
-      padding: 9px 13px;
-      font-size: .88rem;
-      line-height: 1.4;
-      box-shadow: var(--shadow-soft);
-    }
-
-    .choice-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-      margin-top: 30px;
-    }
-
-    .choice-card {
-      position: relative;
-      overflow: hidden;
-      text-align: start;
-      border: 1px solid var(--line);
-      background: var(--surface-strong);
-      color: var(--ink);
-      border-radius: var(--radius-sm);
-      padding: 22px;
-      cursor: pointer;
-      box-shadow: var(--shadow-soft);
-      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
-    }
-
-    .choice-card::after {
-      content: "→";
-      position: absolute;
-      inset-inline-end: 18px;
-      inset-block-start: 18px;
-      font-family: var(--font-en);
-      font-weight: 800;
-      color: var(--brand);
-      transition: transform .25s ease;
-    }
-
-    html[dir="rtl"] .choice-card::after { content: "←"; }
-
-    .choice-card:hover {
-      transform: translateY(-5px);
-      border-color: color-mix(in srgb, var(--brand) 42%, var(--line));
-      box-shadow: 0 24px 60px rgba(15, 118, 110, .18);
-    }
-
-    .choice-card:hover::after { transform: translateX(5px); }
-    html[dir="rtl"] .choice-card:hover::after { transform: translateX(-5px); }
-
-    .choice-icon {
-      display: inline-grid;
-      place-items: center;
-      width: 46px;
-      height: 46px;
-      border-radius: 16px;
-      background: color-mix(in srgb, var(--brand) 14%, transparent);
-      font-size: 1.35rem;
-      margin-bottom: 16px;
-    }
-
-    .choice-card h3 {
-      margin: 0 0 8px;
-      font-size: 1.12rem;
-    }
-
-    .choice-card p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.85;
-      font-size: .92rem;
-    }
-
-    .back-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
       gap: 12px;
-      margin: 4px 0 18px;
-      flex-wrap: wrap;
+      z-index: 100;
+      direction: ltr;
     }
 
-    .resume-hero {
-      display: grid;
-      grid-template-columns: 130px 1fr auto;
-      gap: 22px;
-      align-items: center;
-      padding: clamp(20px, 3vw, 32px);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
+    .btn-icon {
       background: var(--surface);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(22px);
-    }
-
-    .avatar-sm {
-      width: 130px;
-      height: 130px;
-      border-radius: 32px;
-      overflow: hidden;
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
       display: grid;
       place-items: center;
-      background: linear-gradient(145deg, color-mix(in srgb, var(--brand) 20%, white), color-mix(in srgb, var(--brand-2) 18%, white));
-      box-shadow: var(--shadow-soft);
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+    
+    .btn-icon:hover { background: var(--surface-hover); border-color: var(--accent); }
+
+    /* === View Container === */
+    .view-section { display: none; width: 100%; min-height: 100vh; }
+    .view-section.active { display: block; animation: fadeIn 0.6s ease; }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    /* === 1. LANDING PAGE (16:9 Utilization) === */
+    .landing-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      height: 100vh;
+      width: 100vw;
     }
 
-    .avatar-sm img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    .landing-image {
+      background-image: url('landing.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: grayscale(20%) contrast(110%);
+      transition: filter 0.5s ease;
     }
 
-    .resume-hero h1 { font-size: clamp(1.7rem, 3.4vw, 2.8rem); }
+    .landing-image:hover { filter: grayscale(0%) contrast(100%); }
 
-    .resume-hero .hero-title { margin-top: 8px; }
-
-    .contact-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 16px;
-    }
-
-    .contact-chips a, .contact-chips span {
-      color: var(--ink);
-      text-decoration: none;
-      border: 1px solid var(--line);
-      background: var(--surface-strong);
-      border-radius: 999px;
-      padding: 8px 12px;
-      font-size: .84rem;
-      box-shadow: var(--shadow-soft);
-    }
-
-    .hero-actions {
+    .landing-content {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      align-items: stretch;
+      justify-content: center;
+      padding: 8vw;
+      background: var(--bg);
     }
 
-    .primary-btn, .secondary-btn {
-      border: 1px solid transparent;
-      border-radius: 999px;
-      padding: 11px 16px;
+    .landing-name {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+      line-height: 1.1;
+    }
+
+    .landing-contact {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .landing-contact a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .landing-contact a:hover { color: var(--accent); }
+
+    .landing-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 300px;
+    }
+
+    .btn-minimal {
+      background: transparent;
+      color: var(--text-main);
+      border: 1px solid var(--border);
+      padding: 16px 24px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
       cursor: pointer;
-      font-weight: 700;
-      white-space: nowrap;
-      transition: transform .2s ease, background .2s ease;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
 
-    .primary-btn {
-      background: linear-gradient(135deg, var(--brand), color-mix(in srgb, var(--brand) 60%, #0ea5e9));
-      color: #fff;
-      box-shadow: 0 14px 34px rgba(15, 118, 110, .26);
+    .btn-minimal:hover {
+      background: var(--text-main);
+      color: var(--bg);
+      border-color: var(--text-main);
     }
 
-    .secondary-btn {
-      background: var(--surface-strong);
-      color: var(--ink);
-      border-color: var(--line);
-      box-shadow: var(--shadow-soft);
+    /* === 2. RESUME PAGES === */
+    .resume-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 24px 60px;
     }
 
-    .primary-btn:hover, .secondary-btn:hover { transform: translateY(-2px); }
+    .resume-header {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      margin-bottom: 50px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 30px;
+    }
+
+    .resume-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--border);
+    }
+
+    .resume-title h1 { font-size: 2.2rem; margin-bottom: 8px; letter-spacing: -0.02em; }
+    .resume-title p { color: var(--text-muted); font-size: 1rem; line-height: 1.6; }
+
+    .back-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      margin-bottom: 30px;
+      transition: color 0.3s;
+    }
+    .back-btn:hover { color: var(--text-main); }
 
     .resume-layout {
       display: grid;
-      grid-template-columns: minmax(0, 1.55fr) minmax(280px, .82fr);
-      gap: 20px;
-      margin-top: 20px;
+      grid-template-columns: 1fr 340px;
+      gap: 60px;
       align-items: start;
     }
 
-    .resume-main, .resume-side {
-      display: grid;
-      gap: 18px;
-    }
+    .resume-main { display: flex; flex-direction: column; gap: 40px; }
+    .resume-sidebar { display: flex; flex-direction: column; gap: 30px; }
 
-    .section-card {
-      border: 1px solid var(--line);
-      background: var(--surface);
-      border-radius: var(--radius-sm);
-      padding: clamp(18px, 2.7vw, 28px);
-      box-shadow: var(--shadow-soft);
-      backdrop-filter: blur(18px);
-      break-inside: avoid;
-    }
-
+    .section-block { page-break-inside: avoid; }
+    
     .section-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 20px;
       display: flex;
       align-items: center;
       gap: 10px;
-      margin: 0 0 18px;
-      font-size: 1.06rem;
-      line-height: 1.6;
+      color: var(--text-main);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
     }
 
-    .section-icon {
-      display: inline-grid;
-      place-items: center;
-      width: 36px;
-      height: 36px;
-      border-radius: 12px;
-      background: color-mix(in srgb, var(--brand) 12%, transparent);
-      font-size: 1rem;
-      flex: 0 0 auto;
-    }
-
-    .section-body { color: var(--ink); }
-
-    .section-body p {
-      margin: 0 0 12px;
-      color: var(--muted);
-      line-height: 2;
-    }
-
-    .section-body p:last-child { margin-bottom: 0; }
-
-    .timeline {
-      display: grid;
-      gap: 16px;
-    }
-
-    .timeline-item {
-      border-inline-start: 3px solid color-mix(in srgb, var(--brand) 40%, var(--line));
-      padding-inline-start: 16px;
-      padding-bottom: 2px;
-    }
-
-    .item-head {
+    .timeline-item { margin-bottom: 24px; }
+    .timeline-item:last-child { margin-bottom: 0; }
+    
+    .item-header {
       display: flex;
-      align-items: flex-start;
       justify-content: space-between;
-      gap: 12px;
+      align-items: baseline;
+      margin-bottom: 8px;
       flex-wrap: wrap;
-      margin-bottom: 6px;
-    }
-
-    .item-head strong {
-      font-size: .98rem;
-      line-height: 1.6;
-    }
-
-    .meta {
-      color: var(--brand);
-      font-size: .8rem;
-      line-height: 1.6;
-      font-weight: 600;
-    }
-
-    .timeline-item ul, .clean-list {
-      margin: 8px 0 0;
-      padding-inline-start: 18px;
-      color: var(--muted);
-      line-height: 1.95;
-      font-size: .91rem;
-    }
-
-    .timeline-item li, .clean-list li { margin-bottom: 4px; }
-
-    .two-col {
-      columns: 2;
-      column-gap: 28px;
-    }
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .info-grid > div {
-      padding: 12px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: color-mix(in srgb, var(--surface-strong) 76%, transparent);
-    }
-
-    .info-grid span {
-      display: block;
-      color: var(--muted);
-      font-size: .76rem;
-      margin-bottom: 4px;
-    }
-
-    .info-grid strong {
-      font-size: .9rem;
-      line-height: 1.6;
-    }
-
-    .skill-list {
-      display: grid;
-      gap: 9px;
-    }
-
-    .skill-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 9px 0;
-      border-bottom: 1px dashed var(--line);
-      font-size: .88rem;
-    }
-
-    .skill-row:last-child { border-bottom: 0; }
-
-    .level {
-      color: var(--brand);
-      font-weight: 700;
-      font-size: .78rem;
-      white-space: nowrap;
-    }
-
-    .pill-wrap {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .pill {
-      box-shadow: none;
-      font-size: .82rem;
-      padding: 7px 10px;
-    }
-
-    .inline-link {
-      color: var(--brand);
-      font-weight: 700;
-      text-decoration: none;
-      border-bottom: 1px dashed currentColor;
-    }
-
-    .note {
-      font-size: .82rem !important;
-      color: var(--muted);
-      background: color-mix(in srgb, var(--gold) 10%, transparent);
-      border: 1px dashed color-mix(in srgb, var(--gold) 38%, var(--line));
-      border-radius: 14px;
-      padding: 12px;
-    }
-
-    .motivation p {
-      color: var(--ink);
-      line-height: 2.1;
-      font-size: .94rem;
-    }
-
-    .motivation strong { color: var(--brand); }
-
-    .course-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px;
     }
 
-    .course {
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 11px 12px;
-      background: color-mix(in srgb, var(--surface-strong) 70%, transparent);
-      font-size: .86rem;
-      line-height: 1.7;
-    }
+    .item-title { font-weight: 600; font-size: 1rem; }
+    .item-date { font-size: 0.85rem; color: var(--text-muted); font-family: var(--font-en); }
+    .item-subtitle { font-size: 0.9rem; color: var(--accent); margin-bottom: 8px; }
+    
+    .item-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.8; padding-left: 16px; margin: 0; }
+    .item-desc li { margin-bottom: 4px; }
 
-    .course small {
-      display: block;
-      color: var(--muted);
-      font-size: .74rem;
-      margin-top: 3px;
-    }
-
-    footer {
+    /* MBTI & Glass Stickers */
+    .mbti-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
       text-align: center;
-      color: var(--muted);
-      font-size: .8rem;
-      padding: 24px 0 0;
+    }
+    .mbti-title { font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+    .mbti-type { font-size: 1.5rem; font-weight: 800; font-family: var(--font-en); color: var(--text-main); letter-spacing: 0.05em; }
+    .mbti-desc { font-size: 0.85rem; color: var(--text-muted); margin-top: 8px; line-height: 1.5; }
+
+    .glass-stickers { display: flex; flex-wrap: wrap; gap: 10px; }
+    
+    .glass-sticker {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-main);
+      transition: all 0.3s ease;
+    }
+    
+    [data-theme="light"] .glass-sticker {
+      background: rgba(0, 0, 0, 0.03);
+      border: 1px solid rgba(0, 0, 0, 0.08);
     }
 
+    .glass-sticker:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--accent);
+    }
+
+    /* Skill List */
+    .skill-list { display: flex; flex-direction: column; gap: 12px; }
+    .skill-item { display: flex; justify-content: space-between; font-size: 0.9rem; }
+    .skill-name { color: var(--text-main); font-weight: 500; }
+    .skill-level { color: var(--text-muted); font-size: 0.85rem; }
+
+    .about-text { font-size: 0.95rem; color: var(--text-muted); line-height: 1.8; text-align: justify; }
+
+    /* Motivation */
+    .motivation-box {
+      background: var(--surface);
+      padding: 24px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+    .motivation-box p { margin-bottom: 12px; color: var(--text-muted); }
+    .motivation-box strong { color: var(--text-main); }
+    .motivation-box p:last-child { margin-bottom: 0; }
+
+    /* Mobile Responsive */
     @media (max-width: 900px) {
-      .hero-card {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-
-      .hero-card .chips, .hero-card .choice-grid { justify-content: center; }
-      .choice-card { text-align: start; }
-      .resume-hero { grid-template-columns: 1fr; text-align: center; }
-      .avatar-sm { margin: 0 auto; }
-      .contact-chips { justify-content: center; }
-      .hero-actions { flex-direction: row; flex-wrap: wrap; justify-content: center; }
-      .resume-layout { grid-template-columns: 1fr; }
+      .landing-grid { grid-template-columns: 1fr; grid-template-rows: 40vh 60vh; }
+      .landing-content { padding: 40px 24px; }
+      .landing-actions { max-width: 100%; }
+      .resume-layout { grid-template-columns: 1fr; gap: 40px; }
+      .resume-header { flex-direction: column; text-align: center; gap: 20px; }
+      .controls { top: 15px; left: 15px; }
     }
 
-    @media (max-width: 620px) {
-      .choice-grid, .course-grid, .info-grid, .two-col { grid-template-columns: 1fr; columns: 1; }
-      .resume-hero { padding: 20px; }
-      .avatar-sm { width: 110px; height: 110px; border-radius: 28px; }
-      .section-card { padding: 18px; }
-      .item-head { display: block; }
-      .meta { display: block; margin-top: 4px; }
-    }
-
+    /* === 3. PRINT LAYOUT (Max 3 Pages) === */
     @media print {
-      .animated-bg, .site-header, .hero-actions, .back-row, footer { display: none !important; }
-      body { background: #fff !important; color: #111 !important; }
-      main { width: 100%; padding: 0; }
-      .resume-hero, .section-card {
-        box-shadow: none !important;
-        background: #fff !important;
-        border: 1px solid #ddd !important;
+      :root {
+        --bg: #ffffff;
+        --surface: #ffffff;
+        --text-main: #000000;
+        --text-muted: #333333;
+        --border: #dddddd;
+        --accent: #000000;
       }
-      .resume-layout { display: block; }
-      .section-card { margin-bottom: 12px; page-break-inside: avoid; }
+      
+      body { background: white; color: black; font-size: 10pt; }
+      .controls, .back-btn, .landing-actions { display: none !important; }
+      
+      .resume-wrapper { padding: 0; max-width: 100%; }
+      .resume-header { margin-bottom: 20px; padding-bottom: 15px; }
+      .resume-avatar { width: 80px; height: 80px; }
+      .resume-layout { grid-template-columns: 2fr 1fr; gap: 30px; }
+      
+      .section-title { font-size: 12pt; margin-bottom: 10px; padding-bottom: 5px; }
+      .timeline-item { margin-bottom: 12px; page-break-inside: avoid; }
+      .item-title { font-size: 10pt; }
+      .item-desc { font-size: 9pt; line-height: 1.5; }
+      
+      .mbti-card { border: 1px solid #ddd; padding: 10px; }
+      .glass-sticker { border: 1px solid #ddd; background: none; padding: 4px 8px; font-size: 9pt; }
+      .motivation-box { padding: 15px; border: 1px solid #ddd; page-break-inside: avoid; }
+      
+      /* Force 2 columns for skills in print to save space */
+      .skill-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+      
+      @page { margin: 15mm; size: A4; }
     }
   </style>
 </head>
-
 <body>
-  <div class="animated-bg" aria-hidden="true">
-    <div class="grid-overlay"></div>
-    <span class="orb orb-a"></span>
-    <span class="orb orb-b"></span>
-    <span class="orb orb-c"></span>
+
+  <!-- Controls -->
+  <div class="controls no-print">
+    <button class="btn-icon" id="langBtn" onclick="toggleLang()">EN</button>
+    <button class="btn-icon" id="themeBtn" onclick="toggleTheme()">☀️</button>
   </div>
 
-  <header class="site-header">
-    <button class="brand" type="button" onclick="goHome()" aria-label="Home">HS</button>
-    <nav class="nav-actions" aria-label="Site controls">
-      <button class="icon-btn" id="langBtn" type="button">EN</button>
-      <button class="icon-btn" id="themeBtn" type="button" aria-label="Toggle theme">🌙</button>
-      <button class="ghost-btn" id="homeBtn" type="button" hidden>خانه</button>
-    </nav>
-  </header>
+  <!-- 1. LANDING PAGE -->
+  <section id="landingView" class="view-section active">
+    <div class="landing-grid">
+      <div class="landing-image"></div>
+      <div class="landing-content">
+        <h1 class="landing-name" id="l-name">حدیثه سلطانی</h1>
+        <div class="landing-contact">
+          <a href="tel:+989391486852" id="l-phone">۰۹۳۹۱۴۸۶۸۵۲</a>
+          <a href="mailto:haditheh97@gmail.com" id="l-email">haditheh97@gmail.com</a>
+        </div>
+        <div class="landing-actions">
+          <button class="btn-minimal" onclick="openResume('academic')" id="btn-academic">رزومه آکادمیک</button>
+          <button class="btn-minimal" onclick="openResume('industry')" id="btn-industry">رزومه صنعت</button>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <main id="app"></main>
+  <!-- 2. RESUME VIEW -->
+  <section id="resumeView" class="view-section">
+    <div class="resume-wrapper">
+      <button class="back-btn no-print" onclick="goHome()" id="btn-back">
+        ← بازگشت به صفحه اصلی
+      </button>
+
+      <header class="resume-header">
+        <img src="" id="resumeAvatar" class="resume-avatar" alt="Avatar">
+        <div class="resume-title">
+          <h1 id="r-name">حدیثه سلطانی</h1>
+          <p id="r-title">کارشناس مهندسی شهرسازی | کارشناس ارشد مهندسی صنایع</p>
+        </div>
+      </header>
+
+      <div class="resume-layout">
+        <!-- MAIN COLUMN -->
+        <div class="resume-main">
+          <div id="main-sections"></div>
+        </div>
+
+        <!-- SIDEBAR -->
+        <aside class="resume-sidebar">
+          <div id="side-sections"></div>
+        </aside>
+      </div>
+    </div>
+  </section>
 
   <script>
-    /* =========================
-       State
-    ========================= */
-    const state = {
-      lang: localStorage.getItem("cv-lang") || "fa",
-      theme: localStorage.getItem("cv-theme") || "light",
-      view: "landing",
-      mode: null
+    // --- DATA & STATE ---
+    let state = {
+      lang: 'fa',
+      theme: 'dark',
+      mode: 'academic' // or 'industry'
     };
 
-    /* =========================
-       UI labels
-    ========================= */
-    const UI = {
-      fa: {
-        home: "خانه",
-        back: "بازگشت",
-        print: "چاپ / PDF",
-        academic: "رزومه آکادمیک",
-        industry: "رزومه صنعت",
-        academicDesc: "تحصیلات، پژوهش، دوره‌ها و انگیزه‌نامه آکادمیک",
-        industryDesc: "تجربه‌های کاری، دستاوردها و انگیزه‌نامه صنعت",
-        choose: "یک مسیر را انتخاب کنید",
-        resume: "رزومه",
-        switchMode: "تغییر رزومه",
-        present: "تاکنون",
-        contact: "اطلاعات تماس",
-        age: "سن",
-        gender: "جنسیت",
-        marital: "وضعیت تأهل",
-        email: "ایمیل",
-        phone: "تلفن",
-        location: "موقعیت",
-        portfolio: "نمونه‌کار",
-        recommendation: "آماده ارائه توصیه‌نامه",
-        viewAcademic: "مشاهده رزومه آکادمیک",
-        viewIndustry: "مشاهده رزومه صنعت",
-        academicShort: "Academia",
-        industryShort: "Industry"
-      },
-      en: {
-        home: "Home",
-        back: "Back",
-        print: "Print / PDF",
-        academic: "Academic CV",
-        industry: "Industry CV",
-        academicDesc: "Education, research, courses, and academic motivation letter",
-        industryDesc: "Work experience, achievements, and industry motivation letter",
-        choose: "Choose a path",
-        resume: "Resume",
-        switchMode: "Switch CV",
-        present: "Present",
-        contact: "Contact",
-        age: "Age",
-        gender: "Gender",
-        marital: "Marital status",
-        email: "Email",
-        phone: "Phone",
-        location: "Location",
-        portfolio: "Portfolio",
-        recommendation: "Recommendation letters available upon request",
-        viewAcademic: "View academic CV",
-        viewIndustry: "View industry CV",
-        academicShort: "Academia",
-        industryShort: "Industry"
-      }
-    };
-
-    /* =========================
-       Profile
-    ========================= */
-    const PROFILE = {
+    const translations = {
       fa: {
         name: "حدیثه سلطانی",
-        title: "کارشناس مهندسی شهرسازی | کارشناس ارشد مهندسی صنایع | گرافیست و تولیدکننده محتوا",
-        short: "برنامه‌ریز، تحلیل‌گر و طراح؛ ترکیب مهندسی، داده و روایت بصری برای تصمیم‌گیری بهتر و خلق ارزش پایدار.",
-        age: "۲۹ سال",
-        gender: "زن",
-        marital: "مجرد",
-        location: "تهران، خیابان خرمشهر، منطقه ۱۱",
+        title: "کارشناس مهندسی شهرسازی | کارشناس ارشد مهندسی صنایع",
         phone: "۰۹۳۹۱۴۸۶۸۵۲",
-        phoneHref: "+989391486852",
         email: "haditheh97@gmail.com",
-        portfolio: "Google Drive",
-        portfolioHref: "https://drive.google.com/",
-        image: "me.jpg"
+        btnAcademic: "رزومه آکادمیک",
+        btnIndustry: "رزومه صنعت",
+        back: "← بازگشت به صفحه اصلی",
+        sections: {
+          about: "درباره من",
+          education: "تحصیلات",
+          work: "تجربیات کاری",
+          achievements: "دستاوردها و جوایز",
+          motivation: "انگیزه‌نامه",
+          motivationAcademic: "انگیزه‌نامه آکادمیک",
+          motivationIndustry: "انگیزه‌نامه صنعت",
+          skills: "مهارت‌های کامپیوتری",
+          languages: "زبان‌ها",
+          hobbies: "علایق و سرگرمی‌ها",
+          volunteer: "فعالیت‌های داوطلبانه",
+          courses: "دوره‌های آموزشی"
+        }
       },
       en: {
         name: "Hadiyeh Soltani",
-        title: "Urban Planning Engineer | MSc Industrial Engineering | Graphic Designer & Content Creator",
-        short: "Planner, analyst, and designer combining engineering, data, and visual storytelling to support better decisions and create sustainable value.",
-        age: "29",
-        gender: "Female",
-        marital: "Single",
-        location: "Tehran, Khorramshahr St., District 11, Iran",
+        title: "Urban Planning Engineer | MSc Industrial Engineering",
         phone: "+98 939 148 6852",
-        phoneHref: "+989391486852",
         email: "haditheh97@gmail.com",
-        portfolio: "Google Drive",
-        portfolioHref: "https://drive.google.com/",
-        image: "me.jpg"
-      }
-    };
-
-    /* =========================
-       Sections
-    ========================= */
-    const SECTIONS = {
-      fa: {
-        personal: {
-          title: "مشخصات فردی",
-          icon: "👤",
-          html: `
-            <div class="info-grid">
-              <div><span>سن</span><strong>۲۹ سال</strong></div>
-              <div><span>جنسیت</span><strong>زن</strong></div>
-              <div><span>وضعیت تأهل</span><strong>مجرد</strong></div>
-              <div><span>محل سکونت</span><strong>تهران، خیابان خرمشهر، منطقه ۱۱</strong></div>
-              <div><span>تلفن</span><strong>۰۹۳۹۱۴۸۶۸۵۲</strong></div>
-              <div><span>ایمیل</span><strong>haditheh97@gmail.com</strong></div>
-            </div>
-          `
-        },
-        bio: {
-          title: "بیوگرافی کوتاه",
-          icon: "✍️",
-          html: `
-            <p>فارغ‌التحصیل مهندسی شهرسازی از دانشگاه سوره و کارشناس ارشد مهندسی صنایع دانشگاه علم و صنعت ایران؛ با تجربه در برنامه‌ریزی، مستندسازی فرایند، منابع انسانی، گزارش‌های مدیریتی، طراحی گرافیک و تولید محتوا.</p>
-            <p>رویکرد من ترکیب تحلیل داده‌محور با روایت بصری است تا تصمیم‌ها شفاف‌تر شوند و ارزش پایدار خلق شود.</p>
-          `
-        },
-        education: {
-          title: "تحصیلات",
-          icon: "🎓",
-          html: `
-            <div class="timeline">
-              <div class="timeline-item">
-                <div class="item-head">
-                  <strong>کارشناسی ارشد مهندسی صنایع</strong>
-                  <span class="meta">دانشگاه علم و صنعت ایران (IUST)</span>
-                </div>
-                <p>تمرکز: بهینه‌سازی، تحلیل داده، مدیریت پروژه و سیستم‌های تصمیم‌گیری.</p>
-              </div>
-              <div class="timeline-item">
-                <div class="item-head">
-                  <strong>کارشناسی مهندسی شهرسازی</strong>
-                  <span class="meta">دانشگاه غیرانتفاعی سوره تهران · ۱۳۹۴–۱۳۹۸</span>
-                </div>
-                <p>پایه‌های برنامه‌ریزی شهری، طراحی شهری، تحلیل فضایی و مدیریت پروژه.</p>
-              </div>
-            </div>
-          `
-        },
-        work: {
-          title: "تجربیات کاری",
-          icon: "💼",
-          html: `
-            <div class="timeline">
-              <div class="timeline-item">
-                <div class="item-head">
-                  <strong>مدیر برنامه‌ریزی و سیستم‌ها</strong>
-                  <span class="meta">شرکت همیار تجارت فرتاک · آذر ۱۴۰۱ تاکنون · تهران</span>
-                </div>
-                <ul>
-                  <li>مستندسازی، کدینگ و بایگانی اسناد و مدارک سازمان.</li>
-                  <li>تهیه اسناد فرایندی، روش‌های اجرایی، دستورالعمل‌ها و تولید فرم.</li>
-                  <li>رابط شرکت با مشاور استانداردسازی و سازمان.</li>
-                  <li>تدوین اهداف راهبردی و ارائه گزارش‌های روزانه و ماهانه به صورت اینفوگرافیک.</li>
-                  <li>تنظیم صورت‌جلسات و پیگیری اقدامات.</li>
-                </ul>
-              </div>
-
-              <div class="timeline-item">
-                <div class="item-head">
-                  <strong>کارشناس مسئول حوزه منابع انسانی و بیمه</strong>
-                  <span class="meta">همیار تجارت فرتاک · مرداد ۱۴۰۰ تاکنون · تهران</span>
-                </div>
-                <ul>
-                  <li>تنخواه‌دار و پیگیری امور اداری و مالی جاری.</li>
-                  <li>کارشناس فروش و مکاتبات در ستاد ایران.</li>
-                  <li>رابط بیمه تکمیلی و پیگیری پرونده‌های کارکنان.</li>
-                  <li>کارشناس تعالی و برنامه‌ریزی سازمانی.</li>
-                </ul>
-              </div>
-
-              <div class="timeline-item">
-                <div class="item-head">
-                  <strong>طراح گرافیک دورکار</strong>
-                  <span class="meta">شرکت هواپیمایی پدیده · فروردین ۱۴۰۰ تا مهر ۱۴۰۰ · تهران</span>
-                </div>
-                <ul>
-                  <li>طراحی بنر، پوستر و استوری برای کمپین‌ها و مناسبت‌ها.</li>
-                  <li>تولید محتوای بصری هماهنگ با هویت برند.</li>
-                </ul>
-              </div>
-
-              <div class="timeline-item">
-                <div class="item-head">
-                  <strong>کارشناس راهبردی و برنامه‌ریزی دورکار</strong>
-                  <span class="meta">هلدینگ نیرو · بهمن ۱۳۹۹ تا اردیبهشت ۱۴۰۰ · تهران</span>
-                </div>
-                <ul>
-                  <li>تولید اسناد راهبردی و برنامه‌ریزی برای جایزه ملی پیشرفت و تعالی.</li>
-                  <li>همکاری با شرکت مشاور و برنامه‌ریز پیشرفت و تعالی سازمانی.</li>
-                  <li>تحلیل شاخص‌ها و آماده‌سازی گزارش‌های مدیریتی.</li>
-                </ul>
-              </div>
-
-              <div class="timeline-item">
-                <div class="item-head">
-                  <strong>کارشناس سیب‌گردان</strong>
-                  <span class="meta">شرکت آزاد · مهر ۱۳۹۹ تا آذر ۱۳۹۹ · تهران</span>
-                </div>
-                <ul>
-                  <li>آشنایی با انواع کارگزاری‌ها و سایت‌های اطلاعات سهام.</li>
-                  <li>پشتیبانی فرایندهای بازار سرمایه و ثبت اطلاعات.</li>
-                </ul>
-              </div>
-
-              <div class="timeline-item">
-                <div class="item-head">
-                  <strong>طراح دکوراسیون داخلی</strong>
-                  <span class="meta">شرکت تیوان One · اردیبهشت ۱۳۹۹ تا شهریور ۱۳۹۹ · تهران</span>
-                </div>
-                <ul>
-                  <li>طراحی دکوراسیون داخلی با AutoCAD، Rhino و ابزارهای مدل‌سازی.</li>
-                  <li>تولید محتوای فضای مجازی، متن و تصویر.</li>
-                </ul>
-              </div>
-
-              <div class="timeline-item">
-                <div class="item-head">
-                  <strong>طراح گرافیک</strong>
-                  <span class="meta">دانشگاه سوره تهران · مهر ۱۳۹۷ تا شهریور ۱۳۹۸ · تهران</span>
-                </div>
-                <ul>
-                  <li>طراحی پوستر مسابقات و همایش‌های انجمن علمی دانشگاه.</li>
-                </ul>
-              </div>
-
-              <div class="timeline-item">
-                <div class="item-head">
-                  <strong>گوینده دورکار</strong>
-                  <span class="meta">رادیو ساویس · مهر ۱۳۹۷ تا شهریور ۱۳۹۸ · تهران</span>
-                </div>
-                <ul>
-                  <li>ضبط کتاب صوتی و کلیپ‌های مناسبتی.</li>
-                  <li>گوینده رادیو گل‌آهنگ در برنامه‌های نمایشگاهی.</li>
-                </ul>
-              </div>
-
-              <div class="timeline-item">
-                <div class="item-head">
-                  <strong>ویزیتور</strong>
-                  <span class="meta">اکسلنز · تیر ۱۳۹۶ تا فروردین ۱۳۹۷ · تهران</span>
-                </div>
-                <ul>
-                  <li>ویزیتور و کارشناس پذیرش شرکت اکسلنز.</li>
-                  <li>آشنایی با سایت مرجع نمایشگاه‌های ایران.</li>
-                </ul>
-              </div>
-
-              <div class="timeline-item">
-                <div class="item-head">
-                  <strong>کارشناس طراحی</strong>
-                  <span class="meta">شرکت فنی مهندسی آساد · تیر ۱۳۹۴ تا تیر ۱۳۹۶ · تهران</span>
-                </div>
-                <ul>
-                  <li>طراحی قطعات بدنه ربات‌های آموزشی و قطعات ماشین‌آلات با AutoCAD.</li>
-                  <li>گذراندن دوره انبارداری و کار با نرم‌افزار «دقیق».</li>
-                </ul>
-              </div>
-            </div>
-          `
-        },
-        languages: {
-          title: "مهارت‌های زبانی",
-          icon: "🌐",
-          html: `
-            <div class="skill-list">
-              <div class="skill-row"><span>فارسی</span><span class="level">زبان مادری</span></div>
-              <div class="skill-row"><span>انگلیسی</span><span class="level">بالاتر از متوسط · B2/C1</span></div>
-              <div class="skill-row"><span>ترکی</span><span class="level">متوسط · مکالمه و فهم</span></div>
-            </div>
-          `
-        },
-        computer: {
-          title: "مهارت‌های کامپیوتری",
-          icon: "🖥️",
-          html: `
-            <div class="skill-list">
-              <div class="skill-row"><span>Microsoft Word</span><span class="level">پیشرفته</span></div>
-              <div class="skill-row"><span>Microsoft Excel</span><span class="level">متوسط تا پیشرفته</span></div>
-              <div class="skill-row"><span>Microsoft PowerPoint</span><span class="level">پیشرفته</span></div>
-              <div class="skill-row"><span>Microsoft Access</span><span class="level">مقدماتی</span></div>
-              <div class="skill-row"><span>Visio / Visual Paradigm</span><span class="level">متوسط</span></div>
-              <div class="skill-row"><span>SPSS</span><span class="level">متوسط</span></div>
-              <div class="skill-row"><span>Expert Choice / Super Decision</span><span class="level">متوسط</span></div>
-              <div class="skill-row"><span>AutoCAD</span><span class="level">متوسط</span></div>
-              <div class="skill-row"><span>GIS</span><span class="level">متوسط</span></div>
-              <div class="skill-row"><span>Rhino / Twinmotion</span><span class="level">متوسط</span></div>
-              <div class="skill-row"><span>Adobe Photoshop</span><span class="level">پیشرفته</span></div>
-              <div class="skill-row"><span>Adobe Illustrator / InDesign</span><span class="level">مقدماتی</span></div>
-              <div class="skill-row"><span>Premiere / InShot / YouCut</span><span class="level">متوسط تا پیشرفته</span></div>
-              <div class="skill-row"><span>WordPress</span><span class="level">متوسط</span></div>
-              <div class="skill-row"><span>MS Project</span><span class="level">متوسط</span></div>
-              <div class="skill-row"><span>Primavera P6</span><span class="level">مقدماتی</span></div>
-              <div class="skill-row"><span>Minitab</span><span class="level">مقدماتی</span></div>
-              <div class="skill-row"><span>Power BI</span><span class="level">مقدماتی</span></div>
-              <div class="skill-row"><span>Python / R</span><span class="level">مقدماتی · در حال تقویت</span></div>
-              <div class="skill-row"><span>Arena</span><span class="level">مقدماتی</span></div>
-            </div>
-            <p class="note">ابزارهای مهندسی صنایع شامل MS Project، Minitab، Power BI، Python/R و Arena در سطح آشنایی و در حال تقویت هستند.</p>
-          `
-        },
-        hobbies: {
-          title: "هابیز",
-          icon: "🎨",
-          html: `
-            <div class="pill-wrap">
-              <span class="pill">شعر و داستان کوتاه</span>
-              <span class="pill">عکاسی صنعتی، طبیعت و پرتره</span>
-              <span class="pill">طراحی و گرافیک</span>
-              <span class="pill">خواندن</span>
-              <span class="pill">گویندگی</span>
-              <span class="pill">شناخت پارچه و مد</span>
-            </div>
-          `
-        },
-        references: {
-          title: "رفرنس",
-          icon: "🤝",
-          html: `
-            <p>آماده ارائه توصیه‌نامه و معرفی از مدیران و اساتید در صورت نیاز هستم.</p>
-            <a class="inline-link" href="mailto:haditheh97@gmail.com?subject=Recommendation%20Letter">درخواست / ارسال توصیه‌نامه</a>
-          `
-        },
-        volunteer: {
-          title: "فعالیت‌های داوطلبانه",
-          icon: "🌱",
-          html: `
-            <ul class="clean-list">
-              <li>گزارشگر و مقاله‌نویس دوماهنامه دانشگاه سوره.</li>
-              <li>طراحی پوستر و بنرهای مناسبتی دانشگاه سوره.</li>
-              <li>عضو کانون شعر و ادب دانشگاه سوره از ۱۳۹۵ تاکنون.</li>
-              <li>پاک‌سازی محیط زیست.</li>
-            </ul>
-          `
-        },
-        other: {
-          title: "سایر مهارت‌ها",
-          icon: "✨",
-          html: `
-            <div class="pill-wrap">
-              <span class="pill">مستندسازی و کدینگ اسناد</span>
-              <span class="pill">تحلیل و طراحی فرایند</span>
-              <span class="pill">گزارشگری مدیریتی</span>
-              <span class="pill">تسهیل جلسات</span>
-              <span class="pill">فروش و بازاریابی</span>
-              <span class="pill">تولید محتوا و ترجمه</span>
-              <span class="pill">عکاسی و گویندگی</span>
-              <span class="pill">شعر و نویسندگی</span>
-            </div>
-          `
-        },
-        achievements: {
-          title: "دستاوردها و جوایز",
-          icon: "🏆",
-          html: `
-            <ul class="clean-list">
-              <li>نویسنده برتر مسابقات کتاب‌خوانی سال ۱۳۹۳.</li>
-              <li>بازاریاب شرکت BIZ در سال ۱۳۹۴.</li>
-              <li>طراحی قطعات بدنه ربات‌های آموزشی و تخصصی با AutoCAD در شرکت آساد، ۱۳۹۵.</li>
-              <li>ویزیتور سایت مرجع نمایشگاه، شرکت اکسلنز، ۱۳۹۶.</li>
-              <li>همکاری با رادیو ساویس و رادیو گل‌آهنگ برای ضبط کتاب صوتی و رادیو نمایشگاه، ۱۳۹۶.</li>
-              <li>طراحی پوستر مسابقات و همایش‌های دانشگاه سوره، ۱۳۹۷.</li>
-              <li>تدوین اهداف راهبردی و گزارش‌های اینفوگرافیک برای هلدینگ نیرو خاتم‌الانبیا و زاگرس نیرو، ۱۳۹۸–۱۳۹۹.</li>
-              <li>طراحی سربرگ و پوستر اظهارنامه سازمانی جایزه ملی تعالی و پیشرفت، ۱۳۹۹–۱۴۰۰.</li>
-              <li>طراح دکوراسیون داخلی، پست اینستاگرام و تولید محتوای سایت شرکت تیوان، ۱۳۹۹.</li>
-              <li>ترجمه و تولید محتوای متنی و تصویری برای rmen.co و ibino، ۱۳۹۹.</li>
-              <li>ثبت اظهارنامه مالیاتی و لیست حقوق ۱۴۰۰ در اداره دارایی و مالیات.</li>
-              <li>طراحی کاتالوگ شرکت راه‌سازی و معدنی همیار تجارت فرتاک، ۱۴۰۰.</li>
-              <li>طراحی بنر، پوستر و استوری شرکت هواپیمایی پدیده و شرکت صنعتی سناکوه، ۱۴۰۰.</li>
-              <li>دریافت تندیس برنز ارزیابی EFQM در شرکت مرغک — بنیاد شهید.</li>
-            </ul>
-          `
-        },
-        articles: {
-          title: "مقالات و کنفرانس‌ها",
-          icon: "📄",
-          html: `
-            <p>در حال آماده‌سازی و علاقه‌مند به انتشار در حوزه‌های بهینه‌سازی، تحلیل داده، مدیریت پروژه، برنامه‌ریزی شهری و تصمیم‌گیری چندمعیاره.</p>
-            <p class="note">این بخش برای افزودن مقالات، کنفرانس‌ها و گزارش‌های پژوهشی آینده آماده است.</p>
-          `
-        },
-        courses: {
-          title: "دوره‌های آموزشی",
-          icon: "📚",
-          html: `
-            <div class="course-grid">
-              <div class="course">منابع انسانی، قوانین و طرح طبقه‌بندی مشاغل<small>۶۴ ساعت</small></div>
-              <div class="course">Photoshop<small>۶۴ ساعت</small></div>
-              <div class="course">اصول و فنون مذاکره<small>۳۲ ساعت</small></div>
-              <div class="course">ممیزی داخلی ISO<small>۳۲ ساعت</small></div>
-              <div class="course">ICDL<small>۶۰ ساعت</small></div>
-              <div class="course">مدیریت فرایندهای سازمانی<small>۳۲ ساعت</small></div>
-              <div class="course">Premiere<small>۱۲ ساعت</small></div>
-              <div class="course">AutoCAD<small>۸ ساعت</small></div>
-              <div class="course">GIS<small>۱۲ ساعت</small></div>
-              <div class="course">بازاریابی شبکه‌ای<small>۶ ساعت</small></div>
-              <div class="course">گویندگی و فن بیان — رادیو گل‌آهنگ<small>دوره تخصصی</small></div>
-              <div class="course">مشاوره تحصیلی و انگیزشی — علی میرصادقی<small>دوره تخصصی</small></div>
-            </div>
-          `
-        },
-        motivationAcademic: {
-          title: "انگیزه‌نامه آکادمیک",
-          icon: "🎯",
-          html: `
-            <div class="motivation">
-              <p><strong>علاقه‌مندی به جایگاه آکادمیک:</strong> علاقه‌مندم پژوهش و آموزش را در مرز میان مهندسی شهرسازی و مهندسی صنایع پیش ببرم؛ جایی که تحلیل فضایی، بهینه‌سازی و تصمیم‌گیری داده‌محور می‌توانند به حل مسائل پیچیده شهری و سازمانی کمک کنند.</p>
-              <p><strong>من کی‌ام:</strong> دارای پایه مهندسی شهرسازی از دانشگاه سوره و تحصیلات تکمیلی مهندسی صنایع در دانشگاه علم و صنعت ایران هستم. تجربه کاری من در برنامه‌ریزی، مستندسازی فرایند، گزارش‌گری مدیریتی و تولید محتوای علمی/بصری، توانایی من در تبدیل داده به روایت روشن را تقویت کرده است.</p>
-              <p><strong>چگونه با هم ارزش خلق می‌کنیم:</strong> می‌توانم در پروژه‌های پژوهشی، تحلیل داده، طراحی سیستم‌های تصمیم‌گیری، مستندسازی و انتقال دانش نقش مؤثر داشته باشم و پلی میان پژوهش آکادمیک و کاربرد عملی ایجاد کنم.</p>
-            </div>
-          `
-        },
-        motivationIndustry: {
-          title: "انگیزه‌نامه صنعت",
-          icon: "🚀",
-          html: `
-            <div class="motivation">
-              <p><strong>علاقه‌مندی به پست و شرکت:</strong> به نقش‌هایی علاقه‌مندم که در آن برنامه‌ریزی، تحلیل فرایند، مستندسازی، منابع انسانی و گزارش‌گری مدیریتی به تصمیم‌گیری بهتر کمک می‌کند. محیط‌های پویا و داده‌محور را می‌پسندم و از اینکه بتوانم نظم و شفافیت ایجاد کنم انرژی می‌گیرم.</p>
-              <p><strong>من کی‌ام و چه کمکی می‌کنم:</strong> از مرداد ۱۴۰۰ در همیار تجارت فرتاک در حوزه منابع انسانی، بیمه، تنخواه، مکاتبات و برنامه‌ریزی فعالیت کرده‌ام و از آذر ۱۴۰۱ مدیر برنامه‌ریزی و سیستم‌ها بوده‌ام. مستندسازی، کدینگ اسناد، تهیه دستورالعمل‌ها، گزارش‌های اینفوگرافیک و هماهنگی با مشاوران استانداردسازی از تجربه‌های کلیدی من است.</p>
-              <p><strong>چگونه با هم ارزش خلق می‌کنیم:</strong> با ترکیب تحلیل داده، نظم مستندسازی و مهارت بصری، فرایندها را شفاف‌تر، گزارش‌ها را قابل‌فهم‌تر و تصمیم‌ها را سریع‌تر می‌کنم. هدف من ایجاد ارزش پایدار برای تیم، سازمان و ذی‌نفعان است.</p>
-            </div>
-          `
-        }
-      },
-
-      en: {
-        personal: {
-          title: "Personal Information",
-          icon: "👤",
-          html: `
-            <div class="info-grid">
-              <div><span>Age</span><strong>29</strong></div>
-              <div><span>Gender</span><strong>Female</strong></div>
-              <div><span>Marital status</span><strong>Single</strong></div>
-              <div><span>Location</span><strong>Tehran, Khorramshahr St., District 11</strong></div>
-              <div><span>Phone</span><strong>+98 939 148 6852</strong></div>
-              <div><span>Email</span><strong>haditheh97@gmail.com</strong></div>
-            </div>
-          `
-        },
-        bio: {
-          title: "Short Bio",
-          icon: "✍️",
-          html: `
-            <p>Urban Planning Engineering graduate from Soore University and MSc Industrial Engineering candidate at Iran University of Science and Technology (IUST), with experience in planning, process documentation, HR, management reporting, graphic design, and content creation.</p>
-            <p>My approach combines data-driven analysis with visual storytelling to make decisions clearer and create sustainable value.</p>
-          `
-        },
-        education: {
-          title: "Education",
-          icon: "🎓",
-          html: `
-            <div class="timeline">
-              <div class="timeline-item">
-                <div class="item-head">
-                  <strong>MSc Industrial Engineering</strong>
-                  <span class="meta">Iran University of Science and Technology (IUST)</span>
-                </div>
-                <p>Focus: optimization, data analysis, project management, and decision systems.</p>
-              </div>
-              <div class="timeline-item">
-                <div class="item-head">
-                  <strong>BSc Urban Planning Engineering</strong>
-                  <span class="meta">Soore University, Tehran · 2015–2019</span>
-                </div>
-                <p>Foundations in urban planning, urban design, spatial analysis, and project management.</p>
-              </div>
-            </div>
-          `
-        },
-        work: {
-          title: "Work Experience",
-          icon: "💼",
-          html: `
-            <div class="timeline">
-              <div class="timeline-item">
-                <div class="item-head">
-                  <strong>Planning & Systems Manager</strong>
-                  <span class="meta">Hemiyar Tejarat Fertak · Dec 2022 – Present · Tehran</span>
-                </div>
-                <ul>
-                  <li>Documentation, coding, and archiving of organizational records.</li>
-                  <li>Preparing process documents, procedures, instructions, and forms.</li>
-                  <li>Liaison with standardization consultants and the organization.</li>
-                  <li>Developing strategic objectives and daily/monthly infographic reports.</li>
-                  <li>Preparing minutes and following up action items.</li>
-                </ul>
-              </div>
-
-              <div class="timeline-item">
-                <div class="item-head">
-                  <strong>HR & Insurance Officer</strong>
-                  <span class="meta">Hemiyar Tejarat Fertak · Aug 2021 – Present · Tehran</span>
-                </div>
-                <ul>
-                  <li>Petty cash management and day-to-day administrative/financial follow-up.</li>
-                  <li>Sales officer and correspondence at the Iran headquarters.</li>
-                  <li>Supplementary insurance liaison and employee case follow-up.</li>
-                  <li>Excellence and organizational planning officer.</li>
-                </ul>
-              </div>
-
-              <div class="timeline-item">
-                <div class="item-head">
-                  <strong>Remote Graphic Designer</strong>
-                  <span class="meta">Padeh Airline · Mar 2021 – Oct 2021 · Tehran</span>
-                </div>
-                <ul>
-                  <li>Designed banners, posters, and stories for campaigns and occasions.</li>
-                  <li>Produced visual content aligned with brand identity.</li>
-                </ul>
-              </div>
-
-              <div class="timeline-item">
-                <div class="item-head">
-                  <strong>Remote Strategy & Planning Officer</strong>
-                  <span class="meta">Niroo Holding · Jan 2021 – Apr 2021 · Tehran</span>
-                </div>
-                <ul>
-                  <li>Produced strategic documents and plans for the National Excellence Award.</li>
-                  <li>Collaborated with organizational excellence consultants.</li>
-                  <li>Analyzed indicators and prepared management reports.</li>
-                </ul>
-              </div>
-
-              <div class="timeline-item">
-                <div class="item-head">
-                  <strong>Brokerage Operations Officer</strong>
-                  <span class="meta">Azad Company · Sep 2020 – Dec 2020 · Tehran</span>
-                </div>
-                <ul>
-                  <li>Familiarity with brokerage firms and stock information platforms.</li>
-                  <li>Supported capital market processes and data registration.</li>
-                </ul>
-              </div>
-
-              <div class="timeline-item">
-                <div class="item-head">
-                  <strong>Interior Designer</strong>
-                  <span class="meta">Tivan One · Apr 2020 – Aug 2020 · Tehran</span>
-                </div>
-                <ul>
-                  <li>Interior design with AutoCAD, Rhino, and modeling tools.</li>
-                  <li>Social media content creation, copy, and visuals.</li>
-                </ul>
-              </div>
-
-              <div class="timeline-item">
-                <div class="item-head">
-                  <strong>Graphic Designer</strong>
-                  <span class="meta">Soore University · Sep 2018 – Aug 2019 · Tehran</span>
-                </div>
-                <ul>
-                  <li>Designed posters for competitions and scientific association events.</li>
-                </ul>
-              </div>
-
-              <div class="timeline-item">
-                <div class="item-head">
-                  <strong>Remote Voiceover Artist</strong>
-                  <span class="meta">Saviss Radio · Sep 2018 – Aug 2019 · Tehran</span>
-                </div>
-                <ul>
-                  <li>Recorded audiobooks and occasional clips.</li>
-                  <li>Voiceover for Gol-Ahang Radio exhibition programs.</li>
-                </ul>
-              </div>
-
-              <div class="timeline-item">
-                <div class="item-head">
-                  <strong>Visitor / Front Officer</strong>
-                  <span class="meta">Excellenz · Jun 2017 – Mar 2018 · Tehran</span>
-                </div>
-                <ul>
-                  <li>Visitor and reception officer at Excellenz.</li>
-                  <li>Familiarity with Iran's exhibition reference website.</li>
-                </ul>
-              </div>
-
-              <div class="timeline-item">
-                <div class="item-head">
-                  <strong>Design Officer</strong>
-                  <span class="meta">Asad Engineering Company · Jun 2015 – Jun 2017 · Tehran</span>
-                </div>
-                <ul>
-                  <li>Designed educational robot body parts and machinery components in AutoCAD.</li>
-                  <li>Completed warehousing training and worked with the “Daghigh” software.</li>
-                </ul>
-              </div>
-            </div>
-          `
-        },
-        languages: {
-          title: "Language Skills",
-          icon: "🌐",
-          html: `
-            <div class="skill-list">
-              <div class="skill-row"><span>Persian</span><span class="level">Native</span></div>
-              <div class="skill-row"><span>English</span><span class="level">Upper-intermediate · B2/C1</span></div>
-              <div class="skill-row"><span>Turkish</span><span class="level">Intermediate · conversation & comprehension</span></div>
-            </div>
-          `
-        },
-        computer: {
-          title: "Computer Skills",
-          icon: "🖥️",
-          html: `
-            <div class="skill-list">
-              <div class="skill-row"><span>Microsoft Word</span><span class="level">Advanced</span></div>
-              <div class="skill-row"><span>Microsoft Excel</span><span class="level">Intermediate–Advanced</span></div>
-              <div class="skill-row"><span>Microsoft PowerPoint</span><span class="level">Advanced</span></div>
-              <div class="skill-row"><span>Microsoft Access</span><span class="level">Beginner</span></div>
-              <div class="skill-row"><span>Visio / Visual Paradigm</span><span class="level">Intermediate</span></div>
-              <div class="skill-row"><span>SPSS</span><span class="level">Intermediate</span></div>
-              <div class="skill-row"><span>Expert Choice / Super Decision</span><span class="level">Intermediate</span></div>
-              <div class="skill-row"><span>AutoCAD</span><span class="level">Intermediate</span></div>
-              <div class="skill-row"><span>GIS</span><span class="level">Intermediate</span></div>
-              <div class="skill-row"><span>Rhino / Twinmotion</span><span class="level">Intermediate</span></div>
-              <div class="skill-row"><span>Adobe Photoshop</span><span class="level">Advanced</span></div>
-              <div class="skill-row"><span>Adobe Illustrator / InDesign</span><span class="level">Beginner</span></div>
-              <div class="skill-row"><span>Premiere / InShot / YouCut</span><span class="level">Intermediate–Advanced</span></div>
-              <div class="skill-row"><span>WordPress</span><span class="level">Intermediate</span></div>
-              <div class="skill-row"><span>MS Project</span><span class="level">Intermediate</span></div>
-              <div class="skill-row"><span>Primavera P6</span><span class="level">Beginner</span></div>
-              <div class="skill-row"><span>Minitab</span><span class="level">Beginner</span></div>
-              <div class="skill-row"><span>Power BI</span><span class="level">Beginner</span></div>
-              <div class="skill-row"><span>Python / R</span><span class="level">Beginner · improving</span></div>
-              <div class="skill-row"><span>Arena</span><span class="level">Beginner</span></div>
-            </div>
-            <p class="note">Industrial engineering tools including MS Project, Minitab, Power BI, Python/R, and Arena are at familiarity level and being strengthened.</p>
-          `
-        },
-        hobbies: {
-          title: "Hobbies",
-          icon: "🎨",
-          html: `
-            <div class="pill-wrap">
-              <span class="pill">Poetry & short stories</span>
-              <span class="pill">Industrial, nature & portrait photography</span>
-              <span class="pill">Design & graphics</span>
-              <span class="pill">Reading</span>
-              <span class="pill">Voiceover</span>
-              <span class="pill">Textile & fashion knowledge</span>
-            </div>
-          `
-        },
-        references: {
-          title: "References",
-          icon: "🤝",
-          html: `
-            <p>Recommendation letters and references from managers and professors are available upon request.</p>
-            <a class="inline-link" href="mailto:haditheh97@gmail.com?subject=Recommendation%20Letter">Request / send a recommendation letter</a>
-          `
-        },
-        volunteer: {
-          title: "Volunteer Activities",
-          icon: "🌱",
-          html: `
-            <ul class="clean-list">
-              <li>Reporter and article writer for Soore University bimonthly magazine.</li>
-              <li>Designed posters and occasion banners for Soore University.</li>
-              <li>Member of Soore University Poetry & Literature Society since 2016.</li>
-              <li>Environmental clean-up activities.</li>
-            </ul>
-          `
-        },
-        other: {
-          title: "Other Skills",
-          icon: "✨",
-          html: `
-            <div class="pill-wrap">
-              <span class="pill">Documentation & coding</span>
-              <span class="pill">Process analysis & design</span>
-              <span class="pill">Management reporting</span>
-              <span class="pill">Meeting facilitation</span>
-              <span class="pill">Sales & marketing</span>
-              <span class="pill">Content creation & translation</span>
-              <span class="pill">Photography & voiceover</span>
-              <span class="pill">Poetry & writing</span>
-            </div>
-          `
-        },
-        achievements: {
-          title: "Achievements & Awards",
-          icon: "🏆",
-          html: `
-            <ul class="clean-list">
-              <li>Top writer in the 2014 book-reading competition.</li>
-              <li>Marketing officer at BIZ, 2015.</li>
-              <li>Designed educational and specialized robot body parts with AutoCAD at Asad, 2016.</li>
-              <li>Visitor at the exhibition reference website, Excellenz, 2017.</li>
-              <li>Collaborated with Saviss Radio and Gol-Ahang Radio on audiobook and exhibition radio, 2017.</li>
-              <li>Designed posters for Soore University competitions and conferences, 2018.</li>
-              <li>Developed strategic objectives and infographic reports for Niroo Khatam-al-Anbia and Zagros Niroo Holding, 2019–2020.</li>
-              <li>Designed letterhead and organizational declaration posters for the National Excellence & Progress Award, 2020–2021.</li>
-              <li>Interior designer, Instagram post designer, and website content creator at Tivan, 2020.</li>
-              <li>Translated and produced text/visual content for rmen.co and ibino, 2020.</li>
-              <li>Filed tax declaration and payroll list in 2021 at the Tax Administration.</li>
-              <li>Designed the catalog for Hemiyar Tejarat Fertak road construction & mining company, 2021.</li>
-              <li>Designed banners, posters, and stories for Padeh Airline and Sanakouh Industrial Company, 2021.</li>
-              <li>Received the Bronze Trophy in EFQM assessment at Morghak Company — Shahid Foundation.</li>
-            </ul>
-          `
-        },
-        articles: {
-          title: "Articles & Conferences",
-          icon: "📄",
-          html: `
-            <p>Currently preparing and interested in publishing in optimization, data analysis, project management, urban planning, and multi-criteria decision-making.</p>
-            <p class="note">This section is ready for future articles, conference papers, and research reports.</p>
-          `
-        },
-        courses: {
-          title: "Training Courses",
-          icon: "📚",
-          html: `
-            <div class="course-grid">
-              <div class="course">HR, Labor Law & Job Classification<small>64 hours</small></div>
-              <div class="course">Photoshop<small>64 hours</small></div>
-              <div class="course">Negotiation Principles & Techniques<small>32 hours</small></div>
-              <div class="course">ISO Internal Audit<small>32 hours</small></div>
-              <div class="course">ICDL<small>60 hours</small></div>
-              <div class="course">Organizational Process Management<small>32 hours</small></div>
-              <div class="course">Premiere<small>12 hours</small></div>
-              <div class="course">AutoCAD<small>8 hours</small></div>
-              <div class="course">GIS<small>12 hours</small></div>
-              <div class="course">Network Marketing<small>6 hours</small></div>
-              <div class="course">Voiceover & Public Speaking — Gol-Ahang Radio<small>Specialized course</small></div>
-              <div class="course">Academic & Motivational Counseling — Ali Mirsadeghi<small>Specialized course</small></div>
-            </div>
-          `
-        },
-        motivationAcademic: {
-          title: "Academic Motivation Letter",
-          icon: "🎯",
-          html: `
-            <div class="motivation">
-              <p><strong>Interest in the academic position:</strong> I am interested in advancing research and teaching at the intersection of urban planning and industrial engineering, where spatial analysis, optimization, and data-driven decision-making can help address complex urban and organizational challenges.</p>
-              <p><strong>Who I am:</strong> I hold a BSc in Urban Planning Engineering from Soore University and MSc-level education in Industrial Engineering at IUST. My professional experience in planning, process documentation, management reporting, and scientific/visual content creation has strengthened my ability to turn data into clear narratives.</p>
-              <p><strong>How we create value together:</strong> I can contribute to research projects, data analysis, decision-system design, documentation, and knowledge transfer, building a bridge between academic research and practical application.</p>
-            </div>
-          `
-        },
-        motivationIndustry: {
-          title: "Industry Motivation Letter",
-          icon: "🚀",
-          html: `
-            <div class="motivation">
-              <p><strong>Interest in the role and company:</strong> I am interested in roles where planning, process analysis, documentation, HR, and management reporting support better decisions. I enjoy dynamic, data-driven environments and gain energy from creating order and clarity.</p>
-              <p><strong>Who I am and how I can help:</strong> Since August 2021, I have worked at Hemiyar Tejarat Fertak in HR, insurance, petty cash, correspondence, and planning, and since December 2022 I have been Planning & Systems Manager. Documentation, document coding, procedure development, infographic reporting, and coordination with standardization consultants are key parts of my experience.</p>
-              <p><strong>How we create value together:</strong> By combining data analysis, documentation discipline, and visual communication, I make processes clearer, reports more understandable, and decisions faster. My goal is to create sustainable value for the team, the organization, and stakeholders.</p>
-            </div>
-          `
+        btnAcademic: "Academic CV",
+        btnIndustry: "Industry CV",
+        back: "← Back to Home",
+        sections: {
+          about: "About Me",
+          education: "Education",
+          work: "Work Experience",
+          achievements: "Achievements & Awards",
+          motivation: "Motivation",
+          motivationAcademic: "Academic Motivation",
+          motivationIndustry: "Industry Motivation",
+          skills: "Computer Skills",
+          languages: "Languages",
+          hobbies: "Hobbies & Interests",
+          volunteer: "Volunteer Activities",
+          courses: "Training Courses"
         }
       }
     };
 
-    /* =========================
-       Section order by mode
-    ========================= */
-    const ORDERS = {
+    const data = {
       fa: {
-        academic: {
-          main: ["education", "work", "achievements", "articles", "courses", "motivationAcademic"],
-          side: ["personal", "bio", "languages", "computer", "hobbies", "references", "volunteer", "other"]
-        },
-        industry: {
-          main: ["work", "education", "achievements", "articles", "courses", "motivationIndustry"],
-          side: ["personal", "bio", "languages", "computer", "hobbies", "references", "volunteer", "other"]
-        }
+        about: "مهندس شهرسازی و کارشناس ارشد مهندسی صنایع با رویکرد ترکیب تحلیل داده‌محور و روایت بصری. دارای شخصیتی منظم، برنامه‌ریز و توانمند در محیط‌های پویا و پرمراجع. هدف من ایجاد شفافیت در فرایندها و تصمیم‌گیری‌های سازمانی است.",
+        mbti: "فرمانده",
+        education: [
+          { title: "کارشناسی ارشد مهندسی صنایع", sub: "دانشگاه علم و صنعت ایران (IUST)", date: "در حال تحصیل" },
+          { title: "کارشناسی مهندسی شهرسازی", sub: "دانشگاه غیرانتفاعی سوره تهران", date: "۱۳۹۴ - ۱۳۹۸" }
+        ],
+        work: [
+          { title: "مدیر برنامه‌ریزی و سیستم‌ها", sub: "شرکت همیار تجارت فرتاک", date: "آذر ۱۴۰۱ تاکنون", desc: ["مستندسازی و کدینگ اسناد", "تهیه اسناد فرایندی و دستورالعمل‌ها", "تدوین اهداف راهبردی و گزارش‌های مدیریتی"] },
+          { title: "کارشناس منابع انسانی و بیمه", sub: "همیار تجارت فرتاک", date: "مرداد ۱۴۰۰ تاکنون", desc: ["تنخواه‌دار و امور اداری", "رابط بیمه تکمیلی", "کارشناس تعالی سازمانی"] },
+          { title: "طراح گرافیک دورکار", sub: "شرکت هواپیمایی پدیده", date: "۱۴۰۰", desc: ["طراحی بنر و استوری", "تولید محتوای بصری"] },
+          { title: "کارشناس راهبردی", sub: "هلدینگ نیرو", date: "۱۳۹۹ - ۱۴۰۰", desc: ["تولید اسناد راهبردی", "آماده‌سازی گزارش‌های مدیریتی"] },
+          { title: "طراح دکوراسیون داخلی", sub: "شرکت تیوان One", date: "۱۳۹۹", desc: ["طراحی با AutoCAD و Rhino", "تولید محتوای فضای مجازی"] },
+          { title: "طراح گرافیک", sub: "دانشگاه سوره تهران", date: "۱۳۹۷ - ۱۳۹۸", desc: ["طراحی پوستر مسابقات"] },
+          { title: "ویزیتور", sub: "اکسلنز", date: "۱۳۹۶ - ۱۳۹۷", desc: ["پذیرش و راهنمایی مراجعین نمایشگاه"] },
+          { title: "کارشناس طراحی", sub: "شرکت فنی مهندسی آساد", date: "۱۳۹۴ - ۱۳۹۶", desc: ["طراحی قطعات ربات با AutoCAD"] }
+        ],
+        achievements: [
+          "دریافت تندیس برنز ارزیابی EFQM",
+          "نویسنده برتر مسابقات کتاب‌خوانی سال ۱۳۹۳",
+          "طراحی پوستر مسابقات و همایش‌های دانشگاه سوره",
+          "تدوین گزارش‌های اینفوگرافیک برای هلدینگ نیرو خاتم‌الانبیا"
+        ],
+        courses: [
+          "منابع انسانی و قوانین کار (۶۴ ساعت)",
+          "Photoshop (۶۴ ساعت)",
+          "اصول و فنون مذاکره (۳۲ ساعت)",
+          "ممیزی داخلی ISO (۳۲ ساعت)",
+          "ICDL (۶۰ ساعت)",
+          "مدیریت فرایندهای سازمانی (۳۲ ساعت)"
+        ],
+        volunteer: [
+          "همکاری با یونیسف (UNICEF)",
+          "عضویت و فعالیت داوطلبانه در هلال احمر",
+          "گزارشگر و مقاله‌نویس دوماهنامه دانشگاه سوره",
+          "پاک‌سازی محیط زیست"
+        ],
+        skills: [
+          { name: "Microsoft Word", level: "پیشرفته" },
+          { name: "Microsoft Excel", level: "متوسط" },
+          { name: "Microsoft PowerPoint", level: "پیشرفته" },
+          { name: "SPSS", level: "متوسط" },
+          { name: "AutoCAD", level: "متوسط" },
+          { name: "GIS", level: "متوسط" },
+          { name: "Adobe Photoshop", level: "پیشرفته" },
+          { name: "Adobe Illustrator", level: "مقدماتی" },
+          { name: "MS Project", level: "متوسط" },
+          { name: "Power BI", level: "مقدماتی" },
+          { name: "Python / R", level: "مقدماتی" },
+          { name: "Primavera P6", level: "مقدماتی" }
+        ],
+        languages: [
+          { name: "فارسی", level: "زبان مادری" },
+          { name: "انگلیسی", level: "بالاتر از متوسط" },
+          { name: "ترکی", level: "متوسط" }
+        ],
+        hobbies: [
+          { icon: "🏸", name: "بدمینتون" },
+          { icon: "📸", name: "عکاسی" },
+          { icon: "📚", name: "مطالعه" },
+          { icon: "✍️", name: "شعر و نویسندگی" },
+          { icon: "🎧", name: "پادکست" }
+        ],
+        motivationAcademic: "علاقه‌مندم پژوهش و آموزش را در مرز میان مهندسی شهرسازی و مهندسی صنایع پیش ببرم؛ جایی که تحلیل فضایی، بهینه‌سازی و تصمیم‌گیری داده‌محور می‌توانند به حل مسائل پیچیده شهری کمک کنند. با تجربه در مستندسازی و انتقال دانش، می‌توانم پلی میان پژوهش آکادمیک و کاربرد عملی باشم.",
+        motivationIndustry: "به نقش‌هایی علاقه‌مندم که در آن برنامه‌ریزی، تحلیل فرایند و گزارش‌گری مدیریتی به تصمیم‌گیری بهتر کمک می‌کند. با ترکیب تحلیل داده، نظم مستندسازی و مهارت بصری، فرایندها را شفاف‌تر و تصمیم‌ها را سریع‌تر می‌کنم تا ارزش پایدار برای سازمان خلق شود."
       },
       en: {
-        academic: {
-          main: ["education", "work", "achievements", "articles", "courses", "motivationAcademic"],
-          side: ["personal", "bio", "languages", "computer", "hobbies", "references", "volunteer", "other"]
-        },
-        industry: {
-          main: ["work", "education", "achievements", "articles", "courses", "motivationIndustry"],
-          side: ["personal", "bio", "languages", "computer", "hobbies", "references", "volunteer", "other"]
-        }
+        about: "Urban Planning Engineer and MSc Industrial Engineering student combining data-driven analysis with visual storytelling. Organized, detail-oriented, and effective in dynamic environments. My goal is to create transparency in processes and organizational decision-making.",
+        mbti: "The Commander",
+        education: [
+          { title: "MSc Industrial Engineering", sub: "Iran University of Science and Technology (IUST)", date: "Present" },
+          { title: "BSc Urban Planning Engineering", sub: "Soore University", date: "2015 - 2019" }
+        ],
+        work: [
+          { title: "Planning & Systems Manager", sub: "Hemiyar Tejarat Fertak", date: "Dec 2022 - Present", desc: ["Documentation and coding", "Process documents and procedures", "Strategic objectives and management reports"] },
+          { title: "HR & Insurance Officer", sub: "Hemiyar Tejarat Fertak", date: "Aug 2021 - Present", desc: ["Petty cash and administration", "Supplementary insurance liaison", "Excellence and organizational planning"] },
+          { title: "Remote Graphic Designer", sub: "Padeh Airline", date: "2021", desc: ["Banners and stories", "Visual content creation"] },
+          { title: "Remote Strategy Officer", sub: "Niroo Holding", date: "2020 - 2021", desc: ["Strategic documents", "Management reports"] },
+          { title: "Interior Designer", sub: "Tivan One", date: "2020", desc: ["AutoCAD and Rhino design", "Social media content"] },
+          { title: "Graphic Designer", sub: "Soore University", date: "2018 - 2019", desc: ["Poster design"] },
+          { title: "Visitor", sub: "Excellenz", date: "2017 - 2018", desc: ["Reception and guidance"] },
+          { title: "Design Officer", sub: "Asad Engineering", date: "2015 - 2017", desc: ["Robot part design in AutoCAD"] }
+        ],
+        achievements: [
+          "Bronze Trophy in EFQM assessment",
+          "Top writer in 2014 book-reading competition",
+          "Designed posters for Soore University",
+          "Developed infographic reports for Niroo Holding"
+        ],
+        courses: [
+          "HR & Labor Law (64 hours)",
+          "Photoshop (64 hours)",
+          "Negotiation Techniques (32 hours)",
+          "ISO Internal Audit (32 hours)",
+          "ICDL (60 hours)",
+          "Organizational Process Management (32 hours)"
+        ],
+        volunteer: [
+          "UNICEF Collaborator",
+          "Red Crescent Volunteer",
+          "Reporter for Soore University magazine",
+          "Environmental clean-up activities"
+        ],
+        skills: [
+          { name: "Microsoft Word", level: "Advanced" },
+          { name: "Microsoft Excel", level: "Intermediate" },
+          { name: "Microsoft PowerPoint", level: "Advanced" },
+          { name: "SPSS", level: "Intermediate" },
+          { name: "AutoCAD", level: "Intermediate" },
+          { name: "GIS", level: "Intermediate" },
+          { name: "Adobe Photoshop", level: "Advanced" },
+          { name: "Adobe Illustrator", level: "Beginner" },
+          { name: "MS Project", level: "Intermediate" },
+          { name: "Power BI", level: "Beginner" },
+          { name: "Python / R", level: "Beginner" },
+          { name: "Primavera P6", level: "Beginner" }
+        ],
+        languages: [
+          { name: "Persian", level: "Native" },
+          { name: "English", level: "Upper-Intermediate" },
+          { name: "Turkish", level: "Intermediate" }
+        ],
+        hobbies: [
+          { icon: "🏸", name: "Badminton" },
+          { icon: "📸", name: "Photography" },
+          { icon: "📚", name: "Reading" },
+          { icon: "✍️", name: "Writing" },
+          { icon: "🎧", name: "Podcasts" }
+        ],
+        motivationAcademic: "I am interested in advancing research at the intersection of urban planning and industrial engineering, where spatial analysis and optimization address complex urban challenges. With experience in documentation and knowledge transfer, I can bridge academic research and practical application.",
+        motivationIndustry: "I am interested in roles where planning, process analysis, and management reporting support better decisions. By combining data analysis, documentation discipline, and visual communication, I make processes clearer and decisions faster to create sustainable value."
       }
     };
 
-    /* =========================
-       Render helpers
-    ========================= */
-    const app = document.getElementById("app");
-    const langBtn = document.getElementById("langBtn");
-    const themeBtn = document.getElementById("themeBtn");
-    const homeBtn = document.getElementById("homeBtn");
+    // --- DOM ELEMENTS ---
+    const els = {
+      landingView: document.getElementById('landingView'),
+      resumeView: document.getElementById('resumeView'),
+      langBtn: document.getElementById('langBtn'),
+      themeBtn: document.getElementById('themeBtn'),
+      resumeAvatar: document.getElementById('resumeAvatar'),
+      mainSections: document.getElementById('main-sections'),
+      sideSections: document.getElementById('side-sections')
+    };
 
-    function setDocumentDirection() {
+    // --- FUNCTIONS ---
+    function updateUI() {
       document.documentElement.lang = state.lang;
-      document.documentElement.dir = state.lang === "fa" ? "rtl" : "ltr";
-      document.documentElement.dataset.theme = state.theme;
-    }
+      document.documentElement.dir = state.lang === 'fa' ? 'rtl' : 'ltr';
+      document.documentElement.setAttribute('data-theme', state.theme);
+      
+      els.langBtn.innerText = state.lang === 'fa' ? 'EN' : 'FA';
+      els.themeBtn.innerText = state.theme === 'dark' ? '☀️' : '🌙';
 
-    function sectionHTML(section) {
-      return `
-        <section class="section-card">
-          <h2 class="section-title">
-            <span class="section-icon" aria-hidden="true">${section.icon}</span>
-            <span>${section.title}</span>
-          </h2>
-          <div class="section-body">${section.html}</div>
-        </section>
-      `;
-    }
+      const t = translations[state.lang];
+      
+      // Landing
+      document.getElementById('l-name').innerText = t.name;
+      document.getElementById('l-phone').innerText = t.phone;
+      document.getElementById('l-email').innerText = t.email;
+      document.getElementById('btn-academic').innerText = t.btnAcademic;
+      document.getElementById('btn-industry').innerText = t.btnIndustry;
+      
+      // Resume Header
+      document.getElementById('r-name').innerText = t.name;
+      document.getElementById('r-title').innerText = t.title;
+      document.getElementById('btn-back').innerText = t.back;
 
-    function renderLanding() {
-      const p = PROFILE[state.lang];
-      const ui = UI[state.lang];
+      // Set Image based on mode
+      if (state.mode === 'academic') {
+        els.resumeAvatar.src = 'academic.jpg';
+      } else {
+        els.resumeAvatar.src = 'industry.jpg';
+      }
 
-      app.innerHTML = `
-        <section class="landing">
-          <div class="hero-card">
-            <div class="avatar-wrap">
-              <span class="initials">HS</span>
-              <img src="${p.image}" alt="${p.name}" onerror="this.style.display='none'">
-            </div>
-
-            <div>
-              <p class="eyebrow">${ui.academicShort} / ${ui.industryShort}</p>
-              <h1>${p.name}</h1>
-              <p class="hero-title">${p.title}</p>
-              <p class="hero-short">${p.short}</p>
-
-              <div class="chips">
-                <span class="chip">🎓 MSc Industrial Engineering — IUST</span>
-                <span class="chip">🏙️ Urban Planning Engineer</span>
-                <span class="chip">🎨 Graphic & Content Creator</span>
-                <span class="chip">📍 Tehran, Iran</span>
-              </div>
-
-              <p class="eyebrow" style="margin-top:30px;">${ui.choose}</p>
-
-              <div class="choice-grid">
-                <button class="choice-card" type="button" onclick="openResume('academic')">
-                  <span class="choice-icon">🎓</span>
-                  <h3>${ui.academic}</h3>
-                  <p>${ui.academicDesc}</p>
-                </button>
-
-                <button class="choice-card" type="button" onclick="openResume('industry')">
-                  <span class="choice-icon">💼</span>
-                  <h3>${ui.industry}</h3>
-                  <p>${ui.industryDesc}</p>
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
-      `;
+      renderResume();
     }
 
     function renderResume() {
-      const p = PROFILE[state.lang];
-      const ui = UI[state.lang];
-      const modeLabel = state.mode === "academic" ? ui.academic : ui.industry;
-      const order = ORDERS[state.lang][state.mode];
-      const sections = SECTIONS[state.lang];
+      const d = data[state.lang];
+      const t = translations[state.lang];
 
-      const mainSections = order.main.map(id => sectionHTML(sections[id])).join("");
-      const sideSections = order.side.map(id => sectionHTML(sections[id])).join("");
+      // --- MAIN COLUMN CONTENT ---
+      let mainHTML = '';
 
-      app.innerHTML = `
-        <div class="back-row">
-          <button class="secondary-btn" type="button" onclick="goHome()">← ${ui.back}</button>
-          <button class="secondary-btn" type="button" onclick="switchMode()">🔄 ${ui.switchMode}</button>
+      // Motivation Letter
+      const motivationText = state.mode === 'academic' ? d.motivationAcademic : d.motivationIndustry;
+      const motivationTitle = state.mode === 'academic' ? t.sections.motivationAcademic : t.sections.motivationIndustry;
+      
+      mainHTML += `
+        <div class="section-block">
+          <h2 class="section-title">${motivationTitle}</h2>
+          <div class="motivation-box">
+            <p>${motivationText}</p>
+          </div>
         </div>
-
-        <section class="resume-hero">
-          <div class="avatar-sm">
-            <img src="${p.image}" alt="${p.name}" onerror="this.style.display='none'">
-          </div>
-
-          <div>
-            <p class="eyebrow">${modeLabel}</p>
-            <h1>${p.name}</h1>
-            <p class="hero-title">${p.title}</p>
-
-            <div class="contact-chips">
-              <a href="tel:${p.phoneHref}">☎ ${p.phone}</a>
-              <a href="mailto:${p.email}">✉ ${p.email}</a>
-              <span>📍 ${p.location}</span>
-              <a href="${p.portfolioHref}" target="_blank" rel="noopener">🔗 ${p.portfolio}</a>
-            </div>
-          </div>
-
-          <div class="hero-actions">
-            <button class="primary-btn" type="button" onclick="window.print()">🖨 ${ui.print}</button>
-            <button class="secondary-btn" type="button" onclick="goHome()">🏠 ${ui.home}</button>
-          </div>
-        </section>
-
-        <div class="resume-layout">
-          <div class="resume-main">${mainSections}</div>
-          <aside class="resume-side">${sideSections}</aside>
-        </div>
-
-        <footer>${p.name} · ${ui.resume} · ${new Date().getFullYear()}</footer>
       `;
-    }
 
-    function render() {
-      setDocumentDirection();
+      // Education (First in Academic, Second in Industry)
+      let eduHTML = `
+        <div class="section-block">
+          <h2 class="section-title">${t.sections.education}</h2>
+          ${d.education.map(e => `
+            <div class="timeline-item">
+              <div class="item-header">
+                <span class="item-title">${e.title}</span>
+                <span class="item-date">${e.date}</span>
+              </div>
+              <div class="item-subtitle">${e.sub}</div>
+            </div>
+          `).join('')}
+        </div>
+      `;
 
-      langBtn.textContent = state.lang === "fa" ? "EN" : "فا";
-      themeBtn.textContent = state.theme === "dark" ? "☀️" : "🌙";
-      homeBtn.hidden = state.view === "landing";
-      homeBtn.textContent = UI[state.lang].home;
+      // Work Experience
+      let workHTML = `
+        <div class="section-block">
+          <h2 class="section-title">${t.sections.work}</h2>
+          ${d.work.map(w => `
+            <div class="timeline-item">
+              <div class="item-header">
+                <span class="item-title">${w.title}</span>
+                <span class="item-date">${w.date}</span>
+              </div>
+              <div class="item-subtitle">${w.sub}</div>
+              <ul class="item-desc">
+                ${w.desc.map(li => `<li>${li}</li>`).join('')}
+              </ul>
+            </div>
+          `).join('')}
+        </div>
+      `;
 
-      if (state.view === "landing") {
-        renderLanding();
+      if (state.mode === 'academic') {
+        mainHTML += eduHTML + workHTML;
       } else {
-        renderResume();
+        mainHTML += workHTML + eduHTML;
       }
+
+      // Achievements
+      mainHTML += `
+        <div class="section-block">
+          <h2 class="section-title">${t.sections.achievements}</h2>
+          <ul class="item-desc">
+            ${d.achievements.map(a => `<li>${a}</li>`).join('')}
+          </ul>
+        </div>
+      `;
+
+      // Courses
+      mainHTML += `
+        <div class="section-block">
+          <h2 class="section-title">${t.sections.courses}</h2>
+          <div class="glass-stickers">
+            ${d.courses.map(c => `<span class="glass-sticker">📚 ${c}</span>`).join('')}
+          </div>
+        </div>
+      `;
+
+      // --- SIDEBAR CONTENT ---
+      let sideHTML = '';
+
+      // About Me
+      sideHTML += `
+        <div class="section-block">
+          <h2 class="section-title">${t.sections.about}</h2>
+          <p class="about-text">${d.about}</p>
+        </div>
+      `;
+
+      // MBTI
+      sideHTML += `
+        <div class="section-block mbti-card">
+          <div class="mbti-title">Personality Type</div>
+          <div class="mbti-type">ENTJ</div>
+          <div class="mbti-desc">${d.mbti}</div>
+        </div>
+      `;
+
+      // Skills
+      sideHTML += `
+        <div class="section-block">
+          <h2 class="section-title">${t.sections.skills}</h2>
+          <div class="skill-list">
+            ${d.skills.map(s => `
+              <div class="skill-item">
+                <span class="skill-name">${s.name}</span>
+                <span class="skill-level">${s.level}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+
+      // Languages
+      sideHTML += `
+        <div class="section-block">
+          <h2 class="section-title">${t.sections.languages}</h2>
+          <div class="skill-list">
+            ${d.languages.map(l => `
+              <div class="skill-item">
+                <span class="skill-name">${l.name}</span>
+                <span class="skill-level">${l.level}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+
+      // Hobbies (Glass Stickers)
+      sideHTML += `
+        <div class="section-block">
+          <h2 class="section-title">${t.sections.hobbies}</h2>
+          <div class="glass-stickers">
+            ${d.hobbies.map(h => `
+              <span class="glass-sticker">${h.icon} ${h.name}</span>
+            `).join('')}
+          </div>
+        </div>
+      `;
+
+      // Volunteer
+      sideHTML += `
+        <div class="section-block">
+          <h2 class="section-title">${t.sections.volunteer}</h2>
+          <ul class="item-desc" style="padding-left: 0; list-style-type: none;">
+            ${d.volunteer.map(v => `<li style="margin-bottom: 8px;">🌱 ${v}</li>`).join('')}
+          </ul>
+        </div>
+      `;
+
+      // Inject to DOM
+      els.mainSections.innerHTML = mainHTML;
+      els.sideSections.innerHTML = sideHTML;
     }
 
-    /* =========================
-       Actions
-    ========================= */
-    function goHome() {
-      state.view = "landing";
-      state.mode = null;
-      render();
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
+    // --- ACTIONS ---
     function openResume(mode) {
-      state.view = "resume";
       state.mode = mode;
-      render();
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      els.landingView.classList.remove('active');
+      els.resumeView.classList.add('active');
+      window.scrollTo(0, 0);
+      updateUI();
     }
 
-    function switchMode() {
-      state.mode = state.mode === "academic" ? "industry" : "academic";
-      render();
-      window.scrollTo({ top: 0, behavior: "smooth" });
+    function goHome() {
+      els.resumeView.classList.remove('active');
+      els.landingView.classList.add('active');
+      window.scrollTo(0, 0);
     }
 
     function toggleLang() {
-      state.lang = state.lang === "fa" ? "en" : "fa";
-      localStorage.setItem("cv-lang", state.lang);
-      render();
+      state.lang = state.lang === 'fa' ? 'en' : 'fa';
+      updateUI();
     }
 
     function toggleTheme() {
-      state.theme = state.theme === "light" ? "dark" : "light";
-      localStorage.setItem("cv-theme", state.theme);
-      render();
+      state.theme = state.theme === 'dark' ? 'light' : 'dark';
+      updateUI();
     }
 
-    langBtn.addEventListener("click", toggleLang);
-    themeBtn.addEventListener("click", toggleTheme);
-    homeBtn.addEventListener("click", goHome);
-
-    /* =========================
-       Init
-    ========================= */
-    render();
+    // Initialize
+    updateUI();
   </script>
 </body>
 </html>
