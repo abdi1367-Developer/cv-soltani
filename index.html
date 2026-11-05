@@ -482,7 +482,7 @@
       }
     }
 
-    /* === 4. PRINT LAYOUT (Heavily Optimized for 3 Pages) === */
+    /* === 4. PRINT LAYOUT (Fixed Multi-column & Optimized) === */
     @media print {
       @page { size: A4; margin: 10mm; } 
       
@@ -523,10 +523,8 @@
       .resume-title h1 { font-size: 16pt; margin-bottom: 0; }
       .resume-title p { font-size: 10pt; color: #000; font-weight: 600; }
 
-      /* Allow sections to break across pages in print */
+      /* Base print style for sections */
       .resume-section {
-        break-inside: auto !important; 
-        page-break-inside: auto !important;
         border: 1px solid #ddd;
         padding: 8px; 
         margin-bottom: 8px;
@@ -558,20 +556,16 @@
         border-radius: 4px;
       }
 
-      /* Print Progress Bars Fix */
       .skill-bar { border: 1px solid #000; background: transparent; height: 3px; }
-      .skill-fill { 
-        background-color: #000 !important; 
-        -webkit-print-color-adjust: exact; 
-        print-color-adjust: exact; 
-      }
+      .skill-fill { background-color: #000 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 
       .recommendation-card { border: 1px solid #ccc; padding: 6px; }
       .rec-text { font-size: 7.5pt; }
 
-      /* ====== 1-Column Print Layout: STRICT 3 PAGES ====== */
+      /* ====== 1-Column Print (Strict 3 Pages) ====== */
       body.print-one-col .resume-grid {
         column-count: 1 !important;
+        display: block !important;
       }
       
       body.print-one-col p, 
@@ -586,18 +580,25 @@
       body.print-one-col .item-title { font-size: 8.5pt; }
       body.print-one-col .item-subtitle { font-size: 8pt; margin-bottom: 2px; }
       
-      /* Motivation Letter: Let it flow naturally to page 3 */
-      body.print-one-col .motivation-section {
-        break-inside: avoid;
-        page-break-inside: avoid;
-        margin-top: 10px;
+      /* Allow sections to break across pages so content flows naturally */
+      body.print-one-col .resume-section {
+        break-inside: auto !important; 
+        page-break-inside: auto !important;
+      }
+      body.print-one-col .timeline-item,
+      body.print-one-col .recommendation-card {
+        break-inside: avoid !important; 
+        page-break-inside: avoid !important;
       }
 
-      /* ====== 2 & 3-Column Print Layout ====== */
+      /* ====== 2 & 3-Column Print (Fixed Column Flow) ====== */
       body.print-multi-col .resume-grid {
+        display: block !important;
         column-count: 2 !important;
         column-gap: 15px !important;
+        column-fill: auto !important; /* Forces columns to fill page by page */
       }
+      
       body.print-multi-col p, 
       body.print-multi-col li, 
       body.print-multi-col .item-desc {
@@ -605,15 +606,27 @@
         font-size: 7.5pt;
       }
       body.print-multi-col .skill-list { gap: 4px; }
+      
+      /* Allow sections to split if they are too tall for a column */
       body.print-multi-col .resume-section {
-        padding: 6px;
-        margin-bottom: 6px;
-        break-inside: avoid;
+        padding: 8px;
+        margin-bottom: 8px;
+        break-inside: auto !important; 
+        page-break-inside: auto !important;
       }
+      
+      /* Keep inner items intact */
+      body.print-multi-col .timeline-item,
+      body.print-multi-col .recommendation-card {
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+      }
+
+      /* No column-span: all on motivation to prevent page break bugs */
       body.print-multi-col .motivation-section {
-        column-span: all;
-        padding-top: 6px;
-        margin-top: 6px;
+        border-top: 1px solid #ccc;
+        padding-top: 8px;
+        margin-top: 8px;
       }
     }
   </style>
