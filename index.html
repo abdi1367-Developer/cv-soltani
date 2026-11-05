@@ -50,10 +50,10 @@
       height: 100vh;
     }
 
-    /* === Controls === */
+    /* === Controls (Moved to Bottom to avoid overlap) === */
     .controls {
       position: fixed;
-      top: 20px;
+      bottom: 20px;
       inset-inline-start: 20px; /* Left in LTR, Right in RTL */
       display: flex;
       gap: 10px;
@@ -61,7 +61,7 @@
     }
 
     .btn-icon {
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.9);
       border: 1px solid rgba(0, 0, 0, 0.1);
       color: #000;
       height: 40px;
@@ -74,12 +74,14 @@
       font-weight: 600;
       transition: all 0.3s ease;
       backdrop-filter: blur(10px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
     [data-theme="dark"] .btn-icon {
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.6);
       border: 1px solid rgba(255, 255, 255, 0.2);
       color: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
 
     .btn-icon:hover { transform: scale(1.05); }
@@ -212,12 +214,6 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 15px;
-      padding-inline-start: 150px; /* Space for fixed controls in LTR */
-    }
-
-    [dir="rtl"] .resume-top-nav {
-      padding-inline-start: 0;
-      padding-inline-end: 150px; /* Space for fixed controls in RTL */
     }
 
     .back-btn, .print-btn {
@@ -461,20 +457,20 @@
       .landing-footer p { flex-direction: column; gap: 8px; }
       .skill-list { grid-template-columns: 1fr; gap: 12px; }
       .info-grid { grid-template-columns: 1fr; }
-      .resume-top-nav { padding-inline-start: 0; padding-inline-end: 0; flex-direction: column; gap: 10px; }
+      .resume-top-nav { flex-direction: column; gap: 10px; }
     }
 
-    /* === 4. PRINT LAYOUT === */
+    /* === 4. PRINT LAYOUT (Premium Design) === */
     @media print {
-      @page { size: A4; margin: 12mm; }
+      @page { size: A4; margin: 15mm; }
       
       :root {
         --bg: #ffffff;
         --surface: #ffffff;
         --surface-hover: #ffffff;
         --text-main: #000000;
-        --text-muted: #222222;
-        --border: #bbbbbb;
+        --text-muted: #333333;
+        --border: #d4d4d8;
         --accent: #000000;
       }
       
@@ -483,8 +479,7 @@
         color: black !important; 
       }
       
-      .controls, .resume-top-nav, .landing-actions, .ref-btn { display: none !important; }
-      #title-sub { display: none !important; } /* Hide Urban Planning in Print */
+      .controls, .resume-top-nav, .landing-actions, .ref-btn, #title-sub { display: none !important; }
       
       .sticky-header-wrapper {
         position: static;
@@ -497,36 +492,33 @@
       .resume-content-area { padding: 0; }
       
       .resume-header { 
-        margin-bottom: 15px; 
-        padding-bottom: 10px; 
+        margin-bottom: 25px; 
+        padding-bottom: 15px; 
         flex-direction: row; 
         text-align: left; 
-        border-bottom: 1px solid #000; 
+        border-bottom: 2px solid #000; 
+        align-items: flex-end;
       }
-      .resume-avatar { width: 70px; height: 70px; }
-      .resume-title h1 { font-size: 18pt; }
-      .resume-title p { font-size: 10pt; }
+      .resume-avatar { width: 80px; height: 80px; border: 1px solid #ccc; }
+      .resume-title h1 { font-size: 22pt; margin-bottom: 2px; }
+      .resume-title p { font-size: 12pt; color: #000; font-weight: 600; }
 
-      .resume-grid {
-        display: block !important;
-      }
-      
       .resume-section {
         break-inside: avoid;
         page-break-inside: avoid;
-        padding: 0;
-        margin-bottom: 15px;
-        border: none;
-        background: transparent;
-        box-shadow: none;
-        display: inline-block;
-        width: 100%;
+        border: 1px solid #e5e5e5;
+        padding: 15px;
+        margin-bottom: 20px;
+        background: #fff;
+        border-radius: 8px;
+        display: block !important;
       }
 
       .section-title {
-        font-size: 11pt;
-        margin-bottom: 8px;
+        font-size: 13pt;
+        margin-bottom: 12px;
         border-bottom: 1px solid #000;
+        padding-bottom: 5px;
       }
 
       p, li {
@@ -534,13 +526,13 @@
         text-justify: inter-word;
       }
 
-      .item-desc { padding-inline-start: 12px; }
-      .info-grid { grid-template-columns: 1fr 1fr; gap: 5px; }
+      .item-desc { padding-inline-start: 15px; }
+      .info-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
       
       .glass-sticker { 
         border: 1px solid #000 !important; 
-        padding: 2px 6px; 
-        font-size: 8pt; 
+        padding: 3px 8px; 
+        font-size: 9pt; 
         background: none !important; 
         border-radius: 4px;
       }
@@ -553,13 +545,8 @@
         print-color-adjust: exact; 
       }
 
-      .recommendation-card {
-        break-inside: avoid;
-        page-break-inside: avoid;
-        border: 1px solid #ccc;
-        padding: 10px;
-      }
-      .rec-text { font-size: 8pt; }
+      .recommendation-card { border: 1px solid #ccc; padding: 12px; }
+      .rec-text { font-size: 9pt; }
 
       /* ====== SPECIFIC PRINT LAYOUTS ====== */
       
@@ -567,23 +554,26 @@
       body.print-one-col .resume-grid {
         column-count: 1 !important;
       }
-      body.print-one-col p, body.print-one-col li {
-        line-height: 1.6;
-        font-size: 9.5pt;
+      body.print-one-col p, body.print-one-col li, body.print-one-col .item-desc {
+        line-height: 1.9;
+        font-size: 10pt;
       }
+      body.print-one-col .timeline-item { margin-bottom: 24px; }
       body.print-one-col .motivation-section {
         break-before: page;
         page-break-before: always;
         padding-top: 20px;
       }
+      /* Force some spacing to ensure 3 pages if too short */
+      body.print-one-col .section-title { margin-bottom: 15px; }
 
       /* 2 or 3-Column Layout: Exactly 2 Pages */
       body.print-multi-col .resume-grid {
         column-count: 2 !important;
         column-gap: 20px !important;
       }
-      body.print-multi-col p, body.print-multi-col li {
-        line-height: 1.4;
+      body.print-multi-col p, body.print-multi-col li, body.print-multi-col .item-desc {
+        line-height: 1.5;
         font-size: 8.5pt;
       }
       body.print-multi-col .skill-list { gap: 8px; }
@@ -591,7 +581,6 @@
         column-span: all;
         padding-top: 10px;
         margin-top: 10px;
-        border-top: 1px solid #ccc;
       }
     }
   </style>
@@ -682,7 +671,7 @@
         print: "🖨️ Print CV",
         sections: {
           personal: "Personal Info",
-          bio: "Short Bio",
+          bio: "About Me",
           education: "Education",
           work: "Work Experience",
           languages: "Languages",
@@ -709,7 +698,7 @@
         print: "🖨️ پرینت رزومه",
         sections: {
           personal: "مشخصات فردی",
-          bio: "بیوگرافی کوتاه",
+          bio: "درباره من",
           education: "تحصیلات",
           work: "تجربیات کاری",
           languages: "مهارت‌های زبانی",
