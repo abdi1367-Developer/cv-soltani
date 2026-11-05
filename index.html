@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Haditheh Soltani | حدیثه سلطانی</title>
   
-  <!-- Site Favicon (تنها بخش تغییر یافته) -->
+  <!-- Site Favicon -->
   <link rel="shortcut icon" href="industry.jpg" type="image/jpeg" />
   <link rel="apple-touch-icon" href="industry.jpg" />
   
@@ -549,12 +549,18 @@
       .item-desc { padding-inline-start: 10px; margin-top: 2px; }
       .info-grid { grid-template-columns: 1fr 1fr; gap: 4px; }
       
+      /* FIXED: Glass Sticker Print Styles */
       .glass-sticker { 
         border: 1px solid #000 !important; 
-        padding: 1px 4px; 
-        font-size: 7.5pt; 
+        padding: 2px 6px !important; 
+        font-size: 7.5pt !important; 
         background: none !important; 
-        border-radius: 4px;
+        border-radius: 4px !important;
+        color: #000 !important;
+        display: inline-block !important; 
+        margin: 2px !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
       }
 
       .skill-bar { border: 1px solid #000; background: transparent; height: 3px; }
@@ -564,7 +570,6 @@
       .rec-text { font-size: 7.5pt; }
 
       /* ====== 1-Column Print (Strict 3 Pages) ====== */
-      /* DO NOT TOUCH THIS SECTION */
       body.print-one-col .resume-grid {
         column-count: 1 !important;
         display: block !important;
@@ -600,7 +605,6 @@
         column-fill: auto !important; 
       }
       
-      /* Increased font sizes here to fill the column better */
       body.print-multi-col p, 
       body.print-multi-col li, 
       body.print-multi-col .item-desc {
