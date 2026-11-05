@@ -54,21 +54,21 @@
       height: 100vh;
     }
 
-    /* === Top Controls (Centered) === */
+    /* === Top Controls (Centered & Aligned with Name) === */
     .top-controls-wrapper {
       position: fixed;
-      top: 20px;
+      top: 45px; /* Aligned with the resume name */
       left: 0;
       width: 100%;
       display: flex;
-      justify-content: center; /* Always center */
+      justify-content: center;
       z-index: 100;
       pointer-events: none;
     }
 
     .top-controls {
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: wrap; /* Allows wrapping on mobile */
       gap: 8px;
       background: rgba(255, 255, 255, 0.85);
       padding: 6px 12px;
@@ -79,6 +79,7 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
       pointer-events: auto;
       justify-content: center;
+      max-width: 90vw;
     }
 
     [data-theme="dark"] .top-controls {
@@ -227,7 +228,7 @@
       width: 100%;
       max-width: 100%;
       margin: 0 auto;
-      padding: 30px 4vw 20px;
+      padding: 35px 4vw 20px;
     }
 
     .resume-header {
@@ -450,6 +451,10 @@
       /* Hide Layout Button on Mobile */
       #layoutBtn { display: none !important; }
       
+      .top-controls-wrapper {
+        top: 20px; /* Slightly higher on mobile */
+      }
+      
       .resume-grid.layout-2, .resume-grid.layout-3 { column-count: 1; }
       .resume-header { flex-direction: column; text-align: center; gap: 12px; }
       .landing-actions { flex-direction: column; margin-bottom: 20px; }
@@ -457,7 +462,7 @@
       .landing-footer p { flex-direction: column; gap: 8px; }
       .skill-list { grid-template-columns: 1fr; gap: 12px; }
       .info-grid { grid-template-columns: 1fr; }
-      .resume-container { padding-top: 80px; } 
+      .resume-container { padding-top: 70px; } 
       
       /* Fix Text Alignment & Wrap on Mobile */
       p, .item-desc, .about-text, .rec-text {
@@ -465,6 +470,15 @@
         word-break: break-word;
         overflow-wrap: break-word;
         hyphens: auto;
+      }
+
+      /* Mobile Date Background */
+      .item-date {
+        background: var(--surface-hover);
+        padding: 2px 6px;
+        border-radius: 4px;
+        display: inline-block;
+        margin-top: 4px;
       }
     }
 
@@ -572,10 +586,11 @@
       body.print-one-col .item-title { font-size: 8.5pt; }
       body.print-one-col .item-subtitle { font-size: 8pt; margin-bottom: 2px; }
       
-      /* Force Motivation to start on Page 3 */
+      /* Motivation Letter: Let it flow naturally to page 3 */
       body.print-one-col .motivation-section {
-        break-before: page;
-        page-break-before: always;
+        break-inside: avoid;
+        page-break-inside: avoid;
+        margin-top: 10px;
       }
 
       /* ====== 2 & 3-Column Print Layout ====== */
@@ -593,7 +608,7 @@
       body.print-multi-col .resume-section {
         padding: 6px;
         margin-bottom: 6px;
-        break-inside: avoid; /* Keep multi-col tight */
+        break-inside: avoid;
       }
       body.print-multi-col .motivation-section {
         column-span: all;
@@ -650,7 +665,7 @@
           <img src="" id="resumeAvatar" class="resume-avatar" alt="Avatar">
           <div class="resume-title">
             <h1 id="r-name">Haditheh Soltani</h1>
-            <p><span id="title-main">MSc Industrial Engineering</span><span id="title-sub"> | BSc Urban Planning</span></p>
+            <p><span id="title-main">MSc Industrial Engineering</span></p>
           </div>
         </header>
       </div>
@@ -679,7 +694,6 @@
       en: {
         name: "Haditheh Soltani",
         titleMain: "MSc Industrial Engineering",
-        titleSub: " | BSc Urban Planning",
         phone: "+98 939 148 6852",
         email: "haditheh97@gmail.com",
         btnAcademic: "Academic CV",
@@ -706,7 +720,6 @@
       fa: {
         name: "حدیثه سلطانی",
         titleMain: "کارشناس ارشد مهندسی صنایع",
-        titleSub: " | کارشناس مهندسی شهرسازی",
         phone: "۰۹۳۹۱۴۸۶۸۵۲",
         email: "haditheh97@gmail.com",
         btnAcademic: "رزومه آکادمیک",
@@ -1215,7 +1228,6 @@
       // Update Resume Header
       document.getElementById('r-name').innerText = t.name;
       document.getElementById('title-main').innerText = t.titleMain;
-      document.getElementById('title-sub').innerText = t.titleSub;
 
       // Set Image
       els.resumeAvatar.src = state.mode === 'academic' ? 'academic.jpg' : 'industry.jpg';
